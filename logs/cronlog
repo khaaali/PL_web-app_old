@@ -39,58 +39,83 @@ generic_epdc     Setting vcom: 6000
 vcom             input: 6000, scaled: 5939, DAC reg: 0x60
 Listening on localhost port 3003
 upload_showImageList
-[ '00.png' ]
-00.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
-00.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
+[ '00.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  'abc_4096x384.png' ]
 upload_showImageList
-[ '00.png' ]
-upload_showImageList
-[ '00.png' ]
+[ '00.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  'abc_4096x384.png' ]
 in upload
 [ File {
     domain: null,
     _events: {},
     _eventsCount: 0,
     _maxListeners: undefined,
-    size: 307351,
-    path: '/tmp/upload_0614f3133a73ec0a4ebd5c3328d8dc70.jpeg',
-    name: 'image.jpeg',
-    type: 'image/jpeg',
+    size: 0,
+    path: '/tmp/upload_a30a1d9fd37a8e103fd4260e7f067743',
+    name: '',
+    type: 'application/octet-stream',
     hash: null,
-    lastModifiedDate: Thu May 15 2014 02:39:26 GMT+0000 (UTC),
+    lastModifiedDate: null,
     _writeStream: 
      WriteStream {
        _writableState: [Object],
        writable: true,
        domain: null,
-       _events: {},
-       _eventsCount: 0,
+       _events: [Object],
+       _eventsCount: 1,
        _maxListeners: undefined,
-       path: '/tmp/upload_0614f3133a73ec0a4ebd5c3328d8dc70.jpeg',
+       path: '/tmp/upload_a30a1d9fd37a8e103fd4260e7f067743',
        fd: null,
        flags: 'w',
        mode: 438,
        start: undefined,
        pos: undefined,
-       bytesWritten: 307351,
-       closed: true } } ]
-success!
+       bytesWritten: 0 } } ]
+{ [Error: EISDIR: illegal operation on a directory, unlink '/home/PL_web-app/src/assets/demo_images']
+  errno: -21,
+  code: 'EISDIR',
+  syscall: 'unlink',
+  path: '/home/PL_web-app/src/assets/demo_images' }
 upload_showImageList
-[ '00.png', 'image.jpeg' ]
+[ '00.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  'abc_4096x384.png' ]
+02.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/02.png
+upload_showImageList
+[ '00.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  'abc_4096x384.png' ]
 in upload
 [ File {
     domain: null,
     _events: {},
     _eventsCount: 0,
     _maxListeners: undefined,
-    size: 667757,
-    path: '/tmp/upload_628ec04f79bc5cd8e9f7bbfe05979907.png',
-    name: '02.png',
+    size: 930513,
+    path: '/tmp/upload_de693d35cba717ea76ab1abeaab2dd71.png',
+    name: '00.png',
     type: 'image/png',
     hash: null,
-    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    lastModifiedDate: Thu May 15 2014 02:20:09 GMT+0000 (UTC),
     _writeStream: 
      WriteStream {
        _writableState: [Object],
@@ -99,7 +124,88 @@ in upload
        _events: {},
        _eventsCount: 0,
        _maxListeners: undefined,
-       path: '/tmp/upload_628ec04f79bc5cd8e9f7bbfe05979907.png',
+       path: '/tmp/upload_de693d35cba717ea76ab1abeaab2dd71.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 930513,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 866450,
+    path: '/tmp/upload_317ca6d9ddc4ba02086e599b91eb0dce.png',
+    name: '01.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:10 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_317ca6d9ddc4ba02086e599b91eb0dce.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 866450,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 82526,
+    path: '/tmp/upload_3e61ce0bd2b5d8e90f39fcda4b14ca21.png',
+    name: '01_eyes_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:10 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_3e61ce0bd2b5d8e90f39fcda4b14ca21.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 82526,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 667757,
+    path: '/tmp/upload_2c8d13156c3784d9cb4a900962884f41.png',
+    name: '02.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:10 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_2c8d13156c3784d9cb4a900962884f41.png',
        fd: null,
        flags: 'w',
        mode: 438,
@@ -112,12 +218,12 @@ in upload
     _events: {},
     _eventsCount: 0,
     _maxListeners: undefined,
-    size: 64045,
-    path: '/tmp/upload_550d79791c739e1f5cac397075bb0a7a.png',
-    name: '03.png',
+    size: 298113,
+    path: '/tmp/upload_ae9c14d13d562a1364d19721971368d3.png',
+    name: '02_Cambridge_1280x960.png',
     type: 'image/png',
     hash: null,
-    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    lastModifiedDate: Thu May 15 2014 02:20:10 GMT+0000 (UTC),
     _writeStream: 
      WriteStream {
        _writableState: [Object],
@@ -126,7 +232,34 @@ in upload
        _events: {},
        _eventsCount: 0,
        _maxListeners: undefined,
-       path: '/tmp/upload_550d79791c739e1f5cac397075bb0a7a.png',
+       path: '/tmp/upload_ae9c14d13d562a1364d19721971368d3.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 298113,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 64045,
+    path: '/tmp/upload_ba013b8de95128c4e29b883fc321baa0.png',
+    name: '03.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:10 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_ba013b8de95128c4e29b883fc321baa0.png',
        fd: null,
        flags: 'w',
        mode: 438,
@@ -139,12 +272,12 @@ in upload
     _events: {},
     _eventsCount: 0,
     _maxListeners: undefined,
-    size: 181739,
-    path: '/tmp/upload_ea5a85d5ad7c0c2e6822721c1c863e9a.png',
-    name: '04.png',
+    size: 123162,
+    path: '/tmp/upload_441546a8bc399c7e2a6b1859166de427.png',
+    name: '03_PLL_technology_1280x960.png',
     type: 'image/png',
     hash: null,
-    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
     _writeStream: 
      WriteStream {
        _writableState: [Object],
@@ -153,7 +286,34 @@ in upload
        _events: {},
        _eventsCount: 0,
        _maxListeners: undefined,
-       path: '/tmp/upload_ea5a85d5ad7c0c2e6822721c1c863e9a.png',
+       path: '/tmp/upload_441546a8bc399c7e2a6b1859166de427.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 123162,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 181739,
+    path: '/tmp/upload_c49d5ab3269097892b0a0e76d6ee32e9.png',
+    name: '04.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_c49d5ab3269097892b0a0e76d6ee32e9.png',
        fd: null,
        flags: 'w',
        mode: 438,
@@ -166,12 +326,12 @@ in upload
     _events: {},
     _eventsCount: 0,
     _maxListeners: undefined,
-    size: 428238,
-    path: '/tmp/upload_214670631eaea1939b1b4e5635580db5.png',
-    name: '05.png',
+    size: 141317,
+    path: '/tmp/upload_2c24726b77f49214843a62c4a9c0c946.png',
+    name: '04_thin-light_1280x960.png',
     type: 'image/png',
     hash: null,
-    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
     _writeStream: 
      WriteStream {
        _writableState: [Object],
@@ -180,57 +340,1158 @@ in upload
        _events: {},
        _eventsCount: 0,
        _maxListeners: undefined,
-       path: '/tmp/upload_214670631eaea1939b1b4e5635580db5.png',
+       path: '/tmp/upload_2c24726b77f49214843a62c4a9c0c946.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 141317,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 428238,
+    path: '/tmp/upload_f1a8c3e27de29519563ce68fbcd7a1e4.png',
+    name: '05.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f1a8c3e27de29519563ce68fbcd7a1e4.png',
        fd: null,
        flags: 'w',
        mode: 438,
        start: undefined,
        pos: undefined,
        bytesWritten: 428238,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 137681,
+    path: '/tmp/upload_88985dc052571db3209cccfd827dc300.png',
+    name: '05_transistors_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_88985dc052571db3209cccfd827dc300.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 137681,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 844775,
+    path: '/tmp/upload_8c2da8cc52210ba6df9f39f70c8de081.png',
+    name: '06.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_8c2da8cc52210ba6df9f39f70c8de081.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 844775,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 74935,
+    path: '/tmp/upload_92e10f53e063eea8d72a2e9ee018391e.png',
+    name: '06_plastic-paper_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_92e10f53e063eea8d72a2e9ee018391e.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 74935,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 65641,
+    path: '/tmp/upload_defb2a773f8349bb6632072480534b3f.png',
+    name: '07.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_defb2a773f8349bb6632072480534b3f.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 65641,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 3743,
+    path: '/tmp/upload_d9c5a0cafaf6b963295407d09ab9eb00.png',
+    name: '07_black_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_d9c5a0cafaf6b963295407d09ab9eb00.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 3743,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 112329,
+    path: '/tmp/upload_57dfd7389e3be1dad9e9bc2740433f3c.png',
+    name: '08.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_57dfd7389e3be1dad9e9bc2740433f3c.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 112329,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 77977,
+    path: '/tmp/upload_e645825367da7ee0221e33d37ccbcfd0.png',
+    name: '08_greys_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_e645825367da7ee0221e33d37ccbcfd0.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 77977,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 92739,
+    path: '/tmp/upload_86e1b7503ebd750e29c81f60e471fee0.png',
+    name: '09.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_86e1b7503ebd750e29c81f60e471fee0.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 92739,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 5072,
+    path: '/tmp/upload_75f5ae5eb48c54ec62154c9976ba6653.png',
+    name: '09_white_1280x960.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:11 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_75f5ae5eb48c54ec62154c9976ba6653.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 5072,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 781271,
+    path: '/tmp/upload_b3b529282011a9f1d4d6223e84e9cdb5.png',
+    name: '10.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_b3b529282011a9f1d4d6223e84e9cdb5.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 781271,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 111884,
+    path: '/tmp/upload_6f3d14698b316ee0a164d2ca2a45ce2e.png',
+    name: '11.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_6f3d14698b316ee0a164d2ca2a45ce2e.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 111884,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 103552,
+    path: '/tmp/upload_a92923de70732fd9521bada7b541e50f.png',
+    name: '12.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_a92923de70732fd9521bada7b541e50f.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 103552,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 217491,
+    path: '/tmp/upload_9e1f3342cf15548b2331556236da3240.png',
+    name: '13.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_9e1f3342cf15548b2331556236da3240.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 217491,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 272380,
+    path: '/tmp/upload_5d520befa1ae923c3991c25d3c4e3300.png',
+    name: '14.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_5d520befa1ae923c3991c25d3c4e3300.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 272380,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 97042,
+    path: '/tmp/upload_ebd924dffc8257d33f19e47aa79be031.png',
+    name: '15.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_ebd924dffc8257d33f19e47aa79be031.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 97042,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 274158,
+    path: '/tmp/upload_51439db10acf95f38d60d0090ed9a3df.png',
+    name: '16.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_51439db10acf95f38d60d0090ed9a3df.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 274158,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 385405,
+    path: '/tmp/upload_d288fc9085125c6167e6d5b47af0a3ff.png',
+    name: '16a.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_d288fc9085125c6167e6d5b47af0a3ff.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 385405,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 277780,
+    path: '/tmp/upload_622922b5f1b9ca3247706691300df9f6.png',
+    name: '17.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_622922b5f1b9ca3247706691300df9f6.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 277780,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 126670,
+    path: '/tmp/upload_409ff8de28dc3136a15ed1e8d35a9890.png',
+    name: '18.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_409ff8de28dc3136a15ed1e8d35a9890.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 126670,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 90107,
+    path: '/tmp/upload_d26d49ec396824ab7964050406ac8e1f.png',
+    name: '19.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_d26d49ec396824ab7964050406ac8e1f.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 90107,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 563028,
+    path: '/tmp/upload_80f6de6f16c1baeb36d275796fa7a4b9.png',
+    name: '20.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:12 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_80f6de6f16c1baeb36d275796fa7a4b9.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 563028,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 671126,
+    path: '/tmp/upload_7d94a997e1907de0254dd0d1aab9f4e3.png',
+    name: '21.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:13 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_7d94a997e1907de0254dd0d1aab9f4e3.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 671126,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 639798,
+    path: '/tmp/upload_bda89cff2fdf99634e13a7b0e1501072.png',
+    name: '22.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:13 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_bda89cff2fdf99634e13a7b0e1501072.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 639798,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 797385,
+    path: '/tmp/upload_c14fa606114a4a7287130a6fe816e013.png',
+    name: '23.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:13 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_c14fa606114a4a7287130a6fe816e013.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 797385,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 731118,
+    path: '/tmp/upload_976b65a83c8ee8614f85bbaedee6ad45.png',
+    name: '24.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:14 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_976b65a83c8ee8614f85bbaedee6ad45.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 731118,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 272380,
+    path: '/tmp/upload_f851deec0ee7c72da0e0315e79887ef4.png',
+    name: '25.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:14 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f851deec0ee7c72da0e0315e79887ef4.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 272380,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 18097,
+    path: '/tmp/upload_b6ad1e57239440791e9e4453733dd66e.png',
+    name: 'gl11.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:14 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_b6ad1e57239440791e9e4453733dd66e.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 18097,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 580126,
+    path: '/tmp/upload_9b1b3ac266a000b9437d2cd698e2ca26.png',
+    name: 'tulip_flower.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:20:14 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_9b1b3ac266a000b9437d2cd698e2ca26.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 580126,
        closed: true } } ]
 success!
 success!
 success!
 success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+04_thin-light_1280x960.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/04_thin-light_1280x960.png
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-04.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/04.png
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
+06_plastic-paper_1280x960.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/06_plastic-paper_1280x960.png
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-05.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/05.png
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
+abc_4096x384.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/abc_4096x384.png
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-03.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/03.png
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
+21.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/21.png
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-00.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+[ '00.png',
+  '01.png',
+  '01_eyes_1280x960.png',
+  '02.png',
+  '02_Cambridge_1280x960.png',
+  '03.png',
+  '03_PLL_technology_1280x960.png',
+  '04.png',
+  '04_thin-light_1280x960.png',
+  '05.png',
+  '05_transistors_1280x960.png',
+  '06.png',
+  '06_plastic-paper_1280x960.png',
+  '07.png',
+  '07_black_1280x960.png',
+  '08.png',
+  '08_greys_1280x960.png',
+  '09.png',
+  '09_white_1280x960.png',
+  '10.png',
+  '11.png',
+  '12.png',
+  '13.png',
+  '14.png',
+  '15.png',
+  '16.png',
+  '16a.png',
+  '17.png',
+  '18.png',
+  '19.png',
+  '20.png',
+  '21.png',
+  '22.png',
+  '23.png',
+  '24.png',
+  '25.png',
+  'abc_4096x384.png',
+  'gl11.png',
+  'tulip_flower.png' ]
+Got a DELETE request for 00.png
+/home/PL_web-app/src/assets/demo_images/00.png
+Got a DELETE request for 01.png
+/home/PL_web-app/src/assets/demo_images/01.png
+Got a DELETE request for 01_eyes_1280x960.png
+/home/PL_web-app/src/assets/demo_images/01_eyes_1280x960.png
+Got a DELETE request for 02.png
+/home/PL_web-app/src/assets/demo_images/02.png
+Got a DELETE request for 02_Cambridge_1280x960.png
+/home/PL_web-app/src/assets/demo_images/02_Cambridge_1280x960.png
+Got a DELETE request for 03.png
+/home/PL_web-app/src/assets/demo_images/03.png
+Got a DELETE request for 03_PLL_technology_1280x960.png
+/home/PL_web-app/src/assets/demo_images/03_PLL_technology_1280x960.png
+Got a DELETE request for 04.png
+/home/PL_web-app/src/assets/demo_images/04.png
+Got a DELETE request for 04_thin-light_1280x960.png
+/home/PL_web-app/src/assets/demo_images/04_thin-light_1280x960.png
+Got a DELETE request for 05.png
+/home/PL_web-app/src/assets/demo_images/05.png
+Got a DELETE request for 05_transistors_1280x960.png
+/home/PL_web-app/src/assets/demo_images/05_transistors_1280x960.png
+Got a DELETE request for 06.png
+/home/PL_web-app/src/assets/demo_images/06.png
+Got a DELETE request for 06_plastic-paper_1280x960.png
+/home/PL_web-app/src/assets/demo_images/06_plastic-paper_1280x960.png
+Got a DELETE request for 07.png
+/home/PL_web-app/src/assets/demo_images/07.png
+Got a DELETE request for 07_black_1280x960.png
+/home/PL_web-app/src/assets/demo_images/07_black_1280x960.png
+Got a DELETE request for 08.png
+/home/PL_web-app/src/assets/demo_images/08.png
+Got a DELETE request for 08_greys_1280x960.png
+/home/PL_web-app/src/assets/demo_images/08_greys_1280x960.png
+Got a DELETE request for 09.png
+/home/PL_web-app/src/assets/demo_images/09.png
+Got a DELETE request for 09_white_1280x960.png
+/home/PL_web-app/src/assets/demo_images/09_white_1280x960.png
+Got a DELETE request for 10.png
+/home/PL_web-app/src/assets/demo_images/10.png
+Got a DELETE request for 11.png
+/home/PL_web-app/src/assets/demo_images/11.png
+Got a DELETE request for 12.png
+/home/PL_web-app/src/assets/demo_images/12.png
+Got a DELETE request for 13.png
+/home/PL_web-app/src/assets/demo_images/13.png
+Got a DELETE request for 14.png
+/home/PL_web-app/src/assets/demo_images/14.png
+Got a DELETE request for 15.png
+/home/PL_web-app/src/assets/demo_images/15.png
+Got a DELETE request for 16.png
+/home/PL_web-app/src/assets/demo_images/16.png
+Got a DELETE request for 16a.png
+/home/PL_web-app/src/assets/demo_images/16a.png
+Got a DELETE request for 17.png
+/home/PL_web-app/src/assets/demo_images/17.png
+Got a DELETE request for 18.png
+/home/PL_web-app/src/assets/demo_images/18.png
+Got a DELETE request for 19.png
+/home/PL_web-app/src/assets/demo_images/19.png
+Got a DELETE request for 20.png
+/home/PL_web-app/src/assets/demo_images/20.png
+Got a DELETE request for 21.png
+/home/PL_web-app/src/assets/demo_images/21.png
+Got a DELETE request for 22.png
+/home/PL_web-app/src/assets/demo_images/22.png
+Got a DELETE request for 23.png
+/home/PL_web-app/src/assets/demo_images/23.png
+Got a DELETE request for 24.png
+/home/PL_web-app/src/assets/demo_images/24.png
+Got a DELETE request for 25.png
+/home/PL_web-app/src/assets/demo_images/25.png
+Got a DELETE request for abc_4096x384.png
+/home/PL_web-app/src/assets/demo_images/abc_4096x384.png
+tulip_flower.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/tulip_flower.png
 upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
-Got a DELETE request for image.jpeg
-/home/PL_web-app/src/assets/demo_images/image.jpeg
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
-05.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/05.png
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
-04.png
-BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/04.png
-upload_showImageList
-[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+[ 'gl11.png', 'tulip_flower.png' ]

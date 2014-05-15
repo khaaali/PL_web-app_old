@@ -1,1 +1,11 @@
-Segmentation fault
+../src/main.c, line 215: operation '-start_epdc' failed
+Fatal error
+
+configparser     DISPLAYTYPE: D107_T3.1
+configparser     version - CONFIG_D107_T3.1
+
+configparser     Interface: Parallel
+hw-setup         initialize_nvm: Boardname: FALCON_PARALLEL
+main             load_nvm_content?: 0
+beaglebone-gpio  Failed to open GPIO direction file
+main             GPIO init failed

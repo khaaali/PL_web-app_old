@@ -129,18 +129,23 @@ app.get("/S115_T1.1", function(req, res) {
     var type = 'S115_T1.1'
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
-
+    
     // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type in 'configs.txt' located at configsFilePath 
-    var replace_display = "sed -i"+" "+ `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
-    var _process = exec(replace_display, { async: false });
-    console.log('The file has been saved!',replace_display);
+    //var replace_display_string = "sed -i"+" "+ `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!', replace_display_string);
+
+
 
     if (true) {
         var child = exec(set_Display_Command, { async: false });
+
         child.stdout.on('data', function(data) {
             console.log(typeof(data), data)
             // checking the stdout for errors
@@ -148,7 +153,6 @@ app.get("/S115_T1.1", function(req, res) {
             var configParserError = _.includes(data, _configParserError)
             var initError = _.includes(data, _initEpdFailed)
             console.log(error, configParserError, initError)
-
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
                 current_displayType.push('Error_Setting_display')
@@ -162,9 +166,19 @@ app.get("/S115_T1.1", function(req, res) {
                 res.redirect('/display_type');
             }
         })
+
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
     }
-
-
 });
 
 
@@ -180,9 +194,13 @@ app.get("/D107_T3.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type to 'configs.txt' located at configsFilePath 
-    var replace_display = "sed -i '21s/.*/'" + displayTypeString + "'/'" + " " + configsFilePath
-    var _process = exec(replace_display, { async: false });
-    console.log('The file has been saved!');
+    //var replace_display_string = "sed -i '21s/.*/'" + displayTypeString + "'/'" + " " + configsFilePath
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!', replace_display_string);
+
+
 
     if (true) {
         var child = exec(set_Display_Command, { async: false });
@@ -207,6 +225,18 @@ app.get("/D107_T3.1", function(req, res) {
                 res.redirect('/display_type');
             }
         })
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
+
     }
 
 
@@ -223,37 +253,51 @@ app.get("/S079_T1.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type to 'configs.txt' located at configsFilePath
-    
-    var replace_display="sed -i '21s/.*/'"+displayTypeString+"'/'" + " "+configsFilePath
-   var _process = exec(replace_display, { async: false });
-   console.log('The file has been saved!');
 
-        if (true) {
-            var child = exec(set_Display_Command, { async: false });
-            child.stdout.on('data', function(data) {
-                console.log(typeof(data), data)
+    //var replace_display_string="sed -i '21s/.*/'"+displayTypeString+"'/'" + " "+configsFilePath
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
 
-                // checking the stdout for errors
-                var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, _configParserError)
-                var initError = _.includes(data, _initEpdFailed)
-                console.log(error, configParserError, initError)
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!');
 
-                // on true 'Error_Setting_display' string is displayed on display type web page 
-                if (error == true || configParserError == true || initError == true) {
-                    current_displayType.push('Error_Setting_display')
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                } else {
-                    current_displayType.push('7.9in');
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                }
-            })
-        }
-    
+    if (true) {
+        var child = exec(set_Display_Command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
+
+            // checking the stdout for errors
+            var error = _.includes(data, 'error')
+            var configParserError = _.includes(data, _configParserError)
+            var initError = _.includes(data, _initEpdFailed)
+            console.log(error, configParserError, initError)
+
+            // on true 'Error_Setting_display' string is displayed on display type web page 
+            if (error == true || configParserError == true || initError == true) {
+                current_displayType.push('Error_Setting_display')
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            } else {
+                current_displayType.push('7.9in');
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            }
+        })
+
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
+    }
+
 
 });
 
@@ -267,35 +311,49 @@ app.get("/S049_T1.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type to 'configs.txt' located at configsFilePath
-    var replace_display="sed -i '21s/.*/'"+displayTypeString+"'/'" + " "+configsFilePath
-   var _process = exec(replace_display, { async: false });
-   console.log('The file has been saved!');
+    //var replace_display_string = "sed -i '21s/.*/'" + displayTypeString + "'/'" + " " + configsFilePath
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
 
-        if (true) {
-            var child = exec(set_Display_Command, { async: false });
-            child.stdout.on('data', function(data) {
-                console.log(typeof(data), data)
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!');
 
-                var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, _configParserError)
-                var initError = _.includes(data, _initEpdFailed)
-                console.log(error, configParserError, initError)
+    if (true) {
+        var child = exec(set_Display_Command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
 
-                // on true 'Error_Setting_display' string is displayed on display type web page 
-                if (error == true || configParserError == true || initError == true) {
-                    current_displayType.push('Error_Setting_display')
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                } else {
-                    current_displayType.push('4.9in');
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                }
-            })
-        }
-    
+            var error = _.includes(data, 'error')
+            var configParserError = _.includes(data, _configParserError)
+            var initError = _.includes(data, _initEpdFailed)
+            console.log(error, configParserError, initError)
+
+            // on true 'Error_Setting_display' string is displayed on display type web page 
+            if (error == true || configParserError == true || initError == true) {
+                current_displayType.push('Error_Setting_display')
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            } else {
+                current_displayType.push('4.9in');
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            }
+        })
+
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
+    }
+
 });
 
 app.get("/S047_T2.1", function(req, res) {
@@ -308,34 +366,46 @@ app.get("/S047_T2.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type to 'configs.txt' located at configsFilePath
-    var replace_display="sed -i '21s/.*/'"+displayTypeString+"'/'" + " "+configsFilePath
-   var _process = exec(replace_display, { async: false });
-   console.log('The file has been saved!');
-        if (true) {
-            var child = exec(set_Display_Command, { async: false });
-            child.stdout.on('data', function(data) {
-                console.log(typeof(data), data)
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!');
+    if (true) {
+        var child = exec(set_Display_Command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
 
-                var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, _configParserError)
-                var initError = _.includes(data, _initEpdFailed)
-                console.log(error, configParserError, initError)
+            var error = _.includes(data, 'error')
+            var configParserError = _.includes(data, _configParserError)
+            var initError = _.includes(data, _initEpdFailed)
+            console.log(error, configParserError, initError)
 
-                // on true 'Error_Setting_display' string is displayed on display type web page 
-                if (error == true || configParserError == true || initError == true) {
-                    current_displayType.push('Error_Setting_display')
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                } else {
-                    current_displayType.push('4.7in');
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                }
-            })
-        }
-    
+            // on true 'Error_Setting_display' string is displayed on display type web page 
+            if (error == true || configParserError == true || initError == true) {
+                current_displayType.push('Error_Setting_display')
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            } else {
+                current_displayType.push('4.7in');
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            }
+        })
+
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
+    }
+
 
 });
 
@@ -350,34 +420,46 @@ app.get("/S040_T1.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type to 'configs.txt' located at configsFilePath
-    var replace_display="sed -i '21s/.*/'"+displayTypeString+"'/'" + " "+configsFilePath
-   var _process = exec(replace_display, { async: false });
-   console.log('The file has been saved!');
-        if (true) {
-            var child = exec(set_Display_Command, { async: false });
-            child.stdout.on('data', function(data) {
-                console.log(typeof(data), data)
+    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+    var _process = exec(replace_display_string, { async: false });
+    console.log('The file has been saved!');
+    if (true) {
+        var child = exec(set_Display_Command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
 
-                var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, _configParserError)
-                var initError = _.includes(data, _initEpdFailed)
-                console.log(error, configParserError, initError)
+            var error = _.includes(data, 'error')
+            var configParserError = _.includes(data, _configParserError)
+            var initError = _.includes(data, _initEpdFailed)
+            console.log(error, configParserError, initError)
 
-                // on true 'Error_Setting_display' string is displayed on display type web page 
-                if (error == true || configParserError == true || initError == true) {
-                    current_displayType.push('Error_Setting_display')
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                } else {
-                    current_displayType.push('4.0in');
-                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
-                    console.log('received display type', type);
-                    res.redirect('/display_type');
-                }
-            })
-        }
-   
+            // on true 'Error_Setting_display' string is displayed on display type web page 
+            if (error == true || configParserError == true || initError == true) {
+                current_displayType.push('Error_Setting_display')
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            } else {
+                current_displayType.push('4.0in');
+                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                console.log('received display type', type);
+                res.redirect('/display_type');
+            }
+        })
+
+        child.stderr.on('data', function(data) {
+            //throw errors
+            console.log('stderr: ' + data);
+            current_displayType.push('Error_Setting_display')
+            res.redirect('/display_type');
+        });
+
+        child.on('close', function(code) {
+            console.log('child process exited with code ' + code);
+        });
+
+    }
+
 
 });
 
@@ -418,12 +500,12 @@ app.post('/uploadImage', function(req, res) {
         console.log(files)
         //for (var img = 0; img < files.length; img++) {
         var temp_path = file.path;
-        console.log('here1')
+        //console.log('here1')
         console.log(temp_path)
         //The file name of the uploaded file 
-        console.log('here2')
+        //console.log('here2')
         var file_name = file.name;
-        console.log('here3')
+        //console.log('here3')
         console.log(file_name)
         // Location where we want to copy the uploaded file
         var new_location = imageDir;

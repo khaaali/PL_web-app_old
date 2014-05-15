@@ -1,8 +1,8 @@
 ../src/main.c, line 195: operation '-start_epdc' failed
 Fatal error
 
-configparser     DISPLAYTYPE: S115_T1.1
-configparser     version - CONFIG_S115_T1.1
+configparser     DISPLAYTYPE: D107_T3.1
+configparser     version - CONFIG_D107_T3.1
 
 configparser     Interface: Parallel
 main             load_nvm_content?: 0

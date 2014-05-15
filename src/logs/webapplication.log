@@ -1,0 +1,90 @@
+Listening on localhost port 80
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+The file has been saved!
+string configparser     DISPLAYTYPE: S115_T1.1
+configparser     version - CONFIG_S115_T1.1
+
+configparser     Interface: Parallel
+main             load_nvm_content?: 0
+s1d135xx         Product code: 0x0002
+s1d135xx         Invalid product code, expected 0x004F
+s1d13524_controller Failed to init epd controller
+
+false false true
+Error_Setting_display display_type S115_T1.1
+received display type S115_T1.1
+received sendCurrentDisplayType Error_Setting_display
+[ { currentdisplayType: 'Error_Setting_display' } ]
+upload_showImageList
+[ '00.png',
+  '01_eyes_1280x960.png',
+  '11_5_ESL.png',
+  'Greys.png',
+  'PL.png',
+  'PLGC.png',
+  'White.png',
+  'black.png',
+  'dd.png',
+  'label.png' ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [ 'waveform.wbf' ], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]

@@ -40,7 +40,8 @@ var waveDir_a2 = "/display/"
 
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
 
-// Arrays for handling vaules in the webpage.
+// Arrays for handling vaules between server and client application.
+// last index value are displayed on the web page
 var current_WFmode = ['select']
 var current_WaveFile = ['']
 var current_Vcom = ['select']
@@ -71,10 +72,11 @@ function resolutionBetween(x, min, max) {
 
 
 /*
-Routing application and rendering views 
+Routing application and rendering views for client application 
 */
 
 app.use(express.static(path.join(__dirname, 'src')));
+
 
 app.get("/", function(req, res) {
 
@@ -108,9 +110,9 @@ app.get("/console", function(req, res) {
 
 
 
-
-// For initializing the display
-
+/**
+ For initializing the display
+*/
 app.get("/toInitiatization", function(req, res) {
     console.log('received Initiatization');
     var init_command = " epdc-app -start_epdc 0 1"
@@ -145,7 +147,8 @@ app.get("/S115_T1.1", function(req, res) {
                 var configParserError = _.includes(data, _configParserError)
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
-
+                
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -188,7 +191,8 @@ app.get("/D107_T3.1", function(req, res) {
                 var configParserError = _.includes(data, _configParserError)
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
-
+                
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError== true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -231,6 +235,7 @@ app.get("/S079_T1.1", function(req, res) {
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
 
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError== true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -271,6 +276,7 @@ app.get("/S049_T1.1", function(req, res) {
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
 
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -311,6 +317,7 @@ app.get("/S047_T2.1", function(req, res) {
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
 
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -352,6 +359,7 @@ app.get("/S040_T1.1", function(req, res) {
                 var initError=_.includes(data,_initEpdFailed)
                 console.log(error, configParserError,initError)
 
+                // on true 'Error_Setting_display' string is displayed on display type web page 
                 if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
@@ -1032,7 +1040,7 @@ app.get("/detect_waveform", function(req, res) {
             console.log(error)
             if (error == true) {
                 console.log(error)
-                current_WaveFile.push('Error_check_display')
+                current_WaveFile.push('Error_check_wavefile')
 
 
             } else {

@@ -4,7 +4,7 @@ var port=3003;
 var express   =    require("express");
 var path = require('path');
 var bodyParser = require('body-parser');
-var routes = require('./routes');
+var routes = require('routes');
 
 var app       =    express();
 

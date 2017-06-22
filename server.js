@@ -35,8 +35,8 @@ app.get("/upload_image",function(req,res){
 });
 
 
-app.get("/displayimage",function(req,res){
-  res.sendFile(__dirname+'/src/display_image.html');
+app.get("/displayimagee",function(req,res){
+  res.sendFile(__dirname+'/src/display_img.html');
     
 });
 
@@ -86,6 +86,23 @@ app.get("/display_image",function(req,res){
 });
 
 });
+
+
+app.get("/displayimage",function(req,res,next){
+    getImages(imageDir, function (err, files) {
+            var imageLists;
+            for (var i=0; i<files.length; i++) {
+                imageLists +=  files[i] ;
+            }
+            res.end(imageLists);
+
+});
+
+});
+
+
+
+
  
 app.get("/display_image/:imageId",function(req,res){
     console.log(req.params.imageId);

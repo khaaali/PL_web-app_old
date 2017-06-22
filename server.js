@@ -90,17 +90,20 @@ app.get("/display_image",function(req,res){
 
 app.get("/displayimage",function(req,res,next){
     getImages(imageDir, function (err, files) {
-            var imageLists;
+            var imageLists=[];
             for (var i=0; i<files.length; i++) {
                 imageLists +=  files[i] ;
             }
+            console.log(imageLists);
             res.end(imageLists);
 
 });
 
 });
 
-
+app.get('/test', function(req, res, next) {
+  res.json('Hello World');
+});
 
 
  

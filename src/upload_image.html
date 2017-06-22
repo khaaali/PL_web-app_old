@@ -52,7 +52,30 @@
             </form>
         </div>
         </div>
+        <div>
+            <script type="text/javascript">
+                $.ajax({
+                    url: '/test',
+                complete: function(data) {
+                    console.log(data)
+                 $("#bodys").html('<p> data: ' + data.responseText + '</p>');
+                                }
+                                });
+            </script>
+
+        </div>
+
+
+
+
+
+
+
+
+
     </div>
+
+    <div id="bodys">  </div>
 </body>
 
 </html>

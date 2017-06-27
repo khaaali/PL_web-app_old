@@ -42,31 +42,43 @@
             </nav>
         </div>
         <script type="text/javascript">
-        var imageDir = "./assets/demo_images/";
+        $.ajax({
+            url: '/upload_showImageList',
+            complete: function(data) {
+                //console.log(data)
+                //console.log(data.responseJSON)
+                var imagelist = data.responseJSON
+                var list = "";
+                var routesImage = "/displayimage/";
+
+                for (i = 0; i < imagelist.length; i++) {
+                    var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
+                    list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
+                }
+                $("#list").append("<ol>"+list+"</ol>");
+
+            }
+        });
 
         $(document).ready(function() {
-
-            var fileextension = ".jpg";
-            $.ajax({
-                type: 'GET',
-                url: imageDir,
-                success: function(data) {
-                    $(data).find("a:contains(.jpg)").each(function() {
-                        // will loop through 
-                        var images = $(this).attr("href");
-
-                        $('<p></p>').html(images).appendTo('#h')
-
-                    });
-                }
+            $(".deleteMe").on("click", function() {
+                $(this).closest("li").remove();
             });
         });
         </script>
-
-<div id=#h> </div>
-
-
-
+        <div class="center">
+            <div class="container-fluid">
+                <h3>list of uploaded images</h3>
+                <div class="col-xs-3 well ">
+                    <div class="scroll">
+                        <div id=list> </div>
+                    </div>
+                    <div>
+                        <button class="button">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

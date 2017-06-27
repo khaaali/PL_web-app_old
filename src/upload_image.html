@@ -35,47 +35,94 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="active"><a href="home">Home</a></li>
                             <li><a href="upload_image">Upload</a></li>
-                            <li><a href="display_image">Display</a></li>
+                            <li><a href="displayimage">Display</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
+        <script type="text/javascript">
+        $.ajax({
+            url: '/upload_showImageList',
+            complete: function(data) {
+                //console.log(data)
+                //console.log(data.responseJSON)
+                var imagelist = data.responseJSON
+                var list = "";
+                var routesImage = "/displayimage/";
+
+                for (i = 0; i < imagelist.length; i++) {
+                    var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
+                    list += "<li>" + imgName + "<div class='deleteMe'> X</div>" + "</li>";
+                    //console.log(imgName);
+                }
+                $("#list").append("<ol>" + list + "</ol>");
+            }
+        });
+
+        $(document).ready(function() {
+            $(".deleteMe").on("click", function() {
+                //console.log($(this).closest("li")[0].innerText);
+                var text = $(this).closest("li")[0].innerText
+                var name = text.split(/\s+/);
+                name = name[0]
+                console.log(name);
+                $(this).closest("li").remove();
+                doAjax(makeUrl(name));
+
+                function makeUrl(name) {
+                    return '/delete/' + name
+                }
+
+                function doAjax(_url) {
+                    return $.ajax({
+                        url: _url,
+                        type: 'DELETE',
+                        complete: function() {
+                            console.log('delete');
+                        }
+                    });
+                }
+
+
+            });
+        });
+
+
+        $(".button").on("click", function() {
+            $.ajax({
+                url: '/delete',
+                complete: function() {
+                    console.log('delete');
+                }
+            });
+        });
+        </script>
         <div class="center">
-        <div class="col-xs-4 well ">
-            <form action="/upload" enctype="multipart/form-data" method="post">Upload image
-                <br>
-                <br>
-                <input multiple="multiple" name="upload" type="file" />
-                <br>
-                <input type="submit" value="Upload" />
-            </form>
+            <div class="row">
+                <div class="col-xs-4 well ">
+                    <form action="/upload" enctype="multipart/form-data" method="post">Upload image
+                        <br>
+                        <br>
+                        <input multiple="multiple" name="upload" type="file" />
+                        <br>
+                        <input type="submit" value="Upload" />
+                    </form>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <h3>Uploaded Images</h3>
+                    <div class="scrollbar" id="style-1">
+                        <div id=list> </div>
+                    </div>
+                    <div>
+                        <button class="button">Button</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-        <div>
-            <script type="text/javascript">
-                $.ajax({
-                    url: '/test',
-                complete: function(data) {
-                    console.log(data)
-                 $("#bodys").html('<p> data: ' + data.responseText + '</p>');
-                                }
-                                });
-            </script>
-
-        </div>
-
-
-
-
-
-
-
-
-
     </div>
-
-    <div id="bodys">  </div>
 </body>
 
 </html>

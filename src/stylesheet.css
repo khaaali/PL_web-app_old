@@ -3,6 +3,9 @@ body {
     color: #5a5a5a;
 }
 
+#left, #middle, #right {display: inline-block; *display: inline; zoom: 1;  }
+
+
 .scroll {
     background-color: #E8E8E8;
     width: 369px;
@@ -196,8 +199,8 @@ iewports */
 .dropbtn {
     background-color: #4CAF50;
     color: white;
-    padding: 15px;
-    font-size: 15px;
+    padding: 9px;
+    font-size: 18px;
     border: none;
     cursor: pointer;
     

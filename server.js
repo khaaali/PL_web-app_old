@@ -13,6 +13,9 @@ var express = require("express"),
     bodyParser = require('body-parser'),
     port = 3003;
 
+const exec = require('child_process').exec;
+
+
 app.use(express.static(path.join(__dirname, 'src')));
 
 var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\new\\src\\assets\\demo_images\\";
@@ -113,15 +116,20 @@ app.post('/upload', function(req, res, next) {
 
 
 
-
-
-
 app.get("/displayimage/:Id", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log(req.params.Id);
     var id = req.params.Id;
     res.json(id);
 });
+
+app.get("/shell", function(req, res) {
+    //res.setHeader("Content-Type", "text/html");
+    console.log("received shell");
+   function puts(error, stdout, stderr) { console.log(stdout) }
+exec("DIR", puts);
+});
+
 
 
 

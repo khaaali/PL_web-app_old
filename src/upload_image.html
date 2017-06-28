@@ -49,7 +49,7 @@
                 //console.log(data.responseJSON)
                 var imagelist = data.responseJSON
                 var list = "";
-                var routesImage = "/displayimage/";
+                var routesImage = "/upload_image/";
 
                 for (i = 0; i < imagelist.length; i++) {
                     var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
@@ -89,14 +89,6 @@
         });
 
 
-        $(".button").on("click", function() {
-            $.ajax({
-                url: '/delete',
-                complete: function() {
-                    console.log('delete');
-                }
-            });
-        });
         </script>
         <div class="center">
             <div class="row">

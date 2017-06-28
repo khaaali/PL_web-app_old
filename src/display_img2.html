@@ -42,44 +42,59 @@
             </nav>
         </div>
         <script type="text/javascript">
-        $.ajax({
-            url: '/upload_showImageList',
-            complete: function(data) {
-                //console.log(data)
-                //console.log(data.responseJSON)
-                var imagelist = data.responseJSON
-                var list = "";
-                var routesImage = "/displayimage/";
 
-                for (i = 0; i < imagelist.length; i++) {
-                    var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
-                    list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
+        function displayShow() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
-                $("#list").append("<ol>"+list+"</ol>");
-
             }
-        });
+        }
 
-        $(document).ready(function() {
-            $(".deleteMe").on("click", function() {
-                $(this).closest("li").remove();
-            });
-        });
+        
+        function fun(id) {
+            var display = id.innerText
+            console.log('event');
+            console.log(display);
+            document.getElementById("demo").innerText= display
+
+
+        }
+
         </script>
+
+        
         <div class="center">
-            <div class="container-fluid">
-                <h3>list of uploaded images</h3>
-                <div class="col-xs-3 well ">
-                    <div class="scroll">
-                        <div id=list> </div>
-                    </div>
-                    <div>
-                        <button class="button">Delete</button>
-                    </div>
-                </div>
+            <div class="row">
+                
+                    <h3>Select Display Type: <p id="demo"> </p> </h3>
+                     
+                        <div class="dropdown">
+                            <button onclick="displayShow()" class="dropbtn">Display</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a id="D1" href="javascript:void(0)" onclick="fun(D1)" class="d1" value="10.7">10.7"</a>
+                                <a id="D2" href="javascript:void(0)" onclick="fun(D2)" class="d2" value="1.1">1.1"</a>
+                                <a id="D3" href="javascript:void(0)" onclick="fun(D3)" class="d3" value="5">5"</a>
+                            </div>
+                        </div>
+                    
+                
             </div>
         </div>
-    </div>
+        <div>
+            <button class="button">Delete</button>
+        </div>
 </body>
 
 </html>

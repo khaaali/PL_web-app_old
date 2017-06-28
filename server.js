@@ -87,7 +87,7 @@ app.get("/upload_showImageList", function(req, res, next) {
 
 
 
-app.get("/displayimage/:imageId", function(req, res) {
+app.get("/upload_image/:imageId", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log(req.params.imageId);
     var id = req.params.imageId;
@@ -109,6 +109,24 @@ app.post('/upload', function(req, res, next) {
     });
     res.sendFile(__dirname + '/src/upload_image.html');
 })
+
+
+
+
+
+
+
+app.get("/displayimage/:Id", function(req, res) {
+    //res.setHeader("Content-Type", "text/html");
+    console.log(req.params.Id);
+    var id = req.params.Id;
+    res.json(id);
+});
+
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 //sudo netstat -lpn |grep:3000
 //sudo kill -9 8047(PID)
-
+var pty = require('pty.js');
 var express = require("express"),
     app = express(),
     //formidable = require('formidable'),
@@ -10,16 +10,65 @@ var express = require("express"),
     path = require('path'),
     multer = require('multer'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    port = 3003;
+    bodyParser = require('body-parser');
+var http = require('http');
+var server = http.createServer(app).listen(3003)
+var io = require('socket.io')(server);
 
+var shell = require('shelljs');
 const exec = require('child_process').exec;
+
+
+if (!shell.which('git')) {
+    shell.echo('Sorry, this script requires git');
+    shell.exit(1);
+}
+
+
+var term2 = pty.spawn('bash', [], {
+    name: 'xterm-color',
+    cols: 80,
+    rows: 30,
+    cwd: process.env.HOME,
+    env: process.env
+});
+
+term2.on('data', function(data) {
+    console.log(data);
+});
+
+
+// When a new socket connects
+io.on('connection', function(socket) {
+    // Create terminal
+    var term = pty.spawn('sh', [], {
+        name: 'xterm-color',
+        cols: 80,
+        rows: 60,
+        cwd: process.env.HOME,
+        env: process.env
+    });
+    // Listen on the terminal for output and send it to the client
+    term.on('data', function(data) {
+        socket.emit('output', data);
+    });
+    // Listen on the client and send any input to the terminal
+    socket.on('input', function(data) {
+        term.write(data);
+    });
+    // When socket disconnects, destroy the terminal
+    socket.on("disconnect", function() {
+        term.destroy();
+        console.log("bye");
+    });
+});
+
 
 
 app.use(express.static(path.join(__dirname, 'src')));
 
-var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\new\\src\\assets\\demo_images\\";
-
+//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\new\\src\\assets\\demo_images\\";
+var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
         callback(null, "src/assets/demo_images/");
@@ -59,8 +108,13 @@ app.get("/upload_image", function(req, res) {
 });
 
 
-app.get("/displayimage", function(req, res) {
+app.get("/display_img2", function(req, res) {
     res.sendFile(__dirname + '/src/display_img2.html');
+
+});
+
+app.get("/console", function(req, res) {
+    res.sendFile(__dirname + '/src/console.html');
 
 });
 
@@ -89,12 +143,19 @@ app.get("/upload_showImageList", function(req, res, next) {
 });
 
 
-
 app.get("/upload_image/:imageId", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log(req.params.imageId);
     var id = req.params.imageId;
-    res.end(id);
+    var t="BBepdc -show /h/fsdfsdf/"+id
+    var command= "ls -l"
+    var child = exec(command, { async: true });
+    child.stdout.on('data', function(data) {
+        console.log(data)
+        shell.echo(t)
+    });
+    //res.sendFile(__dirname + '/src/upload_image.html');
+
 });
 
 
@@ -123,18 +184,16 @@ app.get("/displayimage/:Id", function(req, res) {
     res.json(id);
 });
 
+
+
 app.get("/shell", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log("received shell");
-   function puts(error, stdout, stderr) { console.log(stdout) }
-exec("DIR", puts);
+    term2.write('ls -l\r');
+
+    console.log(term2.process);
+
 });
-
-
-
-
-
-
 
 
 
@@ -143,9 +202,9 @@ app.get("*", function(req, res) {
     res.sendFile(__dirname + '/src/index.html');
 });
 
-app.listen(port);
+//app.listen(port);
 
-console.log('Listening on localhost port ' + port);
+console.log('Listening on localhost port 3003');
 
 module.exports = app; //added
 
@@ -172,6 +231,9 @@ function getImages(imageDir, callback) {
 function redirectRouterUploadPage(req, res) {
     res.sendFile(__dirname + '/src/upload_image.html');
 }
+
+
+
 
 
 

@@ -6,6 +6,12 @@ body {
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1;  }
 
 
+   .terminal {
+     font-family: monospace;
+     color: white;
+     background: black;
+   }
+
 .scroll {
     background-color: #E8E8E8;
     width: 369px;

@@ -10,9 +10,12 @@
     <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap/dist/js/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
 <!-- NAVBAR
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" > </script>
+
   ================================================== -->
 
 <body>
@@ -35,39 +38,37 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="active"><a href="home">Home</a></li>
                             <li><a href="upload_image">Upload</a></li>
-                            <li><a href="displayimage">Display</a></li>
+                            <li><a href="display_img2">Display</a></li>
+                            <li><a href="console">console</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
         <script type="text/javascript">
-        var imageDir = "./assets/demo_images/";
-
-        $(document).ready(function() {
-
-            var fileextension = ".jpg";
-            $.ajax({
-                type: 'GET',
-                url: imageDir,
-                success: function(data) {
-                    $(data).find("a:contains(.jpg)").each(function() {
-                        // will loop through 
-                        var images = $(this).attr("href");
-
-                        $('<p></p>').html(images).appendTo('#h')
-
-                    });
-                }
-            });
+        // Connect to the socket.io server
+        var socket = io.connect('http://localhost:3003');
+        // Wait for data from the server
+        socket.on('output', function(data) {
+            // Insert some line breaks where they belong
+            data = data.replace("\n", "<br>");
+            data = data.replace("\r", "<br>");
+            // Append the data to our terminal
+            $('.terminal').append(data);
+        });
+        // Listen for user input and pass it to the server
+        $(document).on("keypress", function(e) {
+            var char = String.fromCharCode(e.which);
+            socket.emit("input", char);
         });
         </script>
+        <h1>SSH</h1>
+        <div class="terminal">
+        </div>
+</body>
 
-<div id=#h> </div>
-
-
-
-    </div>
+</html>
+</div>
 </body>
 
 </html>

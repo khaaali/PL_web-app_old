@@ -54,13 +54,47 @@
                 var routesImage = "/upload_image/";
 
                 for (i = 0; i < imagelist.length; i++) {
-                    var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
-                    list += "<li>" + imgName + "<div class='deleteMe'> X</div>" + "</li>";
+                    var imgName = '<a href= "javascript:void(0)">' + imagelist[i] + '</a>'
+                    //var imgName =  imagelist[i] 
+                    
+                    list += "<li>" + "<div class='imageClicked'>" + imgName + '</div>' + "<div class='deleteMe'> X</div>" + "</li>";
                     //console.log(imgName);
                 }
                 $("#list").append("<ol>" + list + "</ol>");
             }
         });
+
+
+  $(document).ready(function() {
+            $(".imageClicked").on("click", function() {
+                console.log($(this).closest("div")[0].innerText);
+                var text = $(this).closest("div")[0].innerText
+                var name = text.split(/\s+/);
+                name = name[0]
+                console.log(name);
+                doAjax(makeUrl(name));
+
+                function makeUrl(name) {
+                    return '/upload_image/' + name
+                }
+
+                function doAjax(_url) {
+                    return $.ajax({
+                        url: _url,
+                        complete: function() {
+                            console.log('imageClicked');
+                        }
+                    });
+                }
+
+
+            });
+        });
+
+
+
+
+
 
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {

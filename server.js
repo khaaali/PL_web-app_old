@@ -1,6 +1,6 @@
 //sudo netstat -lpn |grep:3000
 //sudo kill -9 8047(PID)
-var pty = require('pty.js');
+//var pty = require('pty.js');
 var express = require("express"),
     app = express(),
     //formidable = require('formidable'),
@@ -25,6 +25,7 @@ if (!shell.which('git')) {
 }
 
 
+/*
 var term2 = pty.spawn('bash', [], {
     name: 'xterm-color',
     cols: 80,
@@ -63,13 +64,13 @@ io.on('connection', function(socket) {
     });
 });
 
-
+*/
 
 app.use(express.static(path.join(__dirname, 'src')));
 
-//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\new\\src\\assets\\demo_images\\";
+var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
 //var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
-var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+//var imageDir = "/home/PL_web-app/src/assets/demo_images/"
 
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -149,15 +150,16 @@ app.get("/upload_image/:imageId", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log(req.params.imageId);
     var id = req.params.imageId;
-    var t="BBepdc -show /h/fsdfsdf/"+id
-    var command= "ls -l"
-    var child = exec(command, { async: true });
+    var t="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+id
+    //console.log(t);
+    //var command= "ls -l"
+    var child = exec(t, { async: true });
     child.stdout.on('data', function(data) {
-        console.log(data)
-        shell.echo(t)
+       // console.log(data)
+        
     });
     //res.sendFile(__dirname + '/src/upload_image.html');
-
+    shell.echo(t)
 });
 
 

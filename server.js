@@ -68,7 +68,9 @@ io.on('connection', function(socket) {
 app.use(express.static(path.join(__dirname, 'src')));
 
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\new\\src\\assets\\demo_images\\";
-var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
+//var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
+var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
         callback(null, "src/assets/demo_images/");

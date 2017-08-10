@@ -68,9 +68,9 @@ io.on('connection', function(socket) {
 
 app.use(express.static(path.join(__dirname, 'src')));
 
-var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
+//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
 //var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
-//var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+var imageDir = "/home/PL_web-app/src/assets/demo_images/"
 
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -139,7 +139,7 @@ app.get("/upload_showImageList", function(req, res, next) {
         for (var i = 0; i < files.length; i++) {
             imageLists.push(files[i]);
         }
-        console.log(files.length);
+        //console.log(files.length);
         console.log(imageLists);
         res.json(imageLists);
     });
@@ -147,19 +147,22 @@ app.get("/upload_showImageList", function(req, res, next) {
 
 
 app.get("/upload_image/:imageId", function(req, res) {
-    //res.setHeader("Content-Type", "text/html");
     console.log(req.params.imageId);
     var id = req.params.imageId;
-    var t="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+id
+    var command="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+id
     //console.log(t);
-    //var command= "ls -l"
-    var child = exec(t, { async: true });
+    //var t= "dir"
+    var child = exec(command, { async: true });
     child.stdout.on('data', function(data) {
-       // console.log(data)
+       //console.log(data)
         
     });
-    //res.sendFile(__dirname + '/src/upload_image.html');
-    shell.echo(t)
+    
+    //root*/
+    shell.echo(command)
+    res.setHeader("Content-Type", "text/html");
+   res.redirect('/upload_image');
+    //shell.exec(command,{ silent: true })
 });
 
 
@@ -193,15 +196,37 @@ app.get("/displayimage/:Id", function(req, res) {
 app.get("/shell", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log("received shell");
-    term2.write('ls -l\r');
+    shell.exec('ls -l\r');
 
-    console.log(term2.process);
+    console.log();
+
+});
+
+
+app.get("/toInitiatization", function(req, res) {
+    //res.setHeader("Content-Type", "text/html");
+    console.log("received toInitiatization");
+    command= "BBepdcULD -start_epdc 0 1BBepdcULD -start_epdc 0 1"
+     var child = exec(command, { async: true });
+    child.stdout.on('data', function(data) {
+       // console.log(data)
+        
+    });;
 
 });
 
 
 
-app.get("*", function(req, res) {
+
+
+
+
+
+
+
+
+
+app.get('*', function(req, res) {
 
     res.sendFile(__dirname + '/src/index.html');
 });

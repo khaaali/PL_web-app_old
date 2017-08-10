@@ -44,57 +44,78 @@
         </div>
         
         <script type="text/javascript">
+
+function toInitiatization() {
+            $.ajax({
+                type: "GET",
+                url: '/toInitiatization',
+                 cache: false,
+                 async: "true",
+                complete: function() {
+                    console.log('received toInitiatization');
+                }
+            });
+        }
+
+
+
         $.ajax({
             url: '/upload_showImageList',
+            type: "GET",
+            cache: false,
+            async: "true",
             complete: function(data) {
                 //console.log(data)
-                //console.log(data.responseJSON)
+                console.log(data.responseJSON)
                 var imagelist = data.responseJSON
                 var list = "";
                 var routesImage = "/upload_image/";
 
                 for (i = 0; i < imagelist.length; i++) {
-                    var imgName = '<a href= "javascript:void(0)">' + imagelist[i] + '</a>'
-                    //var imgName =  imagelist[i] 
-                    
-                    list += "<li>" + "<div class='imageClicked'>" + imgName + '</div>' + "<div class='deleteMe'> X</div>" + "</li>";
-                    //console.log(imgName);
+
+                    //var imgName = "<a href= 'javascript:void(0)' class='imageClicked' >" + imagelist[i] + "</a> "
+                      ////console.log(imgName);
+                    var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
+                    ////var imgName =  imagelist[i] 
+                      console.log(imgName); 
+                    list += "<li>" + imgName  + "<div class='deleteMe'> X</div>" + "</li>";
+                    ////list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
+                    ////console.log(list);
                 }
-                $("#list").append("<ol>" + list + "</ol>");
+                $("#imageList").append("<ol>" + list + "</ol>");
             }
         });
 
 
-  $(document).ready(function() {
+
+$(document).ready(function() {
+
             $(".imageClicked").on("click", function() {
-                console.log($(this).closest("div")[0].innerText);
-                var text = $(this).closest("div")[0].innerText
+                console.log($(this).closest("a")[0].innerText);
+                console.log('im here1')
+                var text = $(this).closest("a")[0].innerText
                 var name = text.split(/\s+/);
+                console.log(name)
                 name = name[0]
                 console.log(name);
-                doAjax(makeUrl(name));
+                doAjax(name);
 
-                function makeUrl(name) {
-                    return '/upload_image/' + name
-                }
-
-                function doAjax(_url) {
+                function doAjax(url) {
                     return $.ajax({
-                        url: _url,
+                        url: '/upload_image/' + url,
+                        cache: false,
+                        async: "true",
+                        type: "GET",
                         complete: function() {
                             console.log('imageClicked');
                         }
                     });
                 }
 
-
             });
-        });
+});
 
-
-
-
-
+                
 
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {
@@ -113,6 +134,8 @@
                 function doAjax(_url) {
                     return $.ajax({
                         url: _url,
+                        cache: false,
+                        async: "true",
                         type: 'DELETE',
                         complete: function() {
                             console.log('delete');
@@ -123,6 +146,14 @@
 
             });
         });
+
+        
+
+
+
+
+
+
         </script>
 
         <div class="center">
@@ -141,10 +172,10 @@
                 <div class="row">
                     <h3>Uploaded Images</h3>
                     <div class="scrollbar" id="style-1">
-                        <div id=list> </div>
+                        <div id=imageList> </div>
                     </div>
                     <div>
-                        <button class="button">Button</button>
+                        <button class="button" onclick="toInitiatization()">Initiatization</button>
                     </div>
                 </div>
             </div>

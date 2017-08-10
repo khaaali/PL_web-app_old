@@ -78,7 +78,7 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, callback) {
         console.log(file.mimetype)
-        if (file.mimetype == 'image/png') {
+         if (file.mimetype == 'image/png' || file.mimetype == 'image/jpeg') {
             callback(null, file.originalname);
         } else {
             callback(new Error('I don\'t have a clue!'));
@@ -205,18 +205,23 @@ app.get("/shell", function(req, res) {
 
 app.get("/toInitiatization", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
-    console.log("received toInitiatization");
-    command= "BBepdcULD -start_epdc 0 1BBepdcULD -start_epdc 0 1"
-     var child = exec(command, { async: true });
-    child.stdout.on('data', function(data) {
-       // console.log(data)
-        
-    });;
+    console.log("received slideshow");
 
+     getImages(imageDir, function(err, files) {
+       // console.log(files)
+        for (var i = 0; i < files.length; i++) {
+             //console.log(files[i]);
+            CurrentImage=imageDir+files[i];
+            console.log('CurrentImage',CurrentImage);
+           var command="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+CurrentImage
+           var child = exec(command, { async: true });
+        child.stdout.on('data', function(data) {
+         console.log(data)
+
+         });
+    }
 });
-
-
-
+});
 
 
 
@@ -243,12 +248,14 @@ module.exports = app; //added
 
 // filter to show only png from demo_images folder in html page
 function getImages(imageDir, callback) {
-    var fileType = '.png',
+    var fileType1 = '.png',
+	fileType2 = '.jpeg',
+	fileType3 = '.jpg',
         files = [],
         i;
     fs.readdir(imageDir, function(err, list) {
         for (i = 0; i < list.length; i++) {
-            if (path.extname(list[i]) === fileType) {
+           if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
                 files.push(list[i]); //store the file name into the array files
             }
         }

@@ -1,13 +1,11 @@
 //sudo netstat -lpn |grep:3000
 //sudo kill -9 8047(PID)
 //var pty = require('pty.js');
-//with formidable
 var express = require("express"),
     app = express(),
-    formidable = require('formidable'),
+    //formidable = require('formidable'),
     util = require('util'),
     fs = require('fs-extra'),
-    util = require('util'),
     //qt   = require('quickthumb'),
     path = require('path'),
     multer = require('multer'),
@@ -114,13 +112,13 @@ app.get("/upload_image", function(req, res) {
 
 
 app.get("/display_img2", function(req, res) {
-    //res.sendFile(__dirname + '/src/display_img2.html');
-    res.redirect('/upload_image');
+    res.sendFile(__dirname + '/src/display_img2.html');
+
 });
 
 app.get("/console", function(req, res) {
-    //res.sendFile(__dirname + '/src/console.html');
-    res.redirect('/upload_image');
+    res.sendFile(__dirname + '/src/console.html');
+
 });
 
 
@@ -170,41 +168,22 @@ app.get("/upload_image/:imageId", function(req, res) {
 
 
 
-app.post('/upload', function (req, res){
-  var form = new formidable.IncomingForm();
-  form.multiples = true
-  form.keepExtensions = true
-  form.parse(req, function(err, fields, files) {
-   // res.writeHead(200, {'content-type': 'text/plain'});
-   // res.write('received upload:\n\n');
-   // res.end(util.inspect({fields: fields, files: files}));
-   // res.setHeader("Content-Type", "text/html");
-  });
-
-  form.on('end', function(fields, files) {
-   // Temporary location of our uploaded file 
-   console.log('in upload')
-    console.log(this.openedFiles)
-
-    
-    for (var img in this.openedFiles){
-    var temp_path = this.openedFiles[img].path;
-    //The file name of the uploaded file 
-    var file_name = this.openedFiles[img].name;
-   // Location where we want to copy the uploaded file
-    var new_location = imageDir ;
-    fs.copy(temp_path, new_location + file_name, function(err) {  
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("success!")
-        
-      }
+app.post('/upload', function(req, res, next) {
+  
+    upload(req, res, function(err) {
+        console.log('upload');
+        console.log(req.files);
+        if (err) {
+            res.sendFile(__dirname + '/src/upload_image.html');
+            console.log('not supported format')
+        }
+        res.sendFile(__dirname + '/src/upload_image.html');
+        console.log('supported format')
     });
-}
-  });
- res.redirect('/upload_image');
-});
+    res.sendFile(__dirname + '/src/upload_image.html');
+})
+
+
 
 
 app.get("/displayimage/:Id", function(req, res) {
@@ -285,3 +264,79 @@ function redirectRouterUploadPage(req, res) {
     res.sendFile(__dirname + '/src/upload_image.html');
 }
 
+
+
+
+/*
+
+app.post('/uploads', function (req, res){
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+  //  res.writeHead(200, {'content-type': 'text/plain'});
+  //  res.write('received upload:\n\n');
+  //  res.end(util.inspect({fields: fields, files: files}));
+//
+  });
+
+  form.on('end', function(fields, files) {
+    Temporary location of our uploaded file 
+    var temp_path = this.openedFiles[0].path;
+    The file name of the uploaded file 
+    console.log(temp_path)
+
+    var file_name = this.openedFiles[0].name;
+    Location where we want to copy the uploaded file
+    var new_location = imageDir ;
+
+    fs.copy(temp_path, new_location + file_name, function(err) {  
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("success!")
+        res.sendFile(__dirname+'/src/upload_image.html');
+      }
+    });
+  });
+
+});
+
+
+app.post('/uploaad',function(req,res){
+    upload(req,res,function(err) {
+        console.log(req.body);
+        console.log(req.files);
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.end("File is uploaded");
+    });
+});
+
+
+
+app.get("/display_image",function(req,res){
+    getImages(imageDir, function (err, files) {
+            var imageLists = '<ul>';
+            for (var i=0; i<files.length; i++) {
+                imageLists += '<li><a href="/display_image/' + files[i] + '">' + files[i] + '</li>';
+            }
+            imageLists += '</ul>';
+            imageLists += '<ul><li><a href="/' + 'home' + '">' + 'HOME' + '</li></ul>';
+
+            res.writeHead(200, {'Content-type':'text/html'});
+            res.end(imageLists);
+
+});
+
+});
+
+
+app.get("/displayimagee",function(req,res){
+  res.sendFile(__dirname+'/src/display_img.html');
+    
+});
+
+
+
+
+*/

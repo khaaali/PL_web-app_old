@@ -38,95 +38,199 @@ generic_epdc     Loading wflib: /mnt/data/override/waveform.wbf
 generic_epdc     Setting vcom: 6000
 vcom             input: 6000, scaled: 5939, DAC reg: 0x60
 Listening on localhost port 3003
-[ '00.png',
-  '1502791960290627099618.jpg',
-  'IMG-20170815-WA0000.jpg',
-  'image.jpeg' ]
-image/jpeg
-[]
-not supported format
-supported format
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-[ '00.png',
-  '1502791960290627099618.jpg',
-  'IMG-20170815-WA0000.jpg',
-  'image.jpeg' ]
-image/jpeg
-[]
-not supported format
-supported format
-[ '00.png',
-  '1502791960290627099618.jpg',
-  'IMG-20170815-WA0000.jpg',
-  'image.jpeg' ]
-[ '00.png',
-  '1502791960290627099618.jpg',
-  'IMG-20170815-WA0000.jpg',
-  'image.jpeg' ]
-image/png
-[]
-not supported format
-supported format
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-[ '00.png',
-  '1502791960290627099618.jpg',
-  'IMG-20170815-WA0000.jpg',
-  'image.jpeg' ]
-Got a DELETE request for 1502791960290627099618.jpg
-/home/PL_web-app/src/assets/demo_images/1502791960290627099618.jpg
-Got a DELETE request for IMG-20170815-WA0000.jpg
-/home/PL_web-app/src/assets/demo_images/IMG-20170815-WA0000.jpg
-Got a DELETE request for image.jpeg
-/home/PL_web-app/src/assets/demo_images/image.jpeg
+upload_showImageList
+[ '00.png' ]
 00.png
 BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
+00.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
+upload_showImageList
 [ '00.png' ]
-image/png
-[]
-not supported format
-supported format
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
+upload_showImageList
 [ '00.png' ]
-[ '00.png' ]
-image/png
-[]
-not supported format
-supported format
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-Error: Can't set headers after they are sent.
-    at SendStream.headersAlreadySent (/home/PL_web-app/node_modules/express/node_modules/send/index.js:402:13)
-    at SendStream.send (/home/PL_web-app/node_modules/express/node_modules/send/index.js:625:10)
-    at onstat (/home/PL_web-app/node_modules/express/node_modules/send/index.js:737:10)
-    at FSReqWrap.oncomplete (fs.js:82:15)
-[ '00.png' ]
+in upload
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 307351,
+    path: '/tmp/upload_0614f3133a73ec0a4ebd5c3328d8dc70.jpeg',
+    name: 'image.jpeg',
+    type: 'image/jpeg',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:39:26 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_0614f3133a73ec0a4ebd5c3328d8dc70.jpeg',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 307351,
+       closed: true } } ]
+success!
+upload_showImageList
+[ '00.png', 'image.jpeg' ]
+in upload
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 667757,
+    path: '/tmp/upload_628ec04f79bc5cd8e9f7bbfe05979907.png',
+    name: '02.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_628ec04f79bc5cd8e9f7bbfe05979907.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 667757,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 64045,
+    path: '/tmp/upload_550d79791c739e1f5cac397075bb0a7a.png',
+    name: '03.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_550d79791c739e1f5cac397075bb0a7a.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 64045,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 181739,
+    path: '/tmp/upload_ea5a85d5ad7c0c2e6822721c1c863e9a.png',
+    name: '04.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_ea5a85d5ad7c0c2e6822721c1c863e9a.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 181739,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 428238,
+    path: '/tmp/upload_214670631eaea1939b1b4e5635580db5.png',
+    name: '05.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Thu May 15 2014 02:39:38 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_214670631eaea1939b1b4e5635580db5.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 428238,
+       closed: true } } ]
+success!
+success!
+success!
+success!
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+04.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/04.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+05.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/05.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+03.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/03.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+00.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/00.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png', 'image.jpeg' ]
+Got a DELETE request for image.jpeg
+/home/PL_web-app/src/assets/demo_images/image.jpeg
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+05.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/05.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]
+04.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/04.png
+upload_showImageList
+[ '00.png', '02.png', '03.png', '04.png', '05.png' ]

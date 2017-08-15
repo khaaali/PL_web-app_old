@@ -196,9 +196,9 @@ app.get("/displayimage/:Id", function(req, res) {
 app.get("/shell", function(req, res) {
     //res.setHeader("Content-Type", "text/html");
     console.log("received shell");
-    shell.exec('ls -l\r');
+    //shell.exec('ls -l\r');
 
-    console.log();
+    //console.log();
 
 });
 

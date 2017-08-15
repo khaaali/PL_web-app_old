@@ -140,6 +140,7 @@ app.get("/upload_showImageList", function(req, res, next) {
             imageLists.push(files[i]);
         }
         //console.log(files.length);
+        console.log('upload_showImageList')
         console.log(imageLists);
         res.json(imageLists);
     });
@@ -169,7 +170,9 @@ app.get("/upload_image/:imageId", function(req, res) {
 
 app.post('/upload', function(req, res, next) {
     res.setHeader("Content-Type", "text/html");
+    res.write('foo');
     upload(req, res, function(err) {
+        console.log('upload');
         console.log(req.files);
         if (err) {
             res.sendFile(__dirname + '/src/upload_image.html');

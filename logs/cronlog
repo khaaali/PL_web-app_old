@@ -1495,3 +1495,153 @@ tulip_flower.png
 BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/tulip_flower.png
 upload_showImageList
 [ 'gl11.png', 'tulip_flower.png' ]
+upload_showImageList
+[ 'gl11.png', 'tulip_flower.png' ]
+upload_showImageList
+[ 'gl11.png', 'tulip_flower.png' ]
+upload_showImageList
+[ 'gl11.png', 'tulip_flower.png' ]
+gl11.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/gl11.png
+upload_showImageList
+[ 'gl11.png', 'tulip_flower.png' ]
+in upload
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 844775,
+    path: '/tmp/upload_288432aa60c75e55150ec645ff2ef64e.png',
+    name: '06.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Tue Aug 15 2017 14:33:06 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_288432aa60c75e55150ec645ff2ef64e.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 844775,
+       closed: true } } ]
+success!
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+06.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/06.png
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+gl11.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/gl11.png
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+tulip_flower.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/tulip_flower.png
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+06.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/06.png
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+gl11.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/gl11.png
+upload_showImageList
+[ '06.png', 'gl11.png', 'tulip_flower.png' ]
+Got a DELETE request for gl11.png
+/home/PL_web-app/src/assets/demo_images/gl11.png
+tulip_flower.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/tulip_flower.png
+upload_showImageList
+[ '06.png', 'tulip_flower.png' ]
+06.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/06.png
+upload_showImageList
+[ '06.png', 'tulip_flower.png' ]
+upload_showImageList
+[ '06.png', 'tulip_flower.png' ]
+received slideshow
+CurrentImage
+/home/PL_web-app/src/assets/demo_images/06.png
+CurrentImage
+/home/PL_web-app/src/assets/demo_images/tulip_flower.png
+!
+hw_setup_new
+configparser     loading config file - '/home/root/active_panel_type/BBepdcULD.config'
+configparser     version - CONFIG_D107_70022x
+
+initialize_control_system
+initialize_driver_board
+RUDDOCK_PARALLEL
+initialize_controller
+get_s1d13524_instance
+configparser     No register settings specified in the configuration file.
+initialize_hv_config
+get_max17135_instance
+initialize_hv_driver
+get_s1d13524_instance
+initialize_vcom_switch
+get_s1d13524_instance
+initialize_vcom_config
+get_max17135_instance
+initialize_vcom_driver
+initialize_hv_timing
+get_max17135_instance
+initialize_nvm
+!
+path: /home/PL_web-app/src/assets/demo_images//home/PL_web-app/src/assets/demo_images/06.png
+wfID: 2
+updateMode: 0
+updateCount: 1
+waitTime: 0
+vcomSwitch: 1
+utils            filename /home/PL_web-app/src/assets/demo_images//home/PL_web-app/src/assets/demo_images/06.png
+
+!
+hw_setup_new
+configparser     loading config file - '/home/root/active_panel_type/BBepdcULD.config'
+configparser     version - CONFIG_D107_70022x
+
+initialize_control_system
+initialize_driver_board
+RUDDOCK_PARALLEL
+initialize_controller
+get_s1d13524_instance
+configparser     No register settings specified in the configuration file.
+initialize_hv_config
+get_max17135_instance
+initialize_hv_driver
+get_s1d13524_instance
+initialize_vcom_switch
+get_s1d13524_instance
+initialize_vcom_config
+get_max17135_instance
+initialize_vcom_driver
+initialize_hv_timing
+get_max17135_instance
+initialize_nvm
+!
+path: /home/PL_web-app/src/assets/demo_images//home/PL_web-app/src/assets/demo_images/tulip_flower.png
+wfID: 2
+updateMode: 0
+updateCount: 1
+waitTime: 0
+vcomSwitch: 1
+utils            filename /home/PL_web-app/src/assets/demo_images//home/PL_web-app/src/assets/demo_images/tulip_flower.png
+
+06.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/06.png
+upload_showImageList
+[ '06.png', 'tulip_flower.png' ]
+tulip_flower.png
+BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/tulip_flower.png
+upload_showImageList
+[ '06.png', 'tulip_flower.png' ]

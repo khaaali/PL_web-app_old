@@ -1,6 +1,5 @@
 //sudo netstat -lpn |grep:3000
 //sudo kill -9 8047(PID)
-//var pty = require('pty.js');
 //with formidable
 var express = require("express"),
     app = express(),
@@ -16,6 +15,7 @@ var express = require("express"),
 var http = require('http');
 var server = http.createServer(app).listen(3003)
 var io = require('socket.io')(server);
+//var pty = require('pty.js');
 
 var shell = require('shelljs');
 const exec = require('child_process').exec;
@@ -40,8 +40,6 @@ term2.on('data', function(data) {
     console.log(data);
 });
 
-
-// When a new socket connects
 io.on('connection', function(socket) {
     // Create terminal
     var term = pty.spawn('sh', [], {
@@ -56,8 +54,8 @@ io.on('connection', function(socket) {
         socket.emit('output', data);
     });
     // Listen on the client and send any input to the terminal
-    socket.on('input', function(data) {
-        term.write(data);
+    socket.on('message', function(data) {
+        console.log(data);
     });
     // When socket disconnects, destroy the terminal
     socket.on("disconnect", function() {
@@ -66,13 +64,37 @@ io.on('connection', function(socket) {
     });
 });
 
+
 */
+
+// When a new socket connects
+io.on('connection', function(socket) {
+    // Create terminal
+    
+    // Listen on the terminal for output and send it to the client
+    
+    // Listen on the client and send any input to the terminal
+    socket.on('data', function(data) {
+    	console.log('im here')
+        console.log(data);
+        shell.exec(data)
+
+
+
+    });
+    // When socket disconnects, destroy the terminal
+    socket.on("disconnect", function() {
+        console.log("bye");
+    });
+});
+
+
 
 app.use(express.static(path.join(__dirname, 'src')));
 
-//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
+var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
 //var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
-var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+//var imageDir = "/home/PL_web-app/src/assets/demo_images/"
 
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -114,13 +136,13 @@ app.get("/upload_image", function(req, res) {
 
 
 app.get("/display_img2", function(req, res) {
-    //res.sendFile(__dirname + '/src/display_img2.html');
-    res.redirect('/upload_image');
+    res.sendFile(__dirname + '/src/display_img2.html');
+    //res.redirect('/upload_image');
 });
 
 app.get("/console", function(req, res) {
-    //res.sendFile(__dirname + '/src/console.html');
-    res.redirect('/upload_image');
+    res.sendFile(__dirname + '/src/console.html');
+    //res.redirect('/upload_image');
 });
 
 

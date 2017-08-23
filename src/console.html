@@ -6,12 +6,32 @@
     <title>Plastic Logic App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
-    <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bootstrap/dist/js/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+    <style type="text/css">
+    input {
+        width: 85%;
+    }
+
+    button {
+        width: 10%;
+        background-color: #4CAF50;
+         font-size: 16px;
+          color: black;
+          font-weight: bold
+    }
+
+    form {
+        background: #000;
+        padding: 13px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    </style>
 </head>
 <!-- NAVBAR
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" > </script>
@@ -45,26 +65,28 @@
                 </div>
             </nav>
         </div>
+        <h1 align="center">Terminal Client</h1>
+        <div>
+            <ul id="messages"></ul>
+        </div>
+        <form action="">
+            <input id="chat_form" autocomplete="off" />
+            <button>SEND</button>
+        </form>
+        <script src="bootstrap/dist/js/socket.io.js"></script>
         <script type="text/javascript">
         // Connect to the socket.io server
-        var socket = io.connect('http://localhost:3003');
-        // Wait for data from the server
-        socket.on('output', function(data) {
-            // Insert some line breaks where they belong
-            data = data.replace("\n", "<br>");
-            data = data.replace("\r", "<br>");
-            // Append the data to our terminal
-            $('.terminal').append(data);
-        });
-        // Listen for user input and pass it to the server
-        $(document).on("keypress", function(e) {
-            var char = String.fromCharCode(e.which);
-            socket.emit("input", char);
+        $(function() {
+            var socket = io();
+            // Wait for data from the server
+            $('form').submit(function() {
+                socket.emit('data', $('#chat_form').val());
+                $('#chat_form').val('');
+                return false;
+            });
         });
         </script>
-        <h1>SSH</h1>
-        <div class="terminal">
-        </div>
+    </div>
 </body>
 
 </html>

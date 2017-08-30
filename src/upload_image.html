@@ -45,14 +45,14 @@
         
         <script type="text/javascript">
 
-function toInitiatization() {
+function JpgToPng() {
             $.ajax({
                 type: "GET",
-                url: '/toInitiatization',
+                url: '/JpgToPng',
                  cache: false,
                  async: "true",
                 complete: function() {
-                    console.log('received toInitiatization');
+                    console.log('received JpgToPng');
                 }
             });
         }
@@ -175,7 +175,7 @@ $(document).ready(function() {
                         <div id=imageList> </div>
                     </div>
                     <div>
-                        <button class="button" onclick="toInitiatization()">Initiatization</button>
+                        <button class="button" onclick="JpgToPng()">JpgToPng</button>
                     </div>
                 </div>
             </div>

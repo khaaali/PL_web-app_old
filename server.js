@@ -21,6 +21,10 @@ var shell = require('shelljs');
 const exec = require('child_process').exec;
 
 
+//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
+//var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
+var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+
 if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
     shell.exit(1);
@@ -70,12 +74,12 @@ io.on('connection', function(socket) {
 // When a new socket connects
 io.on('connection', function(socket) {
     // Create terminal
-    
+
     // Listen on the terminal for output and send it to the client
-    
+
     // Listen on the client and send any input to the terminal
     socket.on('data', function(data) {
-    	console.log('im here')
+        console.log('im here')
         console.log(data);
         shell.exec(data)
 
@@ -92,9 +96,7 @@ io.on('connection', function(socket) {
 
 app.use(express.static(path.join(__dirname, 'src')));
 
-var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
-//var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
-//var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+
 
 var storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -102,7 +104,7 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, callback) {
         console.log(file.mimetype)
-         if (file.mimetype == 'image/png' || file.mimetype == 'image/jpeg') {
+        if (file.mimetype == 'image/png' || file.mimetype == 'image/jpeg') {
             callback(null, file.originalname);
         } else {
             callback(new Error('I don\'t have a clue!'));
@@ -174,58 +176,58 @@ app.get("/upload_showImageList", function(req, res, next) {
 app.get("/upload_image/:imageId", function(req, res) {
     console.log(req.params.imageId);
     var id = req.params.imageId;
-    var command="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+id
+    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
     //console.log(t);
     //var t= "dir"
     var child = exec(command, { async: true });
     child.stdout.on('data', function(data) {
-       //console.log(data)
-        
+        //console.log(data)
+
     });
-    
+
     //root*/
     shell.echo(command)
     res.setHeader("Content-Type", "text/html");
-   res.redirect('/upload_image');
+    res.redirect('/upload_image');
     //shell.exec(command,{ silent: true })
 });
 
 
 
-app.post('/upload', function (req, res){
-  var form = new formidable.IncomingForm();
-  form.multiples = true
-  form.keepExtensions = true
-  form.parse(req, function(err, fields, files) {
-   // res.writeHead(200, {'content-type': 'text/plain'});
-   // res.write('received upload:\n\n');
-   // res.end(util.inspect({fields: fields, files: files}));
-   // res.setHeader("Content-Type", "text/html");
-  });
-
-  form.on('end', function(fields, files) {
-   // Temporary location of our uploaded file 
-   console.log('in upload')
-    console.log(this.openedFiles)
-
-    
-    for (var img in this.openedFiles){
-    var temp_path = this.openedFiles[img].path;
-    //The file name of the uploaded file 
-    var file_name = this.openedFiles[img].name;
-   // Location where we want to copy the uploaded file
-    var new_location = imageDir ;
-    fs.copy(temp_path, new_location + file_name, function(err) {  
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("success!")
-        
-      }
+app.post('/upload', function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.multiples = true
+    form.keepExtensions = true
+    form.parse(req, function(err, fields, files) {
+        // res.writeHead(200, {'content-type': 'text/plain'});
+        // res.write('received upload:\n\n');
+        // res.end(util.inspect({fields: fields, files: files}));
+        // res.setHeader("Content-Type", "text/html");
     });
-}
-  });
- res.redirect('/upload_image');
+
+    form.on('end', function(fields, files) {
+        // Temporary location of our uploaded file 
+        console.log('in upload')
+        console.log(this.openedFiles)
+
+
+        for (var img in this.openedFiles) {
+            var temp_path = this.openedFiles[img].path;
+            //The file name of the uploaded file 
+            var file_name = this.openedFiles[img].name;
+            // Location where we want to copy the uploaded file
+            var new_location = imageDir;
+            fs.copy(temp_path, new_location + file_name, function(err) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log("success!")
+
+                }
+            });
+        }
+    });
+    res.redirect('/upload_image');
 });
 
 
@@ -248,25 +250,25 @@ app.get("/shell", function(req, res) {
 });
 
 
-app.get("/toInitiatization", function(req, res) {
-    //res.setHeader("Content-Type", "text/html");
-    console.log("received slideshow");
-
-  /*   getImages(imageDir, function(err, files) {
-       // console.log(files)
+app.get("/JpgToPng", function(req, res) {
+    console.log("received JpgToPng");
+    var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' " 
+    getJpg(imageDir, function(err, files) {
         for (var i = 0; i < files.length; i++) {
-             //console.log(files[i]);
-            CurrentImage=imageDir+files[i];
-            console.log('CurrentImage');
-            console.log(CurrentImage);
-           var command="BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/"+CurrentImage
-           var child = exec(command, { async: true });
-        child.stdout.on('data', function(data) {
-         console.log(data)
+            console.log(files[i]);
+            var command =convert+imageDir + files[i] +" "+imageDir+"image" + i + ".png";
+            console.log(command)
+          	 shell.exec(command);
 
-         });
-    }
-}); */
+        }
+
+    });
+
+
+
+
+
+
 });
 
 
@@ -288,13 +290,13 @@ module.exports = app; //added
 // filter to show only png from demo_images folder in html page
 function getImages(imageDir, callback) {
     var fileType1 = '.png',
-	fileType2 = '.jpeg',
-	fileType3 = '.jpg',
+        fileType2 = '.jpeg',
+        fileType3 = '.jpg',
         files = [],
         i;
     fs.readdir(imageDir, function(err, list) {
         for (i = 0; i < list.length; i++) {
-           if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
+            if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
                 files.push(list[i]); //store the file name into the array files
             }
         }
@@ -303,7 +305,24 @@ function getImages(imageDir, callback) {
 }
 
 
+
+function getJpg(imageDir, callback) {
+    var fileType3 = '.jpg',
+        fileType2 = '.jpeg',
+        files = [],
+        i;
+    fs.readdir(imageDir, function(err, list) {
+        for (i = 0; i < list.length; i++) {
+            if (path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
+                files.push(list[i]); //store the file name into the array files
+            }
+        }
+        callback(err, files);
+    });
+}
+
+
+
 function redirectRouterUploadPage(req, res) {
     res.sendFile(__dirname + '/src/upload_image.html');
 }
-

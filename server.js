@@ -31,46 +31,6 @@ if (!shell.which('git')) {
 }
 
 
-/*
-var term2 = pty.spawn('bash', [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.HOME,
-    env: process.env
-});
-
-term2.on('data', function(data) {
-    console.log(data);
-});
-
-io.on('connection', function(socket) {
-    // Create terminal
-    var term = pty.spawn('sh', [], {
-        name: 'xterm-color',
-        cols: 80,
-        rows: 60,
-        cwd: process.env.HOME,
-        env: process.env
-    });
-    // Listen on the terminal for output and send it to the client
-    term.on('data', function(data) {
-        socket.emit('output', data);
-    });
-    // Listen on the client and send any input to the terminal
-    socket.on('message', function(data) {
-        console.log(data);
-    });
-    // When socket disconnects, destroy the terminal
-    socket.on("disconnect", function() {
-        term.destroy();
-        console.log("bye");
-    });
-});
-
-
-*/
-
 // When a new socket connects
 io.on('connection', function(socket) {
     // Create terminal
@@ -113,13 +73,6 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage }).any();
-
-
-
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use('/', require('./routes/index')); //added
-
 
 
 app.get("/", function(req, res) {
@@ -256,20 +209,24 @@ app.get("/JpgToPng", function(req, res) {
     getJpg(imageDir, function(err, files) {
         for (var i = 0; i < files.length; i++) {
             console.log(files[i]);
-            var command =convert+imageDir + files[i] +" "+imageDir+"image" + i + ".png";
-            console.log(command)
+            var nameImg= files[i]
+            var ImgName=nameImg.split('.jpg')[0]
+            console.log(ImgName)
+            var command =convert+imageDir + files[i] +" "+imageDir+ImgName+ ".png";
+            console.log(command);
           	 shell.exec(command);
+             console.log(i);
+             console.log(files.length+'im here');
+             console.log('deleting files'+files[i]);
+             fs.unlink(imageDir + files[i]);
 
         }
 
     });
-
-
-
-
-
-
+    res.setHeader("Content-Type", "text/html");
+    res.redirect('/upload_image');
 });
+
 
 
 app.get('*', function(req, res) {

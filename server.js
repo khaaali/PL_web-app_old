@@ -24,7 +24,7 @@ const exec = require('child_process').exec;
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
 //var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
 var imageDir = "/home/PL_web-app/src/assets/demo_images/"
-var imageDir2="/home/PL_web-app/src/bootstrap/"
+var imageDir2 = "/home/PL_web-app/src/bootstrap/"
 
 if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
@@ -206,21 +206,44 @@ app.get("/shell", function(req, res) {
 
 app.get("/JpgToPng", function(req, res) {
     console.log("received JpgToPng");
-    var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' " 
+
+    var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
+    var convert_b = "convert -quality 100% -rotate '-90<' "
+    var identify_1 = "identify -format '%P'"
+
     getJpg(imageDir, function(err, files) {
         for (var i = 0; i < files.length; i++) {
             console.log(files[i]);
-            var nameImg= files[i]
-            var ImgName=nameImg.split('.jpg')[0]
+            var nameImg = files[i]
+            var ImgName = nameImg.split('.jpg')[0]
             console.log(ImgName)
-            var command =convert+imageDir + files[i] +" "+imageDir+ImgName+ ".png";
-            console.log(command);
-          	 shell.exec(command);
-             console.log(i);
-             console.log(files.length+'im here');
-             console.log('deleting files'+files[i]);
-             fs.unlink(imageDir + files[i]);
+            var command_1 = identify_1 + " " + imageDir + nameImg
+            console.log(command_1);
+            var resloution = shell.exec(command_1);
+            console.log(resloution.split('x'));
+            W = resloution.split('x')[0];
+            H = resloution.split('x')[1];
+            console.log(W, H);
 
+            if (W < 1023 && H < 767) {
+                var command_2 = convert_b + imageDir + files[i] + " " + imageDir + ImgName + ".png";
+                console.log(command_2);
+                shell.exec(command_2);
+                console.log(i);
+                console.log(files.length + 'im here');
+                console.log('deleting files' + files[i]);
+                fs.unlink(imageDir + files[i]);
+            } 
+
+            else {
+                var command_3 = convert_a + imageDir + files[i] + " " + imageDir + ImgName + ".png";
+                console.log(command_3);
+                shell.exec(command_3);
+                console.log(i);
+                console.log(files.length + 'im here');
+                console.log('deleting files' + files[i]);
+                fs.unlink(imageDir + files[i]);
+            }
         }
 
     });
@@ -231,31 +254,29 @@ app.get("/JpgToPng", function(req, res) {
 
 app.get("/Scaling", function(req, res) {
     console.log("received Scaling");
-    var identify = "identify -format '%P'" 
+    var identify = "identify -format '%P'"
 
     getImages(imageDir, function(err, files) {
         for (var i = 0; i < files.length; i++) {
             console.log(files[i]);
-            var nameImg= files[i]
-            var command =identify+" "+imageDir+nameImg
+            var nameImg = files[i]
+            var command = identify + " " + imageDir + nameImg
             console.log(command);
-             var resloution= shell.exec(command);
-             console.log(resloution.split('x'));
-                W=resloution.split('x')[0];
-                H=resloution.split('x')[1];
-             console.log(W,H);
-             if(W < 1280 && H < 960){
-                var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' " ;
-                var command =convert+imageDir + nameImg +" "+imageDir+nameImg;
-            console.log(command);
-            shell.exec(command);
-            scale="convert"+" "+imageDir2+"black_1280x960.png"+" "+imageDir+nameImg+" -geometry +320+240 -composite "+imageDir+nameImg
-             console.log(scale);
-            shell.exec(scale);
-           
+            var resloution = shell.exec(command);
+            console.log(resloution.split('x'));
+            W = resloution.split('x')[0];
+            H = resloution.split('x')[1];
+            console.log(W, H);
+            if (W < 1280 || H < 960 ) {
+                var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
+                var command = convert + imageDir + nameImg + " " + imageDir + nameImg;
+                console.log(command);
+                shell.exec(command);
+                scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
+                console.log(scale);
+                shell.exec(scale);
 
-
-             }
+            }
 
 
         }

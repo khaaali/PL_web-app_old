@@ -337,6 +337,22 @@ app.get("/displayimagee",function(req,res){
 });
 
 
+/*
 
+var storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, "src/assets/demo_images/");
+    },
+    filename: function(req, file, callback) {
+        console.log(file.mimetype)
+        if (file.mimetype == 'image/png' || file.mimetype == 'image/jpeg') {
+            callback(null, file.originalname);
+        } else {
+            callback(new Error('I don\'t have a clue!'));
+        }
+    }
+});
+var upload = multer({ storage: storage }).any();
 
 */
+

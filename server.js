@@ -24,6 +24,7 @@ const exec = require('child_process').exec;
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\app\\src\\assets\\demo_images\\";
 //var imageDir = "/home/sairam/Desktop/pl/PL_web-app/src/assets/demo_images/"
 var imageDir = "/home/PL_web-app/src/assets/demo_images/"
+var imageDir2="/home/PL_web-app/src/bootstrap/"
 
 if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
@@ -226,6 +227,45 @@ app.get("/JpgToPng", function(req, res) {
     res.setHeader("Content-Type", "text/html");
     res.redirect('/upload_image');
 });
+
+
+app.get("/Scaling", function(req, res) {
+    console.log("received Scaling");
+    var identify = "identify -format '%P'" 
+
+    getImages(imageDir, function(err, files) {
+        for (var i = 0; i < files.length; i++) {
+            console.log(files[i]);
+            var nameImg= files[i]
+            var command =identify+" "+imageDir+nameImg
+            console.log(command);
+             var resloution= shell.exec(command);
+             console.log(resloution.split('x'));
+                W=resloution.split('x')[0];
+                H=resloution.split('x')[1];
+             console.log(W,H);
+             if(W < 1280 && H < 960){
+                var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' " ;
+                var command =convert+imageDir + nameImg +" "+imageDir+nameImg;
+            console.log(command);
+            shell.exec(command);
+            scale="convert"+" "+imageDir2+"black_1280x960.png"+" "+imageDir+nameImg+" -geometry +320+240 -composite "+imageDir+nameImg
+             console.log(scale);
+            shell.exec(scale);
+           
+
+
+             }
+
+
+        }
+
+    });
+    res.setHeader("Content-Type", "text/html");
+    res.redirect('/upload_image');
+});
+
+
 
 
 

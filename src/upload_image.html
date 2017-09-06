@@ -42,20 +42,31 @@
                 </div>
             </nav>
         </div>
-        
         <script type="text/javascript">
-
-function JpgToPng() {
+        function JpgToPng() {
             $.ajax({
                 type: "GET",
                 url: '/JpgToPng',
-                 cache: false,
-                 async: "true",
+                cache: false,
+                async: "true",
                 complete: function() {
                     console.log('received JpgToPng');
                 }
             });
         }
+
+        function Scaling() {
+            $.ajax({
+                type: "GET",
+                url: '/Scaling',
+                cache: false,
+                async: "true",
+                complete: function() {
+                    console.log('received Scaling');
+                }
+            });
+        }
+
 
 
 
@@ -74,11 +85,11 @@ function JpgToPng() {
                 for (i = 0; i < imagelist.length; i++) {
 
                     //var imgName = "<a href= 'javascript:void(0)' class='imageClicked' >" + imagelist[i] + "</a> "
-                      ////console.log(imgName);
+                    ////console.log(imgName);
                     var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
                     ////var imgName =  imagelist[i] 
-                      console.log(imgName); 
-                    list += "<li>" + imgName  + "<div class='deleteMe'> X</div>" + "</li>";
+                    console.log(imgName);
+                    list += "<li>" + imgName + "<div class='deleteMe'> X</div>" + "</li>";
                     ////list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
                     ////console.log(list);
                 }
@@ -88,7 +99,7 @@ function JpgToPng() {
 
 
 
-$(document).ready(function() {
+        $(document).ready(function() {
 
             $(".imageClicked").on("click", function() {
                 console.log($(this).closest("a")[0].innerText);
@@ -113,9 +124,9 @@ $(document).ready(function() {
                 }
 
             });
-});
+        });
 
-                
+
 
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {
@@ -146,16 +157,7 @@ $(document).ready(function() {
 
             });
         });
-
-        
-
-
-
-
-
-
         </script>
-
         <div class="center">
             <div class="row">
                 <div class="col-xs-4 well ">
@@ -174,11 +176,14 @@ $(document).ready(function() {
                     <div class="scrollbar" id="style-1">
                         <div id=imageList> </div>
                     </div>
-                    <div>
-                        <button class="button" onclick="JpgToPng()">JpgToPng</button>
-                    </div>
+                    <button type="button" class="btn btn-success" onclick="JpgToPng()" >JpgToPng</button>
+                 <button type="button" class="btn btn-success" onclick="Scaling()">Scale Image</button>
+               
                 </div>
+               
+                
             </div>
+           
         </div>
     </div>
 </body>

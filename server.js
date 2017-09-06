@@ -92,13 +92,13 @@ app.get("/upload_image", function(req, res) {
 
 
 app.get("/display_img2", function(req, res) {
-    res.sendFile(__dirname + '/src/display_img2.html');
-    //res.redirect('/upload_image');
+    //res.sendFile(__dirname + '/src/display_img2.html');
+    res.redirect('/upload_image');
 });
 
 app.get("/console", function(req, res) {
-    res.sendFile(__dirname + '/src/console.html');
-    //res.redirect('/upload_image');
+    //res.sendFile(__dirname + '/src/console.html');
+    res.redirect('/upload_image');
 });
 
 

@@ -43,6 +43,7 @@
             </nav>
         </div>
         <script type="text/javascript">
+        // sends routes to '/JpgToPng' on the server side
         function JpgToPng() {
             $.ajax({
                 type: "GET",
@@ -54,6 +55,7 @@
                 }
             });
         }
+        // sends routes to '/Scaling' on the server side
 
         function Scaling() {
             $.ajax({
@@ -69,7 +71,7 @@
 
 
 
-
+        // sends routes to '/upload_showImageList' on the server side
         $.ajax({
             url: '/upload_showImageList',
             type: "GET",
@@ -81,17 +83,17 @@
                 var imagelist = data.responseJSON
                 var list = "";
                 var routesImage = "/upload_image/";
-
+                // displays image list with delete as X
                 for (i = 0; i < imagelist.length; i++) {
 
                     //var imgName = "<a href= 'javascript:void(0)' class='imageClicked' >" + imagelist[i] + "</a> "
-                    ////console.log(imgName);
+                    //console.log(imgName);
                     var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
-                    ////var imgName =  imagelist[i] 
+                    //var imgName =  imagelist[i] 
                     console.log(imgName);
                     list += "<li>" + imgName + "<div class='deleteMe'> X</div>" + "</li>";
-                    ////list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
-                    ////console.log(list);
+                    //list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
+                    //console.log(list);
                 }
                 $("#imageList").append("<ol>" + list + "</ol>");
             }
@@ -100,7 +102,7 @@
 
 
         $(document).ready(function() {
-
+            // on clicking the image the request is sent to server to drive particular image in the list
             $(".imageClicked").on("click", function() {
                 console.log($(this).closest("a")[0].innerText);
                 console.log('im here1')
@@ -127,7 +129,7 @@
         });
 
 
-
+        // on delete X request is sent to server to delete the particular image
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {
                 //console.log($(this).closest("li")[0].innerText);
@@ -176,14 +178,10 @@
                     <div class="scrollbar" id="style-1">
                         <div id=imageList> </div>
                     </div>
-                    <button type="button" class="btn btn-success" onclick="JpgToPng()" >JpgToPng</button>
-                 <button type="button" class="btn btn-success" onclick="Scaling()">Scale Image</button>
-               
+                    <button type="button" class="btn btn-success" onclick="JpgToPng()">JpgToPng</button>
+                    <button type="button" class="btn btn-success" onclick="Scaling()">Scale Image</button>
                 </div>
-               
-                
             </div>
-           
         </div>
     </div>
 </body>

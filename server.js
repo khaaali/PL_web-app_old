@@ -1,6 +1,5 @@
 /** 
-This is a server application for handling the Plastic Logic web application 
-to upload and drive the display and includes routing.
+This is a server application for handling the Plastic Logic web application to upload and drive the EPD display.
 
 **/
 
@@ -23,7 +22,7 @@ var shell = require('shelljs');
 const exec = require('child_process').exec;
 
 
-/* Image directories for uploding and retrieving images */
+/* Image directories used for uploding and retrieving images */
 
 var imageDir = "/home/PL_web-app/src/assets/demo_images/";
 var imageDir2 = "/home/PL_web-app/src/bootstrap/";
@@ -35,14 +34,14 @@ if (!shell.which('git')) {
 }
 
 /*
-Sockets are used in console view of the application to communicate with the termial  
+Sockets are used for developing console application, used to communicate with the termial  
 */
 
 // When a new socket connects
 io.on('connection', function(socket) {
 
     /*
-     Create terminal
+     Creates terminal
      Listen on the terminal for output and send it to the client
      Listen on the client and send any input to the terminal 
      */
@@ -60,7 +59,7 @@ io.on('connection', function(socket) {
 
 
 /*
-Routes to render views in application
+Routes of application and rendering views 
 */
 
 app.use(express.static(path.join(__dirname, 'src')));
@@ -204,7 +203,7 @@ conversions to JPG to PNG, rotation and scaling methods work with imageImagik li
             } 
 
             else {
-                // upon satisfining the condition image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
                 var command_3 = convert_a + imageDir + files[i] + " " + imageDir + ImgName + ".png";
                 console.log(command_3);
                 shell.exec(command_3);
@@ -260,7 +259,7 @@ app.get('*', function(req, res) {
 
 console.log('Listening on localhost port 3003');
 
-module.exports = app; //added
+module.exports = app; 
 
 // filter to retrieve png,jpeg,jpg images from /demo_images folder 
 function getImages(imageDir, callback) {

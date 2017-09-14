@@ -135,6 +135,10 @@ app.post('/upload', function(req, res) {
     form.parse(req, function(err, fields, files) {
 
     });
+    form.on('end', function() {
+        res.end('success');
+
+    });
 
     form.on('file', function(field, file) {
         // Temporary location of uploaded file 
@@ -146,89 +150,90 @@ app.post('/upload', function(req, res) {
         console.log(files.length)
         console.log(files)
         //for (var img = 0; img < files.length; img++) {
-            var temp_path = file.path;
-            console.log('here1')
-            console.log(temp_path)
-            //The file name of the uploaded file 
-            console.log('here2')
-            var file_name = file.name;
-            console.log('here3')
-            console.log(file_name)
-            // Location where we want to copy the uploaded file
-            var new_location = imageDir;
-            fs.copy(temp_path, new_location + file_name, function(err) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    console.log("success!", new_location + file_name)
-                    var extention = file_name.split('.').pop();
-                    console.log(extention)
-                    // image magik commands for conversion to JPG to PNG and scaling of images
-                    var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
-                    var convert_b = "convert -quality 100% -rotate '-90<' "
-                    var convert_c = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
-                    var identify_1 = "identify -format '%P'"
+        var temp_path = file.path;
+        console.log('here1')
+        console.log(temp_path)
+        //The file name of the uploaded file 
+        console.log('here2')
+        var file_name = file.name;
+        console.log('here3')
+        console.log(file_name)
+        // Location where we want to copy the uploaded file
+        var new_location = imageDir;
+        fs.copy(temp_path, new_location + file_name, function(err) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("success!", new_location + file_name)
+                var extention = file_name.split('.').pop();
+                console.log(extention)
+                // image magik commands for conversion to JPG to PNG and scaling of images
+                var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
+                var convert_b = "convert -quality 100% -rotate '-90<' "
+                var convert_c = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
+                var identify_1 = "identify -format '%P'"
 
-                    if (extention == 'jpg') {
-                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
-                        console.log(ImgName)
-                        var command_1 = identify_1 + " " + imageDir + file_name
-                        console.log(command_1);
+                if (extention == 'jpg') {
+                    var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                    console.log(ImgName)
+                    var command_1 = identify_1 + " " + imageDir + file_name
+                    console.log(command_1);
 
-                        // executing the command on linux termnial using shell.exec(...)
+                    // executing the command on linux termnial using shell.exec(...)
 
-                        var resloution = shell.exec(command_1);
-                        console.log(resloution.split('x'));
-                        W = resloution.split('x')[0]; // parsing width of image
-                        H = resloution.split('x')[1]; // parsing height of image
-                        console.log(W, H);
-                        if (W < 1023 || H < 767) {
-                            // upon satisfining the condition, if necesary image is rotated and converted from JPG to PNG by scaling it down to 640x480
-                            var command_2 = convert_c + imageDir + file_name + " " + imageDir + ImgName + ".png";
-                            console.log(command_2);
-                            shell.exec(command_2);
-                            // uploaded image is overlayed with black image and centers are matched
-                            scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +320+240 -composite " + imageDir + ImgName + ".png"
-                            console.log(scale);
-                            shell.exec(scale);
-                            console.log('deleting files' + file_name);
-                            fs.unlink(imageDir + file_name); // for deleting the files
+                    var resloution = shell.exec(command_1);
+                    console.log(resloution.split('x'));
+                    W = resloution.split('x')[0]; // parsing width of image
+                    H = resloution.split('x')[1]; // parsing height of image
+                    console.log(W, H);
+                    if (W < 1023 || H < 767) {
+                        // upon satisfining the condition, if necesary image is rotated and converted from JPG to PNG by scaling it down to 640x480
+                        var command_2 = convert_c + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                        console.log(command_2);
+                        shell.exec(command_2);
+                        // uploaded image is overlayed with black image and centers are matched
+                        scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +320+240 -composite " + imageDir + ImgName + ".png"
+                        console.log(scale);
+                        shell.exec(scale);
+                        console.log('deleting files' + file_name);
+                        fs.unlink(imageDir + file_name); // for deleting the files
 
-                        } else {
-                            // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
-                            var command_3 = convert_a + imageDir + file_name + " " + imageDir + ImgName + ".png";
-                            console.log(command_3);
-                            shell.exec(command_3);
-                            console.log('deleting files' + file_name);
-                            fs.unlink(imageDir + file_name); // for deleting the files
-                        }
-                    } else if (extention == 'png') {
-
-                        var nameImg = file_name
-                        var command_4 = identify_1 + " " + imageDir + nameImg
-                        console.log(command_4);
-                        var resloution = shell.exec(command_4);
-                        console.log(resloution.split('x'));
-                        W = resloution.split('x')[0];
-                        H = resloution.split('x')[1];
-                        console.log(W, H);
-                        if (W < 1280 || H < 960) {
-                            // upon satisfining the condition image is rotated if necesary and resized to 640x480
-                            var command_5 = convert_c + imageDir + nameImg + " " + imageDir + nameImg;
-                            console.log(command_5);
-                            shell.exec(command_5);
-                            // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
-                            scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
-                            console.log(scale);
-                            shell.exec(scale);
-                        }
+                    } else {
+                        // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                        var command_3 = convert_a + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                        console.log(command_3);
+                        shell.exec(command_3);
+                        console.log('deleting files' + file_name);
+                        fs.unlink(imageDir + file_name); // for deleting the files
                     }
+                } else if (extention == 'png') {
 
-
+                    var nameImg = file_name
+                    var command_4 = identify_1 + " " + imageDir + nameImg
+                    console.log(command_4);
+                    var resloution = shell.exec(command_4);
+                    console.log(resloution.split('x'));
+                    W = resloution.split('x')[0];
+                    H = resloution.split('x')[1];
+                    console.log(W, H);
+                    if (W < 1280 || H < 960) {
+                        // upon satisfining the condition image is rotated if necesary and resized to 640x480
+                        var command_5 = convert_c + imageDir + nameImg + " " + imageDir + nameImg;
+                        console.log(command_5);
+                        shell.exec(command_5);
+                        // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
+                        scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
+                        console.log(scale);
+                        shell.exec(scale);
+                    }
                 }
-            });
-       // }
+
+
+            }
+        });
+        // }
     });
+    res.setHeader("Content-Type", "text/html");
     res.redirect('/upload_image');
 });
 

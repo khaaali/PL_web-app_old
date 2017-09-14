@@ -10,6 +10,7 @@
     <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/upload.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
 <!-- NAVBAR
@@ -43,32 +44,6 @@
             </nav>
         </div>
         <script type="text/javascript">
-        function JpgToPng() {
-            $.ajax({
-                type: "GET",
-                url: '/JpgToPng',
-                cache: false,
-                async: "true",
-                complete: function() {
-                    console.log('received JpgToPng');
-                }
-            });
-        }
-
-        function Scaling() {
-            $.ajax({
-                type: "GET",
-                url: '/Scaling',
-                cache: false,
-                async: "true",
-                complete: function() {
-                    console.log('received Scaling');
-                }
-            });
-        }
-
-
-
         $.ajax({
             url: '/upload_showImageList',
             type: "GET",
@@ -88,7 +63,7 @@
                     var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
                     //var imgName =  imagelist[i] 
                     console.log(imgName);
-                    list += "<li>" + imgName + "<div class='deleteMe'> X</div>" + "</li>";
+                    list += "<li>" + imgName + "<a href= 'javascript:void(0)' class='deleteMe'> X</a> " + "</li>";
                     //list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
                     //console.log(list);
                 }
@@ -98,7 +73,7 @@
 
 
 
-       
+
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {
                 //console.log($(this).closest("li")[0].innerText);
@@ -131,8 +106,8 @@
 
 
 
-        
-            
+
+
 
         $(document).ready(function() {
             $(".imageClicked").on("click", function() {
@@ -159,32 +134,39 @@
 
             });
         });
-
         </script>
-        <div class="center">
-            <div class="row">
-                <div class="col-xs-4 well ">
-                    <form action="/upload" enctype="multipart/form-data" method="post"> <strong>Upload image</strong>
-                        <br>
-                        <br>
-                        <input multiple="multiple" name="upload" type="file" />
-                        <br>
-                        <input type="submit" value="Upload" />
-                    </form>
+        <div id="wrapper">
+            <div class="center">
+                <div class="row">
+                    <div class="col-xs-4 well ">
+                        <h2>Image Uploader</h2>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <button class="btn btn-lg upload-btn" type="button">Upload</button>
+                    </div>
+                    <input id="upload-input" type="file" name="uploads[]" multiple="multiple" accept="image/jpeg, image/png">
+                    </br>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <h3>Uploaded Images</h3>
+                        <div class="scrollbar" id="style-1">
+                            <div id=imageList> </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <h3>Uploaded Images</h3>
-                    <div class="scrollbar" id="style-1">
-                        <div id=imageList> </div>
-                    </div>
-                    <button type="button" class="btn btn-success" onclick="JpgToPng()">JpgToPng</button>
-                    <button type="button" class="btn btn-success" onclick="Scaling()">Scale Image</button>
+            <div id="footerwrap">
+                <div id="footer">
+                    <p>Footer</p>
                 </div>
             </div>
         </div>
     </div>
+    <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/upload.js"></script>
 </body>
 
 </html>

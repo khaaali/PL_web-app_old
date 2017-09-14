@@ -251,3 +251,45 @@ iewports */
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+#footerwrap {
+    width: 100%;
+    float: left;
+    margin: 0 auto;
+    clear: both;
+}
+
+#footer {
+    height: 40px;
+    background: #303030;
+    border-radius: 10px;
+    border: 1px solid #ebebeb;
+    margin: 5px;
+}
+
+#wrapper {
+    width: 100%;
+    min-width: 1000px;
+    max-width: 2000px;
+    margin: auto;
+}
+
+
+.upload-btn {
+  color: #ffffff;
+  background-color: #F89406;
+  border: none;
+}
+
+.upload-btn:hover,
+.upload-btn:focus,
+.upload-btn:active,
+.upload-btn.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
+#upload-input {
+  display: none;
+}
+

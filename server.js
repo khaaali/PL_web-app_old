@@ -16,7 +16,7 @@ var express = require("express"),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser');
 var http = require('http');
-var server = http.createServer(app).listen(3003);
+var server = http.createServer(app).listen(80);
 var io = require('socket.io')(server);
 var shell = require('shelljs');
 const exec = require('child_process').exec;
@@ -27,6 +27,7 @@ const exec = require('child_process').exec;
 var imageDir = "/home/PL_web-app/src/assets/demo_images/";
 var imageDir2 = "/home/PL_web-app/src/bootstrap/";
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
+var waveDir = "/mnt/data/override/"
 
 if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
@@ -79,8 +80,8 @@ app.get("/upload_image", function(req, res) {
 });
 
 app.get("/display", function(req, res) {
-    //res.sendFile(__dirname + '/src/display.html');
-    res.redirect('/upload_image');
+    res.sendFile(__dirname + '/src/display.html');
+    //res.redirect('/upload_image');
 });
 
 app.get("/console", function(req, res) {
@@ -126,7 +127,7 @@ app.get("/upload_image/:imageId", function(req, res) {
 
 
 
-app.post('/upload', function(req, res) {
+app.post('/uploadImage', function(req, res) {
     var form = new formidable.IncomingForm();
     form.multiples = true
     form.keepExtensions = true
@@ -173,7 +174,7 @@ app.post('/upload', function(req, res) {
                 var convert_c = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
                 var identify_1 = "identify -format '%P'"
 
-                if (extention == 'jpg') {
+                if (extention == 'jpg' || extention == 'jpeg') {
                     var ImgName = file_name.split('.jpg')[0] // spliting the file name
                     console.log(ImgName)
                     var command_1 = identify_1 + " " + imageDir + file_name
@@ -238,94 +239,47 @@ app.post('/upload', function(req, res) {
 });
 
 
-app.get("/displayimage/:Id", function(req, res) {
-    console.log(req.params.Id);
-    var id = req.params.Id;
-    res.json(id);
+app.get("/toInitiatization", function(req, res) {
+    console.log('received Initiatization');
+    var init_command = " BBepdcULD -start_epdc 0 1"
+    shell.exec(init_command);
 });
 
 
-app.get("/JpgToPng", function(req, res) {
-    console.log("received JpgToPng");
-
-    /*
-    conversions to JPG to PNG, rotation and scaling methods work with imageImagik library on linux 
-    */
-    var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
-    var convert_b = "convert -quality 100% -rotate '-90<' "
-    var identify_1 = "identify -format '%P'"
-
-    getJpg(imageDir, function(err, files) {
-        for (var i = 0; i < files.length; i++) {
-            console.log(files[i]);
-            var nameImg = files[i]
-            var ImgName = nameImg.split('.jpg')[0] // spliting the file name
-            console.log(ImgName)
-            var command_1 = identify_1 + " " + imageDir + nameImg
-            console.log(command_1);
-
-            // executing the command on linux termnial using shell.exec(...)
-
-            var resloution = shell.exec(command_1);
-            console.log(resloution.split('x'));
-            W = resloution.split('x')[0]; // parsing width of image
-            H = resloution.split('x')[1]; // parsing height of image
-            console.log(W, H);
-
-
-            if (W < 1023 && H < 767) {
-                // upon satisfining the condition image is rotated if necesary and converted from JPG to PNG
-                var command_2 = convert_b + imageDir + files[i] + " " + imageDir + ImgName + ".png";
-                console.log(command_2);
-                shell.exec(command_2);
-                console.log(files.length + 'im here');
-                console.log('deleting files' + files[i]);
-                fs.unlink(imageDir + files[i]); // for deleting the files
-            } else {
-                // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
-                var command_3 = convert_a + imageDir + files[i] + " " + imageDir + ImgName + ".png";
-                console.log(command_3);
-                shell.exec(command_3);
-                console.log(files.length + 'im here');
-                console.log('deleting files' + files[i]);
-                fs.unlink(imageDir + files[i]); // for deleting the files
-            }
-        }
+app.post("/uploadWaveform", function(req, res) {
+    console.log('received uploadWaveform');
+    var form = new formidable.IncomingForm();
+    form.multiples = true
+    form.keepExtensions = true
+    files = [];
+    //fields = [];
+    form.parse(req, function(err, fields, files) {
 
     });
-    res.setHeader("Content-Type", "text/html");
-    res.redirect('/upload_image');
-});
+    form.on('end', function() {
+        res.end('success');
 
+    });
 
-app.get("/Scaling", function(req, res) {
-    console.log("received Scaling");
+    form.on('file', function(field, file) {
+        // Temporary location of uploaded file 
 
-    var identify = "identify -format '%P'" // uses imagemagik to determine the Width and Height of image
-
-    getImages(imageDir, function(err, files) {
-        for (var i = 0; i < files.length; i++) {
-            console.log(files[i]);
-            var nameImg = files[i]
-            var command = identify + " " + imageDir + nameImg
-            console.log(command);
-            var resloution = shell.exec(command);
-            console.log(resloution.split('x'));
-            W = resloution.split('x')[0];
-            H = resloution.split('x')[1];
-            console.log(W, H);
-            if (W < 1280 || H < 960) {
-                // upon satisfining the condition image is rotated if necesary and resized to 640x480
-                var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
-                var command = convert + imageDir + nameImg + " " + imageDir + nameImg;
-                console.log(command);
-                shell.exec(command);
-                // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
-                scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
-                console.log(scale);
-                shell.exec(scale);
+        console.log(field, file);
+        files.push(file);
+        //for (var img = 0; img < files.length; img++) {
+        var temp_path = file.path;
+        //The file name of the uploaded file 
+        var file_name = file.name;
+        // Location where we want to copy the uploaded file
+        var new_location = waveDir;
+        fs.copy(temp_path, new_location + file_name, function(err) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("success!", new_location + file_name);
             }
-        }
+        });
+        // }
     });
     res.setHeader("Content-Type", "text/html");
     res.redirect('/upload_image');
@@ -336,7 +290,7 @@ app.get('*', function(req, res) {
     res.sendFile(__dirname + '/src/index.html');
 });
 
-console.log('Listening on localhost port 3003');
+console.log('Listening on localhost port 80');
 
 module.exports = app;
 

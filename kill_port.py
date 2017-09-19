@@ -2,7 +2,7 @@ import os
 import subprocess
 import re
 
-ports = ['3003']
+ports = ['80']
 
 
 popen = subprocess.Popen(['netstat', '-lpn'],

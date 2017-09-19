@@ -37,6 +37,25 @@ body {
 
 }
 
+.button1 {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+   
+}
+
+.button2 {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    
+}
 
 
 
@@ -261,10 +280,10 @@ iewports */
 
 #footer {
     height: 40px;
-    background: #303030;
-    border-radius: 10px;
-    border: 1px solid #ebebeb;
-    margin: 5px;
+    background: #2F2F2F;
+    border-radius: 5px;
+    border: 1px solid #2F2F2F;
+    margin: 0;
 }
 
 #wrapper {
@@ -289,7 +308,12 @@ iewports */
   background-color: #FA8900;
   border: none;
 }
-#upload-input {
+#upload-input_image {
   display: none;
 }
+#upload-input_waveform {
+  display: none;
+}
+
+
 

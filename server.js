@@ -34,6 +34,12 @@ if (!shell.which('git')) {
     shell.exit(1);
 }
 
+// Arrays for hold ing vaules in the webpage
+var current_WFmode = ['None']
+
+
+
+
 /*
 Sockets are used for developing console application, used to communicate with the termial  
 */
@@ -244,6 +250,55 @@ app.get("/toInitiatization", function(req, res) {
     var init_command = " BBepdcULD -start_epdc 0 1"
     shell.exec(init_command);
 });
+
+app.get("/default_waveform", function(req, res) {
+    console.log('received default_waveform');
+    //var init_command = " BBepdcULD -start_epdc 0 1"
+    //shell.exec(init_command);
+});
+
+app.get("/getWaveform_modesList", function(req, res) {
+    console.log('received getWaveform_modes');
+    //var wavelistdir = 'C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\waveform_modes\\'
+    var wavelistdir='/home/PL_web-app/waveform_modes/'
+    fs.readFile(wavelistdir + 'waveform_modes.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.setHeader("Content-Type", "text/html");
+            //console.log(data)
+            obj = JSON.parse(data)
+            var FullData = []
+            Current_WFmode = current_WFmode[current_WFmode.length - 1]
+            FullData.push(obj)
+            FullData.push({
+                "current_mode": Current_WFmode
+            })
+            console.log(FullData)
+            res.send(FullData);
+        }
+
+    });
+});
+
+
+
+app.get("/setWaveform/:waveId", function(req, res) {
+    var id = req.params.waveId;
+    console.log('received waveId', id);
+    current_WFmode.push(id);
+    var wave_command = " BBepdcULD -start_epdc 0 1"
+    //shell.exec(wave_command);
+    
+    res.redirect('/upload_image');
+});
+
+
+
+
+
+
+
 
 
 app.post("/uploadWaveform", function(req, res) {

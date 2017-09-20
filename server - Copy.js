@@ -299,4 +299,99 @@ function getJpg(imageDir, callback) {
 // redirects page to upload_image.html
 function redirectRouterUploadPage(req, res) {
     res.sendFile(__dirname + '/src/upload_image.html');
-}
+}#
+
+
+
+/*
+
+app.get("/JpgToPng", function(req, res) {
+    console.log("received JpgToPng");
+
+    
+    //conversions to JPG to PNG, rotation and scaling methods work with imageImagik library on linux 
+    
+    var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
+    var convert_b = "convert -quality 100% -rotate '-90<' "
+    var identify_1 = "identify -format '%P'"
+
+    getJpg(imageDir, function(err, files) {
+        for (var i = 0; i < files.length; i++) {
+            console.log(files[i]);
+            var nameImg = files[i]
+            var ImgName = nameImg.split('.jpg')[0] // spliting the file name
+            console.log(ImgName)
+            var command_1 = identify_1 + " " + imageDir + nameImg
+            console.log(command_1);
+
+            // executing the command on linux termnial using shell.exec(...)
+
+            var resloution = shell.exec(command_1);
+            console.log(resloution.split('x'));
+            W = resloution.split('x')[0]; // parsing width of image
+            H = resloution.split('x')[1]; // parsing height of image
+            console.log(W, H);
+
+
+            if (W < 1023 && H < 767) {
+                // upon satisfining the condition image is rotated if necesary and converted from JPG to PNG
+                var command_2 = convert_b + imageDir + files[i] + " " + imageDir + ImgName + ".png";
+                console.log(command_2);
+                shell.exec(command_2);
+                console.log(files.length + 'im here');
+                console.log('deleting files' + files[i]);
+                fs.unlink(imageDir + files[i]); // for deleting the files
+            } else {
+                // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                var command_3 = convert_a + imageDir + files[i] + " " + imageDir + ImgName + ".png";
+                console.log(command_3);
+                shell.exec(command_3);
+                console.log(files.length + 'im here');
+                console.log('deleting files' + files[i]);
+                fs.unlink(imageDir + files[i]); // for deleting the files
+            }
+        }
+
+    });
+    res.setHeader("Content-Type", "text/html");
+    res.redirect('/upload_image');
+});
+
+
+app.get("/Scaling", function(req, res) {
+    console.log("received Scaling");
+
+    var identify = "identify -format '%P'" // uses imagemagik to determine the Width and Height of image
+
+    getImages(imageDir, function(err, files) {
+        for (var i = 0; i < files.length; i++) {
+            console.log(files[i]);
+            var nameImg = files[i]
+            var command = identify + " " + imageDir + nameImg
+            console.log(command);
+            var resloution = shell.exec(command);
+            console.log(resloution.split('x'));
+            W = resloution.split('x')[0];
+            H = resloution.split('x')[1];
+            console.log(W, H);
+            if (W < 1280 || H < 960) {
+                // upon satisfining the condition image is rotated if necesary and resized to 640x480
+                var convert = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
+                var command = convert + imageDir + nameImg + " " + imageDir + nameImg;
+                console.log(command);
+                shell.exec(command);
+                // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
+                scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
+                console.log(scale);
+                shell.exec(scale);
+            }
+        }
+    });
+    res.setHeader("Content-Type", "text/html");
+    res.redirect('/upload_image');
+});
+
+
+
+
+*/

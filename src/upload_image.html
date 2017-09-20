@@ -51,7 +51,7 @@
             cache: false,
             async: "true",
             complete: function(data) {
-                //console.log(data)
+                console.log(data)
                 console.log(data.responseJSON)
                 var imagelist = data.responseJSON
                 var list = "";
@@ -63,7 +63,7 @@
                     //console.log(imgName);
                     var imgName = '<a href="' + routesImage + imagelist[i] + '">' + imagelist[i] + '</a>'
                     //var imgName =  imagelist[i] 
-                    console.log(imgName);
+                    //console.log(imgName);
                     list += "<li>" + imgName + "<a href= 'javascript:void(0)' class='deleteMe'> X</a> " + "</li>";
                     //list += "<li>" + imgName +"<div class='deleteMe'>X</div>"+"</li>";
                     //console.log(list);
@@ -73,7 +73,31 @@
         });
 
 
+        $.ajax({
+            url: '/getWaveform_modesList',
+            type: "GET",
+            cache: false,
+            async: "true",
+            complete: function(data) {
+                console.log(data)
+                obj = JSON.parse(data.responseText);
+                console.log(obj)
+                var obj_array = obj[0].wavemodes
+                var current_mode = obj[1].current_mode
+                console.log(current_mode)
+                var waveList = "";
+                var routesWave = "/setWaveform/";
+                wf_mode.innerText = "WF Mode: " + current_mode;
+                waveList += '<option value=" ">' + 'Select...' + '</option>'
+                for (i = 0; i < obj_array.length; i++) {
+                    var WaveRoutes = routesWave + obj_array[i].id
+                    //console.log(WaveRoutes)
+                    waveList += '<option value="' + WaveRoutes + '">' + obj_array[i].id + ' : ' + obj_array[i].name + '</option>'
+                }
+                $("#WaveId").append('<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">' + waveList + "</select>");
 
+            }
+        });
 
         $(document).ready(function() {
             $(".deleteMe").on("click", function() {
@@ -132,6 +156,18 @@
             });
         });
 
+        function default_waveform() {
+            $.ajax({
+                url: '/default_waveform',
+                type: "GET",
+                cache: false,
+                async: "true",
+                complete: function() {
+                    console.log('received default_waveform');
+                }
+            });
+        }
+
         function toInitiatization() {
             $.ajax({
                 url: '/toInitiatization',
@@ -157,28 +193,35 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4 well">
-                        <h2>Upload Waveform</h2>
+                        <h3>Upload Waveform</h3>
                         <div class="progress" id="progress2">
                             <div id="progress-bar2" class="progress-bar" role="progressbar"></div>
                         </div>
                         <button class="btn btn-lg button2" type="button">Upload</button>
+                        <button class="btn btn-lg button3" onclick="default_waveform()" type="button">Default</button>
                     </div>
                     <input id="upload-input_waveform" type="file" name="uploads_waveform[]" multiple="multiple" accept=".wbf">
+                    <div class="col-md-8 well">
+                        <h3 id='wf_mode'>WF Mode: </h3>
+                        <div id="WaveId">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h1>WF mode: dropdown select</h1>
+                    <h3>Vcom: set and default</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <h1>Vcom: set and default</h1>
+                <div class="col-xs-7 col-sm-5 well">
+                    <h3>Uploaded Images</h3>
+                    <div class="scrollbar" id="style-1">
+                        <div id='imageList'> </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 col-md-6  ">
-                    <h2>Image Uploader</h2>
+                <div class="col-xs-5 col-sm-6 well ">
+                    <h3>Image Uploader</h3>
                     <div class="progress" id="progress1">
                         <div id="progress-bar1" class="progress-bar" role="progressbar"></div>
                     </div>
@@ -186,12 +229,6 @@
                 </div>
                 <input id="upload-input_image" type="file" name="uploads_image[]" multiple="multiple" accept="image/jpeg, image/png">
                 </br>
-                <div class="col-sm-9 col-md-6  ">
-                    <h3>Uploaded Images</h3>
-                    <div class="scrollbar" id="style-1">
-                        <div id='imageList'> </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div id="footerwrap">

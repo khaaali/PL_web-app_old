@@ -10,63 +10,35 @@ var express = require("express"),
     formidable = require('formidable'),
     util = require('util'),
     fs = require('fs-extra'),
-    util = require('util'),
     path = require('path'),
-    multer = require('multer'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser');
 var http = require('http');
 var server = http.createServer(app).listen(80);
-var io = require('socket.io')(server);
-var shell = require('shelljs');
-const exec = require('child_process').exec;
+var shell = require('shelljs');// executes system defined calls or scripts
+var exec = require('child_process').exec;
 
-
+app.use(bodyParser.urlencoded({ extended: false }))
 /* Image directories used for uploding and retrieving images */
 
 var imageDir = "/home/PL_web-app/src/assets/demo_images/";
-var imageDir2 = "/home/PL_web-app/src/bootstrap/";
+var imageDir2 = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
 var waveDir = "/mnt/data/override/"
-
-if (!shell.which('git')) {
+//var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
+/*if (!shell.which('git')) {
     shell.echo('Sorry, this script requires git');
     shell.exit(1);
-}
+}*/
 
 // Arrays for hold ing vaules in the webpage
-var current_WFmode = ['None']
-
-
-
-
-/*
-Sockets are used for developing console application, used to communicate with the termial  
-*/
-
-// When a new socket connects
-io.on('connection', function(socket) {
-
-    /*
-     Creates terminal
-     Listen on the terminal for output and send it to the client
-     Listen on the client and send any input to the terminal 
-     */
-
-    socket.on('data', function(data) {
-        console.log('im here');
-        console.log(data);
-        shell.exec(data);
-    });
-    // When socket disconnects, destroy the terminal
-    socket.on("disconnect", function() {
-        console.log("bye");
-    });
-});
+var current_WFmode = ['select']
+var current_WaveFile = ['']
+var current_Vcom = ['select']
 
 
 /*
-Routes of application and rendering views 
+Routing application and rendering views 
 */
 
 app.use(express.static(path.join(__dirname, 'src')));
@@ -85,8 +57,13 @@ app.get("/upload_image", function(req, res) {
     res.sendFile(__dirname + '/src/upload_image.html');
 });
 
-app.get("/display", function(req, res) {
-    res.sendFile(__dirname + '/src/display.html');
+app.get("/display_type", function(req, res) {
+    res.sendFile(__dirname + '/src/display_type.html');
+    //res.redirect('/upload_image');
+});
+
+app.get("/settings", function(req, res) {
+    res.sendFile(__dirname + '/src/settings.html');
     //res.redirect('/upload_image');
 });
 
@@ -95,43 +72,29 @@ app.get("/console", function(req, res) {
     res.redirect('/upload_image');
 });
 
-app.delete("/delete/:id", function(req, res) {
-    var id = req.params.id;
-    console.log("Got a DELETE request for", id);
-    fs.unlink(imageDir + id);
-    console.log(imageDir + id);
-    res.send('Hello DELETE');
+
+
+
+
+// For initializing the display
+
+app.get("/toInitiatization", function(req, res) {
+    console.log('received Initiatization');
+    var init_command = " BBepdcULD -start_epdc 0 1"
+    shell.exec(init_command);
 });
 
 
-app.get("/upload_showImageList", function(req, res, next) {
-    getImages(imageDir, function(err, files) {
-        var imageLists = [];
-        for (var i = 0; i < files.length; i++) {
-            imageLists.push(files[i]);
-        }
-        //console.log(files.length);
-        console.log('upload_showImageList');
-        console.log(imageLists);
-        res.json(imageLists);
-    });
-});
 
+/*         
+                     ******************Upload Image Start**************************
 
-app.get("/upload_image/:imageId", function(req, res) {
-    console.log(req.params.imageId);
-    var id = req.params.imageId;
-    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
-    var child = exec(command, { async: true });
-    child.stdout.on('data', function(data) {
-        //console.log(data)
-    });
-    shell.echo(command)
-    res.setHeader("Content-Type", "text/html");
-    res.redirect('/upload_image');
-});
-
-
+Routes to handle the upload images: 
+- Uploads the images to the directory and converts jpeg to png
+- Returns list of images from the directory and sends it to front-end application
+- Execute the selected images 
+- Delete the selected images
+*/
 
 app.post('/uploadImage', function(req, res) {
     var form = new formidable.IncomingForm();
@@ -174,6 +137,7 @@ app.post('/uploadImage', function(req, res) {
                 console.log("success!", new_location + file_name)
                 var extention = file_name.split('.').pop();
                 console.log(extention)
+                
                 // image magik commands for conversion to JPG to PNG and scaling of images
                 var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
                 var convert_b = "convert -quality 100% -rotate '-90<' "
@@ -244,63 +208,59 @@ app.post('/uploadImage', function(req, res) {
     res.redirect('/upload_image');
 });
 
-
-app.get("/toInitiatization", function(req, res) {
-    console.log('received Initiatization');
-    var init_command = " BBepdcULD -start_epdc 0 1"
-    shell.exec(init_command);
-});
-
-app.get("/default_waveform", function(req, res) {
-    console.log('received default_waveform');
-    //var init_command = " BBepdcULD -start_epdc 0 1"
-    //shell.exec(init_command);
-});
-
-app.get("/getWaveform_modesList", function(req, res) {
-    console.log('received getWaveform_modes');
-    //var wavelistdir = 'C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\waveform_modes\\'
-    var wavelistdir='/home/PL_web-app/waveform_modes/'
-    fs.readFile(wavelistdir + 'waveform_modes.json', 'utf8', function readFileCallback(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.setHeader("Content-Type", "text/html");
-            //console.log(data)
-            obj = JSON.parse(data)
-            var FullData = []
-            Current_WFmode = current_WFmode[current_WFmode.length - 1]
-            FullData.push(obj)
-            FullData.push({
-                "current_mode": Current_WFmode
-            })
-            console.log(FullData)
-            res.send(FullData);
+app.get("/upload_showImageList", function(req, res, next) {
+    getImages(imageDir, function(err, files) {
+        var imageLists = [];
+        for (var i = 0; i < files.length; i++) {
+            imageLists.push(files[i]);
         }
-
+        //console.log(files.length);
+        console.log('upload_showImageList');
+        console.log(imageLists);
+        res.json(imageLists);
     });
 });
 
 
-
-app.get("/setWaveform/:waveId", function(req, res) {
-    var id = req.params.waveId;
-    console.log('received waveId', id);
-    current_WFmode.push(id);
-    var wave_command = " BBepdcULD -start_epdc 0 1"
-    //shell.exec(wave_command);
-    
+app.get("/upload_image/:imageId", function(req, res) {
+    console.log(req.params.imageId);
+    var id = req.params.imageId;
+    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
+    var child = exec(command, { async: true });
+    child.stdout.on('data', function(data) {
+        //console.log(data)
+    });
+    shell.echo(command)
+    res.setHeader("Content-Type", "text/html");
     res.redirect('/upload_image');
 });
 
+app.delete("/deleteImage/:id", function(req, res) {
+    var id = req.params.id;
+    console.log("Got a DELETE request for", id);
+    fs.unlink(imageDir + id);
+    console.log(imageDir + id);
+    res.send('Hello DELETEIMAGE');
+});
+
+                        /******************Upload Image End**************************/
 
 
 
 
 
+/*         
+                     ******************Upload Waveforms Start**************************
 
+Routes to handle the upload waveforms: 
+- Uploads the waveform to the directory
+- Executes default waveform
+- Returns list of waveforms from the directory and sends it to front-end application
+- Execute the selected waveform 
+- Delete the selected waveform
+*/
 
-
+// upload waveform implemented on route '/settings' view
 app.post("/uploadWaveform", function(req, res) {
     console.log('received uploadWaveform');
     var form = new formidable.IncomingForm();
@@ -337,8 +297,166 @@ app.post("/uploadWaveform", function(req, res) {
         // }
     });
     res.setHeader("Content-Type", "text/html");
-    res.redirect('/upload_image');
+    res.redirect('/settings');
 });
+
+
+app.get("/default_waveform", function(req, res) {
+    console.log('received default_waveform');
+    var init_command = " BBepdcULD -set_waveform /mnt/data/override/waveform.wbf"
+    console.log(init_command);
+    shell.exec(init_command);
+});
+
+
+
+app.get("/upload_showWaveList", function(req, res, next) {
+    getWaveFiles(waveDir, function(err, files) {
+        var waveDirLists = [];
+        for (var i = 0; i < files.length; i++) {
+            waveDirLists.push(files[i]);
+        }
+        //console.log(files.length);
+        console.log('upload_showwaveDirList');
+        //console.log(waveDirLists);
+        
+        var FullData = []
+            current_waveFile = current_WaveFile[current_WaveFile.length - 1]
+            FullData.push(waveDirLists)
+            FullData.push({
+                "current_WaveFile": current_waveFile
+            })
+            console.log(FullData)
+            res.send(FullData);
+    });
+});
+
+
+app.get("/upload_wave/:waveId", function(req, res) {
+    console.log(req.params.waveId);
+    var id = req.params.waveId;
+    current_WaveFile.push(id);
+    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
+    var child = exec(command, { async: true });
+    child.stdout.on('data', function(data) {
+        //console.log(data)
+    });
+    shell.echo(command)
+    res.setHeader("Content-Type", "text/html");
+    res.redirect('/settings');
+});
+
+
+app.delete("/deleteWave/:id", function(req, res) {
+    var id = req.params.id;
+    console.log("Got a DELETE request for", id);
+    fs.unlink(waveDir + id);
+    console.log(waveDir + id);
+    res.send('Hello DELETEWAVE');
+});
+
+                    /******************Upload Waveforms End**************************/
+
+
+
+
+
+/*
+                        ******************Waveform Mode Start**************************
+
+Routes for handling waveform mode:
+- Returns the json data from file and send it to the Settings view of the application
+- Execute the selected mode 
+*/
+
+// Returns list of waveform modes from a file of json formatted data
+
+app.get("/getWaveform_modesList", function(req, res) {
+    console.log('received getWaveform_modes');
+    //var wavelistdir = 'C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\waveform_modes\\'
+    var wavelistdir='/home/PL_web-app/waveform_modes/'
+    fs.readFile(wavelistdir + 'waveform_modes.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.setHeader("Content-Type", "text/html");
+            //console.log(data)
+            obj = JSON.parse(data)
+            var FullData = []
+            Current_WFmode = current_WFmode[current_WFmode.length - 1]
+            current_vcom=current_Vcom[current_Vcom.length-1]
+            FullData.push(obj)
+            FullData.push({
+                "current_mode": Current_WFmode
+            })
+            FullData.push({
+                "current_vcom": current_vcom
+            })
+            console.log(FullData)
+            res.send(FullData);
+        }
+
+    });
+});
+
+
+app.get("/setWaveform/:waveId", function(req, res) {
+    var id = req.params.waveId;
+    current_WFmode.push(id);
+    var wave_command = " BBepdcULD -update_image /home/PL_web-app/src/bootstrap/01_eyes_1280x960.png"+" " +id
+    shell.exec(wave_command);
+    console.log('received waveId', id,wave_command);
+    
+   res.redirect('/settings');
+});
+
+
+                      /******************Waveform Mode End**************************/
+
+
+
+
+/*
+                        ******************Set Vcom Start**************************
+
+Routes for handling set Vcom:
+- Fetches ánd execute the set vcom
+- Executes the default vcom
+*/
+
+app.post("/set_Vcom", function(req, res) {
+    
+    Vcom_value =req.body.vcom_number
+    
+    console.log('received set_Vcom', Vcom_value);
+    current_Vcom.push(Vcom_value)
+    
+    var wave_command = " BBepdcULD -set_vcom "+" " +Vcom_value
+    shell.exec(wave_command);
+     console.log(wave_command);
+    res.setHeader("Content-Type", "text/html");
+   
+    res.redirect('/settings');
+});
+
+
+app.get("/default_Vcom", function(req, res) {
+    console.log('received default_Vcom');
+    var vcom="6000"
+     current_Vcom.push(vcom)
+    
+    var wave_command = " BBepdcULD -set_vcom  6000"
+    shell.exec(wave_command);
+    console.log(wave_command);
+    res.setHeader("Content-Type", "text/html");
+   
+    res.redirect('/settings');
+});
+
+                                /******************Set Vcom End**************************/
+
+
+
 
 app.get('*', function(req, res) {
 
@@ -348,6 +466,8 @@ app.get('*', function(req, res) {
 console.log('Listening on localhost port 80');
 
 module.exports = app;
+
+
 
 // filter to retrieve png, jpeg, jpg images from ../demo_images  
 function getImages(imageDir, callback) {
@@ -367,22 +487,20 @@ function getImages(imageDir, callback) {
 }
 
 
-// filter to retrieve JPG, JPEG images from ../demo_images  
-function getJpg(imageDir, callback) {
-    var fileType2 = '.jpeg',
-        fileType3 = '.jpg',
+// filter to retrieve .wbf files  
+function getWaveFiles(imageDir, callback) {
+    var fileType1 = '.wbf',
         files = [],
         i;
     fs.readdir(imageDir, function(err, list) {
         for (i = 0; i < list.length; i++) {
-            if (path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
+            if (path.extname(list[i]) === fileType1) {
                 files.push(list[i]); //store the file name into the array files
             }
         }
         callback(err, files);
     });
 }
-
 
 // redirects page to upload_image.html
 function redirectRouterUploadPage(req, res) {

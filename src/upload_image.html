@@ -37,7 +37,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
                             <li class="active"><a href="upload_image">Upload</a></li>
-                            <li><a href="display">Display</a></li>
+                            <li><a href="display_type">Display Type</a></li>
+                            <li><a href="settings">Settings</a></li>
                             <!--   <li><a href="console">console</a></li>-->
                         </ul>
                     </div>
@@ -73,61 +74,37 @@
         });
 
 
-        $.ajax({
-            url: '/getWaveform_modesList',
-            type: "GET",
-            cache: false,
-            async: "true",
-            complete: function(data) {
-                console.log(data)
-                obj = JSON.parse(data.responseText);
-                console.log(obj)
-                var obj_array = obj[0].wavemodes
-                var current_mode = obj[1].current_mode
-                console.log(current_mode)
-                var waveList = "";
-                var routesWave = "/setWaveform/";
-                wf_mode.innerText = "WF Mode: " + current_mode;
-                waveList += '<option value=" ">' + 'Select...' + '</option>'
-                for (i = 0; i < obj_array.length; i++) {
-                    var WaveRoutes = routesWave + obj_array[i].id
-                    //console.log(WaveRoutes)
-                    waveList += '<option value="' + WaveRoutes + '">' + obj_array[i].id + ' : ' + obj_array[i].name + '</option>'
-                }
-                $("#WaveId").append('<select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">' + waveList + "</select>");
+        
 
-            }
-        });
+            $(document).ready(function() {
+                 $(".deleteMe").on("click", function() {
+                     //console.log($(this).closest("li")[0].innerText);
+                     var text = $(this).closest("li")[0].innerText
+                     var name = text.split(/\s+/);
+                     name = name[0]
+                     console.log(name);
+                     $(this).closest("li").remove();
+                     doAjax(makeUrl(name));
 
-        $(document).ready(function() {
-            $(".deleteMe").on("click", function() {
-                //console.log($(this).closest("li")[0].innerText);
-                var text = $(this).closest("li")[0].innerText
-                var name = text.split(/\s+/);
-                name = name[0]
-                console.log(name);
-                $(this).closest("li").remove();
-                doAjax(makeUrl(name));
+                     function makeUrl(name) {
+                         return '/deleteImage/' + name
+                     }
 
-                function makeUrl(name) {
-                    return '/delete/' + name
-                }
-
-                function doAjax(_url) {
-                    return $.ajax({
-                        url: _url,
-                        cache: false,
-                        async: "true",
-                        type: 'DELETE',
-                        complete: function() {
-                            console.log('delete');
-                        }
-                    });
-                }
+                     function doAjax(_url) {
+                         return $.ajax({
+                             url: _url,
+                             cache: false,
+                             async: "true",
+                             type: 'DELETE',
+                             complete: function() {
+                                 console.log('delete');
+                             }
+                         });
+                     }
 
 
-            });
-        });
+                 });
+             });
 
 
         $(document).ready(function() {
@@ -156,17 +133,7 @@
             });
         });
 
-        function default_waveform() {
-            $.ajax({
-                url: '/default_waveform',
-                type: "GET",
-                cache: false,
-                async: "true",
-                complete: function() {
-                    console.log('received default_waveform');
-                }
-            });
-        }
+
 
         function toInitiatization() {
             $.ajax({
@@ -182,47 +149,27 @@
         </script>
         <div class="container">
             <div class="container-fluid">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="row">
+                        <div class="col-md-2 col-md-offset-5">
                             <div>
                                 <button class="btn btn-primary center-block" onclick="toInitiatization()">Clear/Initiatization</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 well">
-                        <h3>Upload Waveform</h3>
-                        <div class="progress" id="progress2">
-                            <div id="progress-bar2" class="progress-bar" role="progressbar"></div>
-                        </div>
-                        <button class="btn btn-lg button2" type="button">Upload</button>
-                        <button class="btn btn-lg button3" onclick="default_waveform()" type="button">Default</button>
-                    </div>
-                    <input id="upload-input_waveform" type="file" name="uploads_waveform[]" multiple="multiple" accept=".wbf">
-                    <div class="col-md-8 well">
-                        <h3 id='wf_mode'>WF Mode: </h3>
-                        <div id="WaveId">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Vcom: set and default</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7 col-sm-5 well">
+                
+
+             <div class="col-md-12 offset-md-2"></div>
+            
+            <div class="row ">
+                <div class=" col-md-5 ">
                     <h3>Uploaded Images</h3>
-                    <div class="scrollbar" id="style-1">
+                    <div class="scrollbar " id="style-1">
                         <div id='imageList'> </div>
                     </div>
                 </div>
-                <div class="col-xs-5 col-sm-6 well ">
+                <div class=" col-md-5  ">
                     <h3>Image Uploader</h3>
-                    <div class="progress" id="progress1">
+                    <div class="progress " id="progress1">
                         <div id="progress-bar1" class="progress-bar" role="progressbar"></div>
                     </div>
                     <button class="btn btn-lg button1" type="button">Upload</button>
@@ -231,12 +178,7 @@
                 </br>
             </div>
         </div>
-        <div id="footerwrap">
-            <div id="footer">
-                <p>Footer</p>
-            </div>
-        </div>
-    </div>
+    </div></div>
     <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/uploader_image.js"></script>

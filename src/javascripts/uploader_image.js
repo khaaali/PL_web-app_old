@@ -33,7 +33,7 @@ $('#upload-input_image').on('change', function() {
             processData: false,
             contentType: false,
             success: function doAjax() {
-
+                alert('uploading multiple images and processing takes time...please wait until page redirects. Click OK to continue')
                 window.location.reload(true);
 
             },

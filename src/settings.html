@@ -36,8 +36,8 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
-                            <li><a href="upload_image">Upload</a></li>
                             <li><a href="display_type">Display Type</a></li>
+                            <li><a href="upload_image">Upload</a></li>
                             <li class="active"><a href="settings">Settings</a></li>
                             <!--   <li><a href="console">console</a></li>-->
                         </ul>
@@ -46,6 +46,7 @@
             </nav>
         </div>
         <script type="text/javascript">
+
 
         $(document).ready(function() {
             //called when key is pressed in textbox
@@ -102,7 +103,7 @@
 
                 var obj_array = obj[0].wavemodes
                 var current_mode = obj[1].current_mode
-                var current_vcom=obj[2].current_vcom
+                var current_vcom = obj[2].current_vcom
 
                 console.log(current_mode)
                 var waveList = "";
@@ -160,82 +161,92 @@
                 async: "true",
                 complete: function() {
                     console.log('received default_waveform');
+                    location.reload()
+                }
+            });
+        }
+
+        function detect_waveform() {
+            $.ajax({
+                url: '/detect_waveform',
+                type: "GET",
+                cache: false,
+                async: "true",
+                complete: function() {
+                    console.log('received detect_waveform');
+                    alert('Detecting waveform and reloads after 3 seconds')
+                    setTimeout(function() {location.reload();}, 3000);
                 }
             });
         }
 
 
-/// grt vcom value and pass it to the serverside uisng ajax request
-function set_Vcom(){
-   console.log('received set_Vcom');
-   var vcom_number=document.getElementById('vcom_value').value
-   console.log(vcom_number)
-   $.ajax({
+
+        /// get vcom value and pass it to the serverside uisng ajax request
+        function set_Vcom() {
+            console.log('received set_Vcom');
+            var vcom_number = document.getElementById('vcom_value').value
+            console.log(vcom_number)
+            $.ajax({
                 url: '/set_Vcom',
                 type: "POST",
                 cache: false,
                 async: "true",
                 data: { vcom_number }
-                
-            });
-}
 
-function default_Vcom(){
-   console.log('received default_Vcom');
-   $.ajax({
+
+            });
+        }
+
+        function default_Vcom() {
+            console.log('received default_Vcom');
+            $.ajax({
                 url: '/default_Vcom',
                 type: "GET",
                 cache: false,
                 async: "true",
-               complete: function() {
+                complete: function() {
                     console.log('received default_Vcom');
+                     location.reload()
                 }
-                
+
             });
-}
-
-
+        }
         </script>
         <div class="container">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <div class=" col-md-5 ">
+                   <div class="col-md-6 col-xs-12">
                         <h3 id="current_WaveFileName">Uploaded Wave Files:</h3>
                         <div class="scrollbar" id="style-1">
                             <div id='waveList'> </div>
                         </div>
                     </div>
-                    <div class="col-md-5 ">
+                        <div class=" col-md-6 col-xs-12">
+                            <h3 id='wf_mode'>Waveform Mode: </h3>
+                            <div id="WaveId">
+                            </div>
+                            <h3 id='set_vcom'>Vcom Value: </h3>
+                            <form class="form-inline">
+                                <input type="text" class="form-control" id="vcom_value">
+                                <button class="btn btn-default" onclick="set_Vcom()" type="button">Set</button>
+                                <button class="btn btn-default" onclick="default_Vcom()" type="button">Default</button>
+                                <button class="btn btn-default" onclick="detect_Vcom()" type="button">Detect:VCOM</button>
+                                <span id="errmsg"></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6 col-xs-12"">
                         <h3>Upload Waveform</h3>
                         <div class="progress" id="progress2">
                             <div id="progress-bar2" class="progress-bar" role="progressbar"></div>
                         </div>
                         <button class="btn btn-lg button2" type="button">Upload</button>
-                        <button class="btn btn-lg button3" onclick="default_waveform()" type="button">Default</button>
+                        <button class="btn btn-default" onclick="default_waveform()" type="button">Default</button>
+                        <button class="btn btn-default" onclick="detect_waveform()" type="button">Detect:WF</button>
                         <input id="upload-input_waveform" type="file" name="uploads_waveform[]" multiple="multiple" accept=".wbf">
-
-                         <h3 id='wf_mode'>Waveform Mode: </h3>
-                        <div id="WaveId">
-                        </div>
-
-                        <h3 id='set_vcom'>Vcom Value: </h3>
-                    <form class="form-inline" >
-                       
-                        <input type="text" class="form-control" id="vcom_value">
-                        <button class="btn btn-default" onclick="set_Vcom()" type="button" >Set</button>
-                        <button class="btn btn-default" onclick="default_Vcom()" type="button" >Default</button>
-                        <span id="errmsg"></span>
-              
-                    </form>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    
-                    <div class="col-md-5">
-                       
                     </div>
                 </div>
             </div>

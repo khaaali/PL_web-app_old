@@ -15,26 +15,27 @@ var express = require("express"),
     bodyParser = require('body-parser');
 var http = require('http');
 var server = http.createServer(app).listen(80);
-var shell = require('shelljs'); // executes system defined calls or scripts
+var shell = require('shelljs');// executes system defined calls or scripts
 var exec = require('child_process').exec;
-var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 /* Image directories used for uploding and retrieving images */
 
-var imageDir = "/home/PL_web-app/src/assets/default/";
+var imageDir = "/home/PL_web-app/src/assets/demo_images/";
 var imageDir2 = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
-
-var waveDir = "/home/PL_web-app/src/assets/default/" 
+var waveDir = "/mnt/data/override/"
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
-
+/*if (!shell.which('git')) {
+    shell.echo('Sorry, this script requires git');
+    shell.exit(1);
+}*/
 
 // Arrays for hold ing vaules in the webpage
 var current_WFmode = ['select']
 var current_WaveFile = ['']
 var current_Vcom = ['select']
-var current_displayType = ['select']
+
 
 /*
 Routing application and rendering views 
@@ -79,101 +80,8 @@ app.get("/console", function(req, res) {
 
 app.get("/toInitiatization", function(req, res) {
     console.log('received Initiatization');
-    var init_command = " epdc-app -start_epdc 0 1"
+    var init_command = " BBepdcULD -start_epdc 0 1"
     shell.exec(init_command);
-});
-
-
-/**
- Set display type
-*/
-
-
-app.get("/S115_T1.1", function(req, res) {
-    var type = '11.5in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
-    imageDir="/boot/uboot/epdc/S115_T1.1/img/"
-    waveDir = "/boot/uboot/epdc/S115_T1.1/display/" 
-
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
-});
-
-
-
-app.get("/D107_T3.1", function(req, res) {
-    var type = '10.7in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\D107_T3.1\\"
-    imageDir="/boot/uboot/epdc/D107_T3.1/img/"
-    waveDir = "/boot/uboot/epdc/D107_T3.1/display/" 
-    
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
-});
-
-app.get("/S079_T1.1", function(req, res) {
-    var type = '7.9in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S079_T1.1\\"
-    imageDir="/boot/uboot/epdc/S079_T1.1/img/"
-    waveDir = "/boot/uboot/epdc/S079_T1.1/display/" 
-
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
-});
-
-app.get("/S049_T1.1", function(req, res) {
-    var type = '4.9in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S049_T1.1\\"
-    imageDir="/boot/uboot/epdc/S049_T1.1/img/"
-    waveDir = "/boot/uboot/epdc/S049_T1.1/display/" 
-
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
-});
-
-app.get("/S047_T2.1", function(req, res) {
-    var type = '4.7in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S047_T2.1\\"
-    imageDir="/boot/uboot/epdc/S047_T2.1/img/"
-    waveDir = "/boot/uboot/epdc/S047_T2.1/display/" 
-
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
-});
-
-
-app.get("/S040_T1.1", function(req, res) {
-    var type = '4.0in'
-    //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S040_T1.1\\"
-    imageDir="/boot/uboot/epdc/S040_T1.1/img/"
-    waveDir = "/boot/uboot/epdc/S040_T1.1/display/" 
-
-    current_displayType.push(type);
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
 });
 
 
@@ -229,10 +137,8 @@ app.post('/uploadImage', function(req, res) {
                 console.log("success!", new_location + file_name)
                 var extention = file_name.split('.').pop();
                 console.log(extention)
-
-                // image magik commands for conversion to JPG to PNG and scaling of images
-                //sudo apt-get install imagemagick
                 
+                // image magik commands for conversion to JPG to PNG and scaling of images
                 var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
                 var convert_b = "convert -quality 100% -rotate '-90<' "
                 var convert_c = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
@@ -319,7 +225,7 @@ app.get("/upload_showImageList", function(req, res, next) {
 app.get("/upload_image/:imageId", function(req, res) {
     console.log(req.params.imageId);
     var id = req.params.imageId;
-    var command = "epdc-app -update_image"+ " "+imageDir + id
+    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
     var child = exec(command, { async: true });
     child.stdout.on('data', function(data) {
         //console.log(data)
@@ -337,7 +243,7 @@ app.delete("/deleteImage/:id", function(req, res) {
     res.send('Hello DELETEIMAGE');
 });
 
-/******************Upload Image End**************************/
+                        /******************Upload Image End**************************/
 
 
 
@@ -397,41 +303,10 @@ app.post("/uploadWaveform", function(req, res) {
 
 app.get("/default_waveform", function(req, res) {
     console.log('received default_waveform');
-    var init_command = " epdc-app -set_waveform /boot/uboot/epdc/S115_T1.1/display/waveform.wbf"
+    var init_command = " BBepdcULD -set_waveform /mnt/data/override/waveform.wbf"
     console.log(init_command);
     shell.exec(init_command);
-    current_WaveFile.push("waveform.wbf")
-    res.setHeader("Content-Type", "text/html");
-    res.redirect('/settings');
 });
-
-
-app.get("/detect_waveform", function(req, res) {
-    console.log('received detect_waveform');
-    var command = " epdc-app -start_epdc 1"
-    console.log(command);
-    if(true){
-    var child = exec(command, { async: false });
-    child.stdout.on('data', function(data) {
-        
-        console.log(typeof(data),data)
-        var error=_.includes(data,'error')
-         console.log(error)
-        if(error==true){
-            console.log(error)
-            current_WaveFile.push('Error_check_display')
-        }
-        else{
-            console.log('null')
-        }
-        })
-    }
-     res.setHeader("Content-Type", "text/html");
-    res.redirect('/settings');
-});
-    
-
-
 
 
 
@@ -444,15 +319,15 @@ app.get("/upload_showWaveList", function(req, res, next) {
         //console.log(files.length);
         console.log('upload_showwaveDirList');
         //console.log(waveDirLists);
-
+        
         var FullData = []
-        current_waveFile = current_WaveFile[current_WaveFile.length - 1]
-        FullData.push(waveDirLists)
-        FullData.push({
-            "current_WaveFile": current_waveFile
-        })
-        console.log(FullData)
-        res.send(FullData);
+            current_waveFile = current_WaveFile[current_WaveFile.length - 1]
+            FullData.push(waveDirLists)
+            FullData.push({
+                "current_WaveFile": current_waveFile
+            })
+            console.log(FullData)
+            res.send(FullData);
     });
 });
 
@@ -461,7 +336,7 @@ app.get("/upload_wave/:waveId", function(req, res) {
     console.log(req.params.waveId);
     var id = req.params.waveId;
     current_WaveFile.push(id);
-    var command = "epdc-app -update_image "+ " " +waveDir + id
+    var command = "BBepdcULD -update_image /home/PL_web-app/src/assets/demo_images/" + id
     var child = exec(command, { async: true });
     child.stdout.on('data', function(data) {
         //console.log(data)
@@ -480,7 +355,7 @@ app.delete("/deleteWave/:id", function(req, res) {
     res.send('Hello DELETEWAVE');
 });
 
-/******************Upload Waveforms End**************************/
+                    /******************Upload Waveforms End**************************/
 
 
 
@@ -509,7 +384,7 @@ app.get("/getWaveform_modesList", function(req, res) {
             obj = JSON.parse(data)
             var FullData = []
             Current_WFmode = current_WFmode[current_WFmode.length - 1]
-            current_vcom = current_Vcom[current_Vcom.length - 1]
+            current_vcom=current_Vcom[current_Vcom.length-1]
             FullData.push(obj)
             FullData.push({
                 "current_mode": Current_WFmode
@@ -528,15 +403,15 @@ app.get("/getWaveform_modesList", function(req, res) {
 app.get("/setWaveform/:waveId", function(req, res) {
     var id = req.params.waveId;
     current_WFmode.push(id);
-    var wave_command = " epdc-app -update_image /home/PL_web-app/src/bootstrap/01_eyes_1280x960.png" + " " + id
+    var wave_command = " BBepdcULD -update_image /home/PL_web-app/src/bootstrap/01_eyes_1280x960.png"+" " +id
     shell.exec(wave_command);
-    console.log('received waveId', id, wave_command);
-
-    res.redirect('/settings');
+    console.log('received waveId', id,wave_command);
+    
+   res.redirect('/settings');
 });
 
 
-/******************Waveform Mode End**************************/
+                      /******************Waveform Mode End**************************/
 
 
 
@@ -550,74 +425,35 @@ Routes for handling set Vcom:
 */
 
 app.post("/set_Vcom", function(req, res) {
-
-    Vcom_value = req.body.vcom_number
-
+    
+    Vcom_value =req.body.vcom_number
+    
     console.log('received set_Vcom', Vcom_value);
     current_Vcom.push(Vcom_value)
-
-    var wave_command = " epdc-app -set_vcom " + " " + Vcom_value
+    
+    var wave_command = " BBepdcULD -set_vcom "+" " +Vcom_value
     shell.exec(wave_command);
-    console.log(wave_command);
+     console.log(wave_command);
     res.setHeader("Content-Type", "text/html");
-
+   
     res.redirect('/settings');
 });
 
 
 app.get("/default_Vcom", function(req, res) {
     console.log('received default_Vcom');
-    var vcom = "6000"
-    current_Vcom.push(vcom)
-
-    var wave_command = " epdc-app -set_vcom  6000"
+    var vcom="6000"
+     current_Vcom.push(vcom)
+    
+    var wave_command = " BBepdcULD -set_vcom  6000"
     shell.exec(wave_command);
     console.log(wave_command);
     res.setHeader("Content-Type", "text/html");
+   
     res.redirect('/settings');
 });
 
-/******************Set Vcom End**************************/
-
-
-
-
-
-/*
-                        ******************Autodetect screen type Start**************************
-
-Routes for handling Autodetect:
-- Executes the Autodetect script
-*/
-
-
-
-
-app.get("/toAutoDetect", function(req, res) {
-    console.log('received toAutoDetect');
-    var wave_command = " epdc-app -------"
-    //shell.exec(wave_command);
-    console.log(wave_command);
-    res.setHeader("Content-Type", "text/html");
-    res.redirect('/display_type');
-});
-
-/******************Autodetect End**************************/
-
-app.get("/sendCurrentDisplayType", function(req, res) {
-
-    currentdisplayType = current_displayType[current_displayType.length - 1];
-    console.log('received sendCurrentDisplayType', currentdisplayType);
-    var FullData = []
-    FullData.push({
-        "currentdisplayType": currentdisplayType
-    })
-    console.log(FullData)
-    res.send(FullData);
-});
-
-
-
+                                /******************Set Vcom End**************************/
 
 
 
@@ -652,11 +488,11 @@ function getImages(imageDir, callback) {
 
 
 // filter to retrieve .wbf files  
-function getWaveFiles(waveDir, callback) {
+function getWaveFiles(imageDir, callback) {
     var fileType1 = '.wbf',
         files = [],
         i;
-    fs.readdir(waveDir, function(err, list) {
+    fs.readdir(imageDir, function(err, list) {
         for (i = 0; i < list.length; i++) {
             if (path.extname(list[i]) === fileType1) {
                 files.push(list[i]); //store the file name into the array files

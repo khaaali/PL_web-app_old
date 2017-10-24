@@ -33,7 +33,7 @@ $('#upload-input_waveform').on('change', function() {
             processData: false,
             contentType: false,
             success: function doAjax() {
-
+                alert('please wait page redirects. Click OK to continue')
                 window.location.reload(true);
 
             },

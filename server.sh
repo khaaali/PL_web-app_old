@@ -1,5 +1,5 @@
 #!/bin/sh
 
-BBepdcULD -start_epdc 0 1
+epdc-app  -start_epdc 0 1
 sudo python /home/PL_web-app/kill_port.py
 sudo /root/.nvm/versions/node/v4.8.4/bin/node /home/PL_web-app/server.js

@@ -5,6 +5,10 @@ body {
 
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1;  }
 
+li.active{
+  background:cyan;
+}
+
 
    .terminal {
      font-family: monospace;
@@ -41,7 +45,7 @@ body {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 10px 30px;
+    padding: 5px 20px;
     text-align: center;
     text-decoration: none;
    
@@ -51,7 +55,7 @@ body {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 10px 30px;
+    padding: 5px 20px;
     text-align: center;
     text-decoration: none;
     

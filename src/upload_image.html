@@ -12,6 +12,7 @@
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/uploader_image.js"></script>
     <script src="javascripts/uploader_waveform.js"></script>
+    <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
 <!-- NAVBAR
@@ -36,8 +37,8 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="home">Home</a></li>
-                            <li class="active"><a href="upload_image">Upload</a></li>
                             <li><a href="display_type">Display Type</a></li>
+                            <li class="active"><a href="upload_image">Upload</a></li>
                             <li><a href="settings">Settings</a></li>
                             <!--   <li><a href="console">console</a></li>-->
                         </ul>
@@ -74,37 +75,37 @@
         });
 
 
-        
-
-            $(document).ready(function() {
-                 $(".deleteMe").on("click", function() {
-                     //console.log($(this).closest("li")[0].innerText);
-                     var text = $(this).closest("li")[0].innerText
-                     var name = text.split(/\s+/);
-                     name = name[0]
-                     console.log(name);
-                     $(this).closest("li").remove();
-                     doAjax(makeUrl(name));
-
-                     function makeUrl(name) {
-                         return '/deleteImage/' + name
-                     }
-
-                     function doAjax(_url) {
-                         return $.ajax({
-                             url: _url,
-                             cache: false,
-                             async: "true",
-                             type: 'DELETE',
-                             complete: function() {
-                                 console.log('delete');
-                             }
-                         });
-                     }
 
 
-                 });
-             });
+        $(document).ready(function() {
+            $(".deleteMe").on("click", function() {
+                //console.log($(this).closest("li")[0].innerText);
+                var text = $(this).closest("li")[0].innerText
+                var name = text.split(/\s+/);
+                name = name[0]
+                console.log(name);
+                $(this).closest("li").remove();
+                doAjax(makeUrl(name));
+
+                function makeUrl(name) {
+                    return '/deleteImage/' + name
+                }
+
+                function doAjax(_url) {
+                    return $.ajax({
+                        url: _url,
+                        cache: false,
+                        async: "true",
+                        type: 'DELETE',
+                        complete: function() {
+                            console.log('delete');
+                        }
+                    });
+                }
+
+
+            });
+        });
 
 
         $(document).ready(function() {
@@ -150,39 +151,38 @@
         <div class="container">
             <div class="container-fluid">
                 <div class="row">
-                        <div class="col-md-2 col-md-offset-5">
-                            <div>
-                                <button class="btn btn-primary center-block" onclick="toInitiatization()">Clear/Initiatization</button>
-                            </div>
+                    <div class="col-md-2 col-md-offset-5">
+                        <div>
+                            <button class="btn btn-primary center-block" onclick="toInitiatization()">Clear/Initiatization</button>
                         </div>
                     </div>
-                
-
-             <div class="col-md-12 offset-md-2"></div>
-            
-            <div class="row ">
-                <div class=" col-md-5 ">
-                    <h3>Uploaded Images</h3>
-                    <div class="scrollbar " id="style-1">
-                        <div id='imageList'> </div>
-                    </div>
                 </div>
-                <div class=" col-md-5  ">
-                    <h3>Image Uploader</h3>
-                    <div class="progress " id="progress1">
-                        <div id="progress-bar1" class="progress-bar" role="progressbar"></div>
+                <div class="col-md-12 offset-md-2"></div>
+                <div class="row ">
+                    <div class=" col-xs-12 col-md-6 ">
+                        <h3>Uploaded Images</h3>
+                        <div class="scrollbar " id="style-1">
+                            <div id='imageList'> </div>
+                        </div>
                     </div>
-                    <button class="btn btn-lg button1" type="button">Upload</button>
+                    <div class=" col-xs-12 col-md-6  ">
+                        <h3>Image Uploader</h3>
+                        <div class="progress " id="progress1">
+                            <div id="progress-bar1" class="progress-bar" role="progressbar"></div>
+                        </div>
+                        <button class="btn btn-lg button1" type="button">Upload</button>
+                    </div>
+                    <input id="upload-input_image" type="file" name="uploads_image[]" multiple="multiple" accept="image/jpeg, image/png">
+                    </br>
                 </div>
-                <input id="upload-input_image" type="file" name="uploads_image[]" multiple="multiple" accept="image/jpeg, image/png">
-                </br>
             </div>
         </div>
-    </div></div>
+    </div>
     <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/uploader_image.js"></script>
     <script src="javascripts/uploader_waveform.js"></script>
+    <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
 </body>
 
 </html>

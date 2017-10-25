@@ -26,15 +26,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 /* Image directories used for uploding and retrieving images */
 
 var imageDir = "/home/PL_web-app/src/assets/default/";
-var imageDir_a1="/boot/uboot/epdc/"
-var imageDir_a2="/img/"
+var imageDir_a1 = "/boot/uboot/epdc/"
+var imageDir_a2 = "/img/"
 
-var imageDir2 = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
+var black_image = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
 
 var waveDir = "/home/PL_web-app/src/assets/default/"
-var waveDir_a1 ="/boot/uboot/epdc/"
-var waveDir_a2 ="/display/"
+var waveDir_a1 = "/boot/uboot/epdc/"
+var waveDir_a2 = "/display/"
 
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
 
@@ -44,6 +44,13 @@ var current_WFmode = ['select']
 var current_WaveFile = ['']
 var current_Vcom = ['select']
 var current_displayType = ['select']
+
+
+function between(x, min, max) {
+    return x >= min && x <= max;
+}
+
+
 
 /*
 Routing application and rendering views 
@@ -102,8 +109,8 @@ app.get("/S115_T1.1", function(req, res) {
     var type = 'S115_T1.1'
 
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
-    imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('11.5in');
     var wave_command = " epdc-app " + " " + type
@@ -118,9 +125,9 @@ app.get("/S115_T1.1", function(req, res) {
 app.get("/D107_T3.1", function(req, res) {
     var type = 'D107_T3.1'
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\D107_T3.1\\"
-   // imageDir = "/boot/uboot/epdc/D107_T3.1/img/"
-   imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    // imageDir = "/boot/uboot/epdc/D107_T3.1/img/"
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('10.7in');
     var wave_command = " epdc-app " + " " + type
@@ -133,8 +140,8 @@ app.get("/D107_T3.1", function(req, res) {
 app.get("/S079_T1.1", function(req, res) {
     var type = 'S079_T1.1'
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S079_T1.1\\"
-    imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('7.9in');
     var wave_command = " epdc-app " + " " + type
@@ -147,8 +154,8 @@ app.get("/S079_T1.1", function(req, res) {
 app.get("/S049_T1.1", function(req, res) {
     var type = 'S049_T1.1'
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S049_T1.1\\"
-    imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('4.9in');
     var wave_command = " epdc-app " + " " + type
@@ -161,8 +168,8 @@ app.get("/S049_T1.1", function(req, res) {
 app.get("/S047_T2.1", function(req, res) {
     var type = 'S047_T2.1'
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S047_T2.1\\"
-   imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('4.7in');
     var wave_command = " epdc-app " + " " + type
@@ -176,8 +183,8 @@ app.get("/S047_T2.1", function(req, res) {
 app.get("/S040_T1.1", function(req, res) {
     var type = 'S040_T1.1'
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S040_T1.1\\"
-   imageDir = imageDir_a1+type+imageDir_a2
-    waveDir = waveDir_a1+type+waveDir_a2
+    imageDir = imageDir_a1 + type + imageDir_a2
+    waveDir = waveDir_a1 + type + waveDir_a2
 
     current_displayType.push('4.0in');
     var wave_command = " epdc-app " + " " + type
@@ -246,7 +253,7 @@ app.post('/uploadImage', function(req, res) {
 
                 var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
                 var convert_b = "convert -quality 100% -rotate '-90<' "
-                var convert_c = "convert -quality 100% -rotate '-90<' -adaptive-resize '640x480' ";
+                var convertTenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' ";
                 var identify_1 = "identify -format '%P'"
 
                 if (extention == 'jpg' || extention == 'jpeg') {
@@ -262,13 +269,15 @@ app.post('/uploadImage', function(req, res) {
                     W = resloution.split('x')[0]; // parsing width of image
                     H = resloution.split('x')[1]; // parsing height of image
                     console.log(W, H);
-                    if (W < 1023 || H < 767) {
+                    if (between(W, 1023, 1100) || between(H, 767, 800)) {
                         // upon satisfining the condition, if necesary image is rotated and converted from JPG to PNG by scaling it down to 640x480
-                        var command_2 = convert_c + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                        var command_2 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                         console.log(command_2);
                         shell.exec(command_2);
+                        var w = Math.floor(W / 4)
+                        var h = Math.floor(H / 4)
                         // uploaded image is overlayed with black image and centers are matched
-                        scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +320+240 -composite " + imageDir + ImgName + ".png"
+                        scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + h + "+ -composite " + imageDir + ImgName + ".png"
                         console.log(scale);
                         shell.exec(scale);
                         console.log('deleting files' + file_name);
@@ -292,13 +301,15 @@ app.post('/uploadImage', function(req, res) {
                     W = resloution.split('x')[0];
                     H = resloution.split('x')[1];
                     console.log(W, H);
-                    if (W < 1280 || H < 960) {
+                    if (between(W, 1023, 1100) || between(H, 767, 800)) {
                         // upon satisfining the condition image is rotated if necesary and resized to 640x480
-                        var command_5 = convert_c + imageDir + nameImg + " " + imageDir + nameImg;
+                        var command_5 = convertTenIn + imageDir + nameImg + " " + imageDir + nameImg;
                         console.log(command_5);
                         shell.exec(command_5);
+                        var w = Math.floor(W / 4)
+                        var h = Math.floor(H / 4)
                         // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
-                        scale = "convert" + " " + imageDir2 + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +320+240 -composite " + imageDir + nameImg
+                        scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +" + w + h + "+ -composite " + imageDir + nameImg
                         console.log(scale);
                         shell.exec(scale);
                     }
@@ -648,51 +659,105 @@ app.get("/sendCurrentDisplayType", function(req, res) {
 
 
 
-app.get('*', function(req, res) {
+app.get("/getGps", function(req, res) {
+            var ExifImage = require('exif').ExifImage;
+            console.log('received getGps');
+            try {
+                new ExifImage({ image: '3.jpg' }, function(error, exifData) {
+                        if (error)
+                            console.log('Error: ' + error.message);
+                        else
+                            console.log(exifData);
 
-    res.sendFile(__dirname + '/src/index.html');
-});
+                        var lat = exifData.gps.GPSLatitude;
+                        var lon = exifData.gps.GPSLongitude;
 
-console.log('Listening on localhost port 80');
+                        var latRef = exifData.gps.GPSLatitudeRef || "N";
+                        var lonRef = exifData.gps.GPSLongitudeRef || "W";
+                        lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
+                        lon = (lon[0] + lon[1]/60 + lon[2]/3600) * (lonRef == "W" ? -1 : 1); 
+                            console.log(lat, lon);
+                        });
+                }
+                catch (error) {
+                    console.log('Error: ' + error.message);
+                }
 
-module.exports = app;
+            });
 
 
 
-// filter to retrieve png, jpeg, jpg images from ../demo_images  
-function getImages(imageDir, callback) {
-    var fileType1 = '.png',
-        fileType2 = '.jpeg',
-        fileType3 = '.jpg',
-        files = [],
-        i;
-    fs.readdir(imageDir, function(err, list) {
-        for (i = 0; i < list.length; i++) {
-            if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
-                files.push(list[i]); //store the file name into the array files
-            }
+
+        function applyDivision(value) {
+            var tokens = value.split(',');
+            return parseInt(tokens[0], 10) / parseInt(tokens[1], 10);
         }
-        callback(err, files);
-    });
-}
 
+        function format(str, values) {
+            Object.keys(values).forEach(function(key) {
+                str = str.replace('{' + key + '}', values[key]);
+            });
 
-// filter to retrieve .wbf files  
-function getWaveFiles(waveDir, callback) {
-    var fileType1 = '.wbf',
-        files = [],
-        i;
-    fs.readdir(waveDir, function(err, list) {
-        for (i = 0; i < list.length; i++) {
-            if (path.extname(list[i]) === fileType1) {
-                files.push(list[i]); //store the file name into the array files
-            }
+            return str;
         }
-        callback(err, files);
-    });
-}
 
-// redirects page to upload_image.html
-function redirectRouterUploadPage(req, res) {
-    res.sendFile(__dirname + '/src/upload_image.html');
-}
+
+
+
+
+
+
+
+
+
+
+
+
+        app.get('*', function(req, res) {
+
+            res.sendFile(__dirname + '/src/index.html');
+        });
+
+        console.log('Listening on localhost port 80');
+
+        module.exports = app;
+
+
+
+        // filter to retrieve png, jpeg, jpg images from ../demo_images  
+        function getImages(imageDir, callback) {
+            var fileType1 = '.png',
+                fileType2 = '.jpeg',
+                fileType3 = '.jpg',
+                files = [],
+                i;
+            fs.readdir(imageDir, function(err, list) {
+                for (i = 0; i < list.length; i++) {
+                    if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
+                        files.push(list[i]); //store the file name into the array files
+                    }
+                }
+                callback(err, files);
+            });
+        }
+
+
+        // filter to retrieve .wbf files  
+        function getWaveFiles(waveDir, callback) {
+            var fileType1 = '.wbf',
+                files = [],
+                i;
+            fs.readdir(waveDir, function(err, list) {
+                for (i = 0; i < list.length; i++) {
+                    if (path.extname(list[i]) === fileType1) {
+                        files.push(list[i]); //store the file name into the array files
+                    }
+                }
+                callback(err, files);
+            });
+        }
+
+        // redirects page to upload_image.html
+        function redirectRouterUploadPage(req, res) {
+            res.sendFile(__dirname + '/src/upload_image.html');
+        }

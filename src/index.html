@@ -10,6 +10,21 @@
     <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <script src="bootstrap/dist/js/jquery-3.0.0.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function getGps(){
+            console.log('received getGps');
+            $.ajax({
+                url: '/getGps',
+                type: "GET",
+                cache: false,
+                async: "true",
+                complete: function() {
+                    console.log('received getGps');
+                }
+
+            });
+        }
+    </script>
 
 <link rel = "stylesheet"
    type = "text/css"
@@ -110,6 +125,12 @@
         </a>
     </div>
     <!-- /.carousel -->
+
+<div>
+    
+       <button class="btn btn-default" onclick="getGps()" type="button">getGps</button>
+</div>
+
 </body>
 
 </html>

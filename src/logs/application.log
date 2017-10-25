@@ -1,0 +1,380 @@
+Listening on localhost port 80
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+received display type S115_T1.1
+received sendCurrentDisplayType 11.5in
+[ { currentdisplayType: '11.5in' } ]
+upload_showImageList
+[ 'ALT.png' ]
+/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png
+in upload
+1
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 920,
+    path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+    name: 'ALT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 920,
+       closed: true } } ]
+here1
+/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png
+here2
+here3
+ALT.png
+/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png
+in upload
+2
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 920,
+    path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+    name: 'ALT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 920,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 21315,
+    path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+    name: 'ALT2.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 21315,
+       closed: true } } ]
+here1
+/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png
+here2
+here3
+ALT2.png
+/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png
+in upload
+3
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 920,
+    path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+    name: 'ALT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 920,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 21315,
+    path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+    name: 'ALT2.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 21315,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 1349,
+    path: '/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png',
+    name: 'ALTsT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 1349,
+       closed: true } } ]
+here1
+/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png
+here2
+here3
+ALTsT.png
+/tmp/upload_f2f5db12fde9cac55521758a47c14be3.png
+in upload
+4
+[ File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 920,
+    path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+    name: 'ALT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_5dd07470d8b80509fde1a59a750580ec.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 920,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 21315,
+    path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+    name: 'ALT2.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f8f48b8049a7e0b232726469c2b586e7.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 21315,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 1349,
+    path: '/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png',
+    name: 'ALTsT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_d3c0a8b2ac10a7d38fedfa0fc1050f78.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 1349,
+       closed: true } },
+  File {
+    domain: null,
+    _events: {},
+    _eventsCount: 0,
+    _maxListeners: undefined,
+    size: 920,
+    path: '/tmp/upload_f2f5db12fde9cac55521758a47c14be3.png',
+    name: 'ALTT.png',
+    type: 'image/png',
+    hash: null,
+    lastModifiedDate: Wed Oct 25 2017 12:00:48 GMT+0000 (UTC),
+    _writeStream: 
+     WriteStream {
+       _writableState: [Object],
+       writable: true,
+       domain: null,
+       _events: {},
+       _eventsCount: 0,
+       _maxListeners: undefined,
+       path: '/tmp/upload_f2f5db12fde9cac55521758a47c14be3.png',
+       fd: null,
+       flags: 'w',
+       mode: 438,
+       start: undefined,
+       pos: undefined,
+       bytesWritten: 920,
+       closed: true } } ]
+here1
+/tmp/upload_f2f5db12fde9cac55521758a47c14be3.png
+here2
+here3
+ALTT.png
+upload_showImageList
+[ 'ALT.png' ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [ 'D107_V6C221_16GL_2PHASE_V3.wbf',
+    'waveform - Copy.wbf',
+    'waveform.wbf' ],
+  { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]

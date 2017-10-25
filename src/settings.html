@@ -161,6 +161,7 @@
                 async: "true",
                 complete: function() {
                     console.log('received default_waveform');
+                      alert('defaults to waveform.wbf, Please wait for page to reload. Click OK to continue')
                     location.reload()
                 }
             });
@@ -174,8 +175,8 @@
                 async: "true",
                 complete: function() {
                     console.log('received detect_waveform');
-                    alert('Detecting waveform and reloads after 3 seconds')
-                    setTimeout(function() {location.reload();}, 3000);
+                    alert('Detecting waveform from EEPROM... Please wait for page to reload. Click OK to continue')
+                    setTimeout(function() {location.reload();}, 2000);
                 }
             });
         }
@@ -193,9 +194,9 @@
                 cache: false,
                 async: "true",
                 data: { vcom_number }
-
-
             });
+            alert('Please wait for page to reload. Click OK to continue')
+            setTimeout(function() {location.reload();}, 2000);
         }
 
         function default_Vcom() {
@@ -207,11 +208,35 @@
                 async: "true",
                 complete: function() {
                     console.log('received default_Vcom');
+                     alert('VCOM:6000 Please wait for page to reload. Click OK to continue')
                      location.reload()
                 }
 
             });
         }
+
+         function detect_Vcom() {
+            console.log('received detect_Vcom');
+            $.ajax({
+                url: '/detect_Vcom',
+                type: "GET",
+                cache: false,
+                async: "true",
+                complete: function() {
+                    console.log('received detect_Vcom');
+                     alert('Detecting VCOM from EEPROM... Please wait for page to reload. Click OK to continue')
+                     location.reload()
+                }
+
+            });
+        }
+
+       
+        function viewLog(){
+     window.open('http://192.168.7.2/logs/application.log');           
+     
+}
+
         </script>
         <div class="container">
             <div class="container">
@@ -234,6 +259,12 @@
                                 <button class="btn btn-default" onclick="detect_Vcom()" type="button">Detect:VCOM</button>
                                 <span id="errmsg"></span>
                             </form>
+                            <h3 id='Download_log'>Log File: </h3>
+                            
+                             <button class="btn btn-default" onclick="viewLog()" type="button">View</button>
+                             <a href="http://192.168.7.2/logs/application.log" type=”_blank” download>
+                            <button class="btn btn-default"> Download</button>
+                                </a>
                         </div>
                     </div>
                 </div>

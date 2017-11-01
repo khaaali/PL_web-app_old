@@ -243,77 +243,167 @@ app.post('/uploadImage', function(req, res) {
         fs.copy(temp_path, new_location + file_name, function(err) {
             if (err) {
                 console.error(err);
-            } else {
+            } else
+
+            {
                 console.log("success!", new_location + file_name)
                 var extention = file_name.split('.').pop();
                 console.log(extention)
-
+                currentDisplayType = current_displayType[current_displayType.length - 1]
+                console.log(currentDisplayType)
                 // image magik commands for conversion to JPG to PNG and scaling of images
                 //sudo apt-get install imagemagick
 
-                var convert_a = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' "
+                var identify = "identify -format '%P'"
                 var convert_b = "convert -quality 100% -rotate '-90<' "
-                var convertTenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' ";
-                var identify_1 = "identify -format '%P'"
 
-                if (extention == 'jpg' || extention == 'jpeg') {
-                    var ImgName = file_name.split('.jpg')[0] // spliting the file name
-                    console.log(ImgName)
-                    var command_1 = identify_1 + " " + imageDir + file_name
-                    console.log(command_1);
+                if (currentDisplayType == '10.7in') {
+                    console.log(currentDisplayType)
+                    var convertTenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' ";
 
-                    // executing the command on linux termnial using shell.exec(...)
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
 
-                    var resloution = shell.exec(command_1);
-                    console.log(resloution.split('x'));
-                    W = resloution.split('x')[0]; // parsing width of image
-                    H = resloution.split('x')[1]; // parsing height of image
-                    console.log(W, H);
-                    if (between(W, 1023, 1100) || between(H, 767, 800)) {
-                        // upon satisfining the condition, if necesary image is rotated and converted from JPG to PNG by scaling it down to 640x480
-                        var command_2 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
-                        console.log(command_2);
-                        shell.exec(command_2);
-                        var w = Math.floor(W / 4)
-                        var h = Math.floor(H / 4)
-                        // uploaded image is overlayed with black image and centers are matched
-                        scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + h + "+ -composite " + imageDir + ImgName + ".png"
-                        console.log(scale);
-                        shell.exec(scale);
-                        console.log('deleting files' + file_name);
-                        fs.unlink(imageDir + file_name); // for deleting the files
+                        // executing the command on linux termnial using shell.exec(...)
 
-                    } else {
-                        // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
-                        var command_3 = convert_a + imageDir + file_name + " " + imageDir + ImgName + ".png";
-                        console.log(command_3);
-                        shell.exec(command_3);
-                        console.log('deleting files' + file_name);
-                        fs.unlink(imageDir + file_name); // for deleting the files
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        if (W < 1023 || H < 767) {
+                            // upon satisfining the condition, if necesary image is rotated 
+                            //and converted from JPG to PNG by scaling it down to W/4xH/4
+                            var command_2 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            var w = Math.floor(W / 4)
+                            var h = Math.floor(H / 4)
+                            // uploaded image is overlayed with black image and centers are matched
+                            scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + h + "+ -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                            var command_3 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        if (W < 1023 || H < 767) {
+                            // upon satisfining the condition image is rotated if necesary and resized to W/4xH/4
+                            var command_5 = convertTenIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            var w = Math.floor(W / 4)
+                            var h = Math.floor(H / 4)
+                            // resized image is overlayed on top of black image and centers are alinged with W/4xH/4
+                            scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                            var command_6 = convertTenIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
                     }
-                } else if (extention == 'png') {
+                } else if (currentDisplayType == '11.5in') {
+                    // works when selected display is 11.5in
+                    console.log(currentDisplayType)
+                    var convertElevenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1380x96' "
 
-                    var nameImg = file_name
-                    var command_4 = identify_1 + " " + imageDir + nameImg
-                    console.log(command_4);
-                    var resloution = shell.exec(command_4);
-                    console.log(resloution.split('x'));
-                    W = resloution.split('x')[0];
-                    H = resloution.split('x')[1];
-                    console.log(W, H);
-                    if (between(W, 1023, 1100) || between(H, 767, 800)) {
-                        // upon satisfining the condition image is rotated if necesary and resized to 640x480
-                        var command_5 = convertTenIn + imageDir + nameImg + " " + imageDir + nameImg;
-                        console.log(command_5);
-                        shell.exec(command_5);
-                        var w = Math.floor(W / 4)
-                        var h = Math.floor(H / 4)
-                        // resized image is overlayed on top of black image and centers are alinged with W/2 and H/2
-                        scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +" + w + h + "+ -composite " + imageDir + nameImg
-                        console.log(scale);
-                        shell.exec(scale);
+
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
+
+                        // executing the command on linux termnial using shell.exec(...)
+
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        var w = 1380/2
+                        var h = 0
+                        if (W < 1320 || H < 80) {
+                            // upon satisfining the condition, image is rotated 
+                            //and converted from JPG to PNG 
+                            var command_2 = convertElevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            // uploaded image is overlayed with black image and centers are matched
+                            scale = "convert" + " " + black_image + "black_1380x96.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // image is rotated if necesary and , resized to 1380x96
+                            var command_3 = convertElevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        var w = 1380/2
+                        var h = 0
+                        if (W < 1320 || H < 80) {
+                            // upon satisfining the condition image is rotated
+                            var command_5 = convertElevenIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            // resized image is overlayed on top of black image and alinged with W/4xH/4
+                            scale = "convert" + " " + black_image + "black_1380x96.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // image is rotated if necesary and , resized to 1380x96
+                            var command_6 = convertElevenIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
                     }
                 }
+
+
+
+
 
 
             }
@@ -656,108 +746,51 @@ app.get("/sendCurrentDisplayType", function(req, res) {
 
 
 
+app.get('*', function(req, res) {
+
+    res.sendFile(__dirname + '/src/index.html');
+});
+
+console.log('Listening on localhost port 80');
+
+module.exports = app;
 
 
 
-app.get("/getGps", function(req, res) {
-            var ExifImage = require('exif').ExifImage;
-            console.log('received getGps');
-            try {
-                new ExifImage({ image: '3.jpg' }, function(error, exifData) {
-                        if (error)
-                            console.log('Error: ' + error.message);
-                        else
-                            console.log(exifData);
-
-                        var lat = exifData.gps.GPSLatitude;
-                        var lon = exifData.gps.GPSLongitude;
-
-                        var latRef = exifData.gps.GPSLatitudeRef || "N";
-                        var lonRef = exifData.gps.GPSLongitudeRef || "W";
-                        lat = (lat[0] + lat[1] / 60 + lat[2] / 3600) * (latRef == "N" ? 1 : -1);
-                        lon = (lon[0] + lon[1]/60 + lon[2]/3600) * (lonRef == "W" ? -1 : 1); 
-                            console.log(lat, lon);
-                        });
-                }
-                catch (error) {
-                    console.log('Error: ' + error.message);
-                }
-
-            });
-
-
-
-
-        function applyDivision(value) {
-            var tokens = value.split(',');
-            return parseInt(tokens[0], 10) / parseInt(tokens[1], 10);
+// filter to retrieve png, jpeg, jpg images from ../demo_images  
+function getImages(imageDir, callback) {
+    var fileType1 = '.png',
+        fileType2 = '.jpeg',
+        fileType3 = '.jpg',
+        files = [],
+        i;
+    fs.readdir(imageDir, function(err, list) {
+        for (i = 0; i < list.length; i++) {
+            if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
+                files.push(list[i]); //store the file name into the array files
+            }
         }
+        callback(err, files);
+    });
+}
 
-        function format(str, values) {
-            Object.keys(values).forEach(function(key) {
-                str = str.replace('{' + key + '}', values[key]);
-            });
 
-            return str;
+// filter to retrieve .wbf files  
+function getWaveFiles(waveDir, callback) {
+    var fileType1 = '.wbf',
+        files = [],
+        i;
+    fs.readdir(waveDir, function(err, list) {
+        for (i = 0; i < list.length; i++) {
+            if (path.extname(list[i]) === fileType1) {
+                files.push(list[i]); //store the file name into the array files
+            }
         }
+        callback(err, files);
+    });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-        app.get('*', function(req, res) {
-
-            res.sendFile(__dirname + '/src/index.html');
-        });
-
-        console.log('Listening on localhost port 80');
-
-        module.exports = app;
-
-
-
-        // filter to retrieve png, jpeg, jpg images from ../demo_images  
-        function getImages(imageDir, callback) {
-            var fileType1 = '.png',
-                fileType2 = '.jpeg',
-                fileType3 = '.jpg',
-                files = [],
-                i;
-            fs.readdir(imageDir, function(err, list) {
-                for (i = 0; i < list.length; i++) {
-                    if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
-                        files.push(list[i]); //store the file name into the array files
-                    }
-                }
-                callback(err, files);
-            });
-        }
-
-
-        // filter to retrieve .wbf files  
-        function getWaveFiles(waveDir, callback) {
-            var fileType1 = '.wbf',
-                files = [],
-                i;
-            fs.readdir(waveDir, function(err, list) {
-                for (i = 0; i < list.length; i++) {
-                    if (path.extname(list[i]) === fileType1) {
-                        files.push(list[i]); //store the file name into the array files
-                    }
-                }
-                callback(err, files);
-            });
-        }
-
-        // redirects page to upload_image.html
-        function redirectRouterUploadPage(req, res) {
-            res.sendFile(__dirname + '/src/upload_image.html');
-        }
+// redirects page to upload_image.html
+function redirectRouterUploadPage(req, res) {
+    res.sendFile(__dirname + '/src/upload_image.html');
+}

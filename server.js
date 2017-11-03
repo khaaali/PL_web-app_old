@@ -55,6 +55,11 @@ set display type command, utilizes display type defined in the configsFilePath
 var set_Display_Command = " epdc-app " + " " + "-start_epdc"
 
 
+/*
+Errors
+*/
+var _configParserError = 'No register settings specified in the configuration file.'
+
 
 function between(x, min, max) {
     return x >= min && x <= max;
@@ -133,11 +138,11 @@ app.get("/S115_T1.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
@@ -174,11 +179,11 @@ app.get("/D107_T3.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
@@ -213,11 +218,11 @@ app.get("/S079_T1.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
@@ -230,7 +235,7 @@ app.get("/S079_T1.1", function(req, res) {
             })
         }
     });
- 
+
 });
 
 app.get("/S049_T1.1", function(req, res) {
@@ -251,16 +256,15 @@ app.get("/S049_T1.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
-                } 
-                else {
+                } else {
                     current_displayType.push('4.9in');
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -269,7 +273,7 @@ app.get("/S049_T1.1", function(req, res) {
             })
         }
     });
-  
+
 });
 
 app.get("/S047_T2.1", function(req, res) {
@@ -290,11 +294,11 @@ app.get("/S047_T2.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
@@ -307,7 +311,7 @@ app.get("/S047_T2.1", function(req, res) {
             })
         }
     });
-   
+
 });
 
 
@@ -329,11 +333,11 @@ app.get("/S040_T1.1", function(req, res) {
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
                 var error = _.includes(data, 'error')
-                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
-                console.log(error,configParserError)
+                var configParserError = _.includes(data, _configParserError)
+                console.log(error, configParserError)
                 if (error == true || configParserError == true) {
-                    console.log(error)
-                    current_displayType.push('Error_setting_display')
+
+                    current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
                     res.redirect('/display_type');
@@ -346,7 +350,7 @@ app.get("/S040_T1.1", function(req, res) {
             })
         }
     });
-  
+
 });
 
 
@@ -674,10 +678,10 @@ app.get("/default_waveform", function(req, res) {
             console.log(typeof(data), data)
 
             var error = _.includes(data, 'error')
-
-            console.log(error)
-            if (error == true) {
-                console.log(error)
+            var configParserError = _.includes(data, _configParserError)
+            console.log(error, configParserError)
+            if (error == true || configParserError == true) {
+                console.log(error, configParserError)
                 current_WaveFile.push('Error_check_wavefile')
 
 
@@ -883,10 +887,9 @@ app.get("/default_Vcom", function(req, res) {
             console.log(typeof(data), data)
 
             var error = _.includes(data, 'error')
-
-            console.log(error)
-            if (error == true) {
-                console.log(error)
+            var configParserError = _.includes(data, _configParserError)
+            console.log(error, configParserError)
+            if (error == true || configParserError == true) {
                 current_Vcom.push('Error_check_Vcom')
 
 

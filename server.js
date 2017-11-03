@@ -26,24 +26,34 @@ app.use(bodyParser.urlencoded({ extended: false }))
 /* Image directories used for uploding and retrieving images */
 
 var imageDir = "/home/PL_web-app/src/assets/default/";
-var imageDir_a1 = "/boot/uboot/epdc/"
+var imageDir_a1 = "/boot/uboot/"
 var imageDir_a2 = "/img/"
 
 var black_image = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
 
 var waveDir = "/home/PL_web-app/src/assets/default/"
-var waveDir_a1 = "/boot/uboot/epdc/"
+var waveDir_a1 = "/boot/uboot/"
 var waveDir_a2 = "/display/"
 
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
-
 
 // Arrays for hold ing vaules in the webpage
 var current_WFmode = ['select']
 var current_WaveFile = ['']
 var current_Vcom = ['select']
 var current_displayType = ['select']
+
+/*
+configuration file for the display type
+*/
+var configsFilePath = "/boot/uboot/config.txt"
+
+/*
+set display type command, utilizes display type defined in the configsFilePath
+*/
+var set_Display_Command = " epdc-app " + " " + "-start_epdc"
+
 
 
 function between(x, min, max) {
@@ -107,91 +117,236 @@ app.get("/toInitiatization", function(req, res) {
 
 app.get("/S115_T1.1", function(req, res) {
     var type = 'S115_T1.1'
-
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('11.5in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
+    //defining display type in the configsFilePath 
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } else {
+                    current_displayType.push('11.5in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
+    });
 
-    res.redirect('/display_type');
 });
 
 
 
 app.get("/D107_T3.1", function(req, res) {
     var type = 'D107_T3.1'
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\D107_T3.1\\"
-    // imageDir = "/boot/uboot/epdc/D107_T3.1/img/"
+    // imageDir = "/boot/uboot/D107_T3.1/img/"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('10.7in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
+    //defining display type in the configsFilePath
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } else {
+                    current_displayType.push('10.7in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
 
-    res.redirect('/display_type');
+    });
+
 });
 
 app.get("/S079_T1.1", function(req, res) {
     var type = 'S079_T1.1'
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S079_T1.1\\"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('7.9in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
+    //defining display type in the configsFilePath
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } else {
+                    current_displayType.push('7.9in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
+    });
+ 
 });
 
 app.get("/S049_T1.1", function(req, res) {
     var type = 'S049_T1.1'
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S049_T1.1\\"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('4.9in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
+    //defining display type in the configsFilePath
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } 
+                else {
+                    current_displayType.push('4.9in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
+    });
+  
 });
 
 app.get("/S047_T2.1", function(req, res) {
     var type = 'S047_T2.1'
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S047_T2.1\\"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('4.7in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
+    //defining display type in the configsFilePath
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } else {
+                    current_displayType.push('4.7in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
+    });
+   
 });
 
 
 app.get("/S040_T1.1", function(req, res) {
     var type = 'S040_T1.1'
+    var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S040_T1.1\\"
+
+    // assigning image and wave directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    current_displayType.push('4.0in');
-    var wave_command = " epdc-app " + " " + type
-    //shell.exec(wave_command);
-    console.log('received display type', type);
-
-    res.redirect('/display_type');
+    //defining display type in the configsFilePath
+    fs.writeFile(configsFilePath, displayTypeString, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+        if (true) {
+            var child = exec(set_Display_Command, { async: false });
+            child.stdout.on('data', function(data) {
+                console.log(typeof(data), data)
+                var error = _.includes(data, 'error')
+                var configParserError = _.includes(data, 'No register settings specified in the configuration file.')
+                console.log(error,configParserError)
+                if (error == true || configParserError == true) {
+                    console.log(error)
+                    current_displayType.push('Error_setting_display')
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                } else {
+                    current_displayType.push('4.0in');
+                    console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                    console.log('received display type', type);
+                    res.redirect('/display_type');
+                }
+            })
+        }
+    });
+  
 });
 
 
@@ -275,14 +430,13 @@ app.post('/uploadImage', function(req, res) {
                         var H = resloution.split('x')[1]; // parsing height of image
                         console.log(W, H);
                         if (W < 1023 || H < 767) {
-                            // upon satisfining the condition, if necesary image is rotated 
-                            //and converted from JPG to PNG by scaling it down to W/4xH/4
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
                             var command_2 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_2);
                             shell.exec(command_2);
                             var w = Math.floor(W / 4)
                             var h = Math.floor(H / 4)
-                            // uploaded image is overlayed with black image and centers are matched
+                            // blackimage is overlayed by uploaded image and centred on the display
                             scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + h + "+ -composite " + imageDir + ImgName + ".png"
                             console.log(scale);
                             shell.exec(scale);
@@ -290,7 +444,7 @@ app.post('/uploadImage', function(req, res) {
                             fs.unlink(imageDir + file_name); // for deleting the files
 
                         } else {
-                            // image is rotated if necesary and converted from JPG to PNG, resized to 1280x960
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
                             var command_3 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_3);
                             shell.exec(command_3);
@@ -330,7 +484,9 @@ app.post('/uploadImage', function(req, res) {
                 } else if (currentDisplayType == '11.5in') {
                     // works when selected display is 11.5in
                     console.log(currentDisplayType)
+                    // converting image to specific resolution
                     var convertElevenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1380x96' "
+                    // -90 anticlockwise '<' rotates if width is less than height
 
 
                     if (extention == 'jpg' || extention == 'jpeg') {
@@ -346,15 +502,14 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0]; // parsing width of image
                         var H = resloution.split('x')[1]; // parsing height of image
                         console.log(W, H);
-                        var w = 1380/2
+                        var w = 1380 / 2
                         var h = 0
                         if (W < 1320 || H < 80) {
-                            // upon satisfining the condition, image is rotated 
-                            //and converted from JPG to PNG 
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
                             var command_2 = convertElevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_2);
                             shell.exec(command_2);
-                            // uploaded image is overlayed with black image and centers are matched
+                            // blackimage is overlayed by uploaded image and centred on the display
                             scale = "convert" + " " + black_image + "black_1380x96.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
                             console.log(scale);
                             shell.exec(scale);
@@ -362,7 +517,8 @@ app.post('/uploadImage', function(req, res) {
                             fs.unlink(imageDir + file_name); // for deleting the files
 
                         } else {
-                            // image is rotated if necesary and , resized to 1380x96
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+
                             var command_3 = convertElevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_3);
                             shell.exec(command_3);
@@ -380,19 +536,19 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0];
                         var H = resloution.split('x')[1];
                         console.log(W, H);
-                        var w = 1380/2
+                        var w = 1380 / 2
                         var h = 0
                         if (W < 1320 || H < 80) {
                             // upon satisfining the condition image is rotated
                             var command_5 = convertElevenIn + imageDir + nameImg + " " + imageDir + nameImg;
                             console.log(command_5);
                             shell.exec(command_5);
-                            // resized image is overlayed on top of black image and alinged with W/4xH/4
+                            // blackimage is overlayed by uploaded image and centred on the display
                             scale = "convert" + " " + black_image + "black_1380x96.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
                             console.log(scale);
                             shell.exec(scale);
                         } else {
-                            // image is rotated if necesary and , resized to 1380x96
+                            // upon satisfining the condition, image is rotated 
                             var command_6 = convertElevenIn + imageDir + file_name + " " + imageDir + nameImg;
                             console.log(command_6);
                             shell.exec(command_6);
@@ -509,10 +665,43 @@ app.post("/uploadWaveform", function(req, res) {
 
 app.get("/default_waveform", function(req, res) {
     console.log('received default_waveform');
-    var init_command = " epdc-app -set_waveform /boot/uboot/epdc/S115_T1.1/display/waveform.wbf"
-    console.log(init_command);
-    shell.exec(init_command);
-    current_WaveFile.push('waveform.wbf')
+    var command = " epdc-app -start_epdc"
+    console.log(command);
+
+    if (true) {
+        var child = exec(command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
+
+            var error = _.includes(data, 'error')
+
+            console.log(error)
+            if (error == true) {
+                console.log(error)
+                current_WaveFile.push('Error_check_wavefile')
+
+
+            } else {
+                console.log('null')
+                console.log(data.length)
+                //regex expression for replacing space and newlines from the std-output(console)
+                var splitData = data.match(/[^\s]+/g);
+                //console.log(splitData, typeof(splitData), splitData.length)
+
+                var waveIndex = _.findIndex(splitData, function(o) { return o == 'wflib:'; });
+                var wavePath = splitData[waveIndex + 1]
+                var waveNameArray = wavePath.split('/')
+                var waveName = waveNameArray[waveNameArray.length - 1]
+                current_WaveFile.push(waveName)
+
+                var wave_command = " epdc-app -set_waveform" + " " + wavePath
+                shell.exec(wave_command);
+
+                console.log(wave_command);
+            }
+        })
+    }
+
     res.setHeader("Content-Type", "text/html");
     res.redirect('/settings');
 });
@@ -520,14 +709,15 @@ app.get("/default_waveform", function(req, res) {
 
 app.get("/detect_waveform", function(req, res) {
     console.log('received detect_waveform');
-    var command = " epdc-app -start_epdc 1"
+    var command = " epdc-app -start_epdc"
     console.log(command);
     if (true) {
         var child = exec(command, { async: false });
         child.stdout.on('data', function(data) {
-
             console.log(typeof(data), data)
+
             var error = _.includes(data, 'error')
+
             console.log(error)
             if (error == true) {
                 console.log(error)
@@ -536,6 +726,10 @@ app.get("/detect_waveform", function(req, res) {
 
             } else {
                 console.log('null')
+                console.log(data.length)
+
+
+
             }
         })
     }
@@ -680,12 +874,40 @@ app.post("/set_Vcom", function(req, res) {
 
 app.get("/default_Vcom", function(req, res) {
     console.log('received default_Vcom');
-    var vcom = "6000"
-    current_Vcom.push(vcom)
+    var command = " epdc-app -start_epdc"
+    console.log(command);
 
-    var wave_command = " epdc-app -set_vcom  6000"
-    shell.exec(wave_command);
-    console.log(wave_command);
+    if (true) {
+        var child = exec(command, { async: false });
+        child.stdout.on('data', function(data) {
+            console.log(typeof(data), data)
+
+            var error = _.includes(data, 'error')
+
+            console.log(error)
+            if (error == true) {
+                console.log(error)
+                current_Vcom.push('Error_check_Vcom')
+
+
+            } else {
+                console.log('null')
+                console.log(data.length)
+                //regex expression for replacing space and newlines from the std-output(console)
+                var splitData = data.match(/[^\s]+/g);
+                //console.log(splitData, typeof(splitData), splitData.length)
+
+                var VcomIndex = _.findIndex(splitData, function(o) { return o == 'vcom:'; });
+                var vcomValue = splitData[VcomIndex + 1]
+                current_Vcom.push(vcomValue)
+                var vcom_command = " epdc-app -set_vcom" + " " + vcomValue
+                shell.exec(vcom_command);
+
+                console.log(vcom_command);
+            }
+        })
+    }
+
     res.setHeader("Content-Type", "text/html");
     res.redirect('/settings');
 });
@@ -695,11 +917,12 @@ app.get("/default_Vcom", function(req, res) {
 app.get("/detect_Vcom", function(req, res) {
     console.log('received detect_Vcom');
 
-    current_Vcom.push()
-
-    var wave_command = " epdc-app -set_vcom  6000"
+    var wave_command = " epdc-app -start_epdc"
     shell.exec(wave_command);
     console.log(wave_command);
+
+    current_Vcom.push()
+
     res.setHeader("Content-Type", "text/html");
     res.redirect('/settings');
 });
@@ -730,6 +953,10 @@ app.get("/toAutoDetect", function(req, res) {
 });
 
 /******************Autodetect End**************************/
+
+
+
+
 
 app.get("/sendCurrentDisplayType", function(req, res) {
 
@@ -789,6 +1016,14 @@ function getWaveFiles(waveDir, callback) {
         callback(err, files);
     });
 }
+
+
+
+
+function removeBlackFields(array) {
+    return array.filter((item) => item != '');
+}
+
 
 // redirects page to upload_image.html
 function redirectRouterUploadPage(req, res) {

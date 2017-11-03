@@ -1,6 +1,1 @@
 Listening on localhost port 80
-received sendCurrentDisplayType select
-[ { currentdisplayType: 'select' } ]
-received display type S115_T1.1
-received sendCurrentDisplayType 11.5in
-[ { currentdisplayType: '11.5in' } ]

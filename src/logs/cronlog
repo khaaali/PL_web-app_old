@@ -6,7 +6,6 @@ configparser     version - CONFIG_S115_T1.1
 
 configparser     Interface: Parallel
 main             load_nvm_content?: 0
-s1d135xx         Product code: 0x004F
-s1d135xx         Rev: 0100, conf: 001E
-s1d135xx         Couldn't open initialization code file.
-s1d13524_controller Failed to load init code
+s1d135xx         Product code: 0x0002
+s1d135xx         Invalid product code, expected 0x004F
+s1d13524_controller Failed to init epd controller

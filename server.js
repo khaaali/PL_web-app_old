@@ -29,16 +29,18 @@ var imageDir = "/home/PL_web-app/src/assets/default/";
 var imageDir_a1 = "/boot/uboot/"
 var imageDir_a2 = "/img/"
 
-var black_image = "/home/PL_web-app/src/bootstrap/"; // black image for centring the image
+// path for black images, required for centering the image
+var black_image = "/home/PL_web-app/src/assets/BlackImages/";
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
 
+/* Waveform directories used for uploding and retrieving Waveform Files */
 var waveDir = "/home/PL_web-app/src/assets/default/"
 var waveDir_a1 = "/boot/uboot/"
 var waveDir_a2 = "/display/"
 
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
 
-// Arrays for hold ing vaules in the webpage
+// Arrays for handling vaules in the webpage.
 var current_WFmode = ['select']
 var current_WaveFile = ['']
 var current_Vcom = ['select']
@@ -59,9 +61,10 @@ var set_Display_Command = " epdc-app " + " " + "-start_epdc"
 Errors
 */
 var _configParserError = 'No register settings specified in the configuration file.'
+var _initEpdFailed="Failed to init epd controller"
 
 
-function between(x, min, max) {
+function resolutionBetween(x, min, max) {
     return x >= min && x <= max;
 }
 
@@ -125,11 +128,11 @@ app.get("/S115_T1.1", function(req, res) {
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath 
+    //writing display type in 'configs.txt' located at configsFilePath 
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -137,11 +140,13 @@ app.get("/S115_T1.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+                // checking the stdout for errors
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -166,11 +171,11 @@ app.get("/D107_T3.1", function(req, res) {
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\D107_T3.1\\"
     // imageDir = "/boot/uboot/D107_T3.1/img/"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath
+    //writing display type to 'configs.txt' located at configsFilePath 
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -178,11 +183,13 @@ app.get("/D107_T3.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+                // checking the stdout for errors
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError== true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -205,11 +212,11 @@ app.get("/S079_T1.1", function(req, res) {
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S079_T1.1\\"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath
+    //writing display type to 'configs.txt' located at configsFilePath
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -217,11 +224,14 @@ app.get("/S079_T1.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+
+                // checking the stdout for errors
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError== true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -243,11 +253,11 @@ app.get("/S049_T1.1", function(req, res) {
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S049_T1.1\\"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath
+    //writing display type to 'configs.txt' located at configsFilePath
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -255,11 +265,13 @@ app.get("/S049_T1.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -281,11 +293,11 @@ app.get("/S047_T2.1", function(req, res) {
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S047_T2.1\\"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath
+    //writing display type to 'configs.txt' located at configsFilePath
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -293,11 +305,13 @@ app.get("/S047_T2.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -320,11 +334,11 @@ app.get("/S040_T1.1", function(req, res) {
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S040_T1.1\\"
 
-    // assigning image and wave directories to the display type
+    // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
 
-    //defining display type in the configsFilePath
+    //writing display type to 'configs.txt' located at configsFilePath
     fs.writeFile(configsFilePath, displayTypeString, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
@@ -332,11 +346,13 @@ app.get("/S040_T1.1", function(req, res) {
             var child = exec(set_Display_Command, { async: false });
             child.stdout.on('data', function(data) {
                 console.log(typeof(data), data)
+
                 var error = _.includes(data, 'error')
                 var configParserError = _.includes(data, _configParserError)
-                console.log(error, configParserError)
-                if (error == true || configParserError == true) {
+                var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
 
+                if (error == true || configParserError == true || initError == true) {
                     current_displayType.push('Error_Setting_display')
                     console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                     console.log('received display type', type);
@@ -433,15 +449,15 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0]; // parsing width of image
                         var H = resloution.split('x')[1]; // parsing height of image
                         console.log(W, H);
-                        if (W < 1023 || H < 767) {
+                        if (W < 1280 || H < 960) {
                             // upon satisfining the condition, image is rotated and converted from JPG to PNG 
                             var command_2 = convertTenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_2);
                             shell.exec(command_2);
-                            var w = Math.floor(W / 4)
-                            var h = Math.floor(H / 4)
+                            var w = Math.floor(W / 2)
+                            var h = 0
                             // blackimage is overlayed by uploaded image and centred on the display
-                            scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + h + "+ -composite " + imageDir + ImgName + ".png"
+                            scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w+ "+"  + h + "+ -composite " + imageDir + ImgName + ".png"
                             console.log(scale);
                             shell.exec(scale);
                             console.log('deleting files' + file_name);
@@ -466,13 +482,13 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0];
                         var H = resloution.split('x')[1];
                         console.log(W, H);
-                        if (W < 1023 || H < 767) {
+                        if (W < 1280 || H < 960) {
                             // upon satisfining the condition image is rotated if necesary and resized to W/4xH/4
                             var command_5 = convertTenIn + imageDir + nameImg + " " + imageDir + nameImg;
                             console.log(command_5);
                             shell.exec(command_5);
-                            var w = Math.floor(W / 4)
-                            var h = Math.floor(H / 4)
+                            var w = Math.floor(W / 2)
+                            var h = 0
                             // resized image is overlayed on top of black image and centers are alinged with W/4xH/4
                             scale = "convert" + " " + black_image + "black_1280x960.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
                             console.log(scale);
@@ -506,9 +522,9 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0]; // parsing width of image
                         var H = resloution.split('x')[1]; // parsing height of image
                         console.log(W, H);
-                        var w = 1380 / 2
+                        var w = Math.floor(W / 2)
                         var h = 0
-                        if (W < 1320 || H < 80) {
+                        if (W < 1380 || H < 96) {
                             // upon satisfining the condition, image is rotated and converted from JPG to PNG 
                             var command_2 = convertElevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
                             console.log(command_2);
@@ -540,9 +556,9 @@ app.post('/uploadImage', function(req, res) {
                         var W = resloution.split('x')[0];
                         var H = resloution.split('x')[1];
                         console.log(W, H);
-                        var w = 1380 / 2
+                        var w =Math.floor(W / 2)
                         var h = 0
-                        if (W < 1320 || H < 80) {
+                        if (W < 1380 || H < 96) {
                             // upon satisfining the condition image is rotated
                             var command_5 = convertElevenIn + imageDir + nameImg + " " + imageDir + nameImg;
                             console.log(command_5);
@@ -559,12 +575,303 @@ app.post('/uploadImage', function(req, res) {
 
                         }
                     }
+                } else if (currentDisplayType == '7.9in') {
+                    // works when selected display is 7.9in
+                    console.log(currentDisplayType)
+                    // converting image to specific resolution
+                    var convertSevenNineIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '768x192' "
+                    // -90 anticlockwise '<' rotates if width is less than height
+
+
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
+
+                        // executing the command on linux termnial using shell.exec(...)
+
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 768 || H < 192) {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+                            var command_2 = convertSevenNineIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_768x192.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+
+                            var command_3 = convertSevenNineIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 768 || H < 192) {
+                            // upon satisfining the condition image is rotated
+                            var command_5 = convertSevenNineIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_768x192.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // upon satisfining the condition, image is rotated 
+                            var command_6 = convertSevenNineIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
+                    }
+                } else if (currentDisplayType == '4.9in') {
+                    // works when selected display is 4.9in
+                    console.log(currentDisplayType)
+                    // converting image to specific resolution
+                    var convertFourNineIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '720x120' "
+                    // -90 anticlockwise '<' rotates if width is less than height
+
+
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
+
+                        // executing the command on linux termnial using shell.exec(...)
+
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 720 || H < 120) {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+                            var command_2 = convertFourNineIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_720x120.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+
+                            var command_3 = convertFourNineIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 720 || H < 120) {
+                            // upon satisfining the condition image is rotated
+                            var command_5 = convertFourNineIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_720x120.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // upon satisfining the condition, image is rotated 
+                            var command_6 = convertFourNineIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
+                    }
+                } else if (currentDisplayType == '4.7in') {
+                    // works when selected display is 4.7in
+                    console.log(currentDisplayType)
+                    // converting image to specific resolution
+                    var convertFourSevenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '800x450' "
+                    // -90 anticlockwise '<' rotates if width is less than height
+
+
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
+
+                        // executing the command on linux termnial using shell.exec(...)
+
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 800 || H < 450) {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+                            var command_2 = convertFourSevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_800x450.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+
+                            var command_3 = convertFourSevenIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 800 || H < 450) {
+                            // upon satisfining the condition image is rotated
+                            var command_5 = convertFourSevenIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_800x450.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // upon satisfining the condition, image is rotated 
+                            var command_6 = convertFourSevenIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
+                    }
+                } else if (currentDisplayType == '4.0in') {
+                    // works when selected display is 4.0in
+                    console.log(currentDisplayType)
+                    // converting image to specific resolution
+                    var convertFourIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '400x240' "
+                    // -90 anticlockwise '<' rotates if width is less than height
+
+
+                    if (extention == 'jpg' || extention == 'jpeg') {
+                        var ImgName = file_name.split('.jpg')[0] // spliting the file name
+                        console.log(ImgName)
+                        var command_1 = identify + " " + imageDir + file_name
+                        console.log(command_1);
+
+                        // executing the command on linux termnial using shell.exec(...)
+
+                        var resloution = shell.exec(command_1);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0]; // parsing width of image
+                        var H = resloution.split('x')[1]; // parsing height of image
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 400 || H < 240) {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+                            var command_2 = convertFourIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_2);
+                            shell.exec(command_2);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_400x240.png" + " " + imageDir + ImgName + ".png" + " -geometry +" + w + "+" + h + " -composite " + imageDir + ImgName + ".png"
+                            console.log(scale);
+                            shell.exec(scale);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        } else {
+                            // upon satisfining the condition, image is rotated and converted from JPG to PNG 
+
+                            var command_3 = convertFourIn + imageDir + file_name + " " + imageDir + ImgName + ".png";
+                            console.log(command_3);
+                            shell.exec(command_3);
+                            console.log('deleting files' + file_name);
+                            fs.unlink(imageDir + file_name); // for deleting the files
+
+                        }
+                    } else if (extention == 'png') {
+
+                        var nameImg = file_name
+                        var command_4 = identify + " " + imageDir + nameImg
+                        console.log(command_4);
+                        var resloution = shell.exec(command_4);
+                        console.log(resloution.split('x'));
+                        var W = resloution.split('x')[0];
+                        var H = resloution.split('x')[1];
+                        console.log(W, H);
+                        var w = Math.floor(W / 2)
+                        var h = 0
+                        if (W < 400 || H < 240) {
+                            // upon satisfining the condition image is rotated
+                            var command_5 = convertFourIn + imageDir + nameImg + " " + imageDir + nameImg;
+                            console.log(command_5);
+                            shell.exec(command_5);
+                            // blackimage is overlayed by uploaded image and centred on the display
+                            scale = "convert" + " " + black_image + "black_400x240.png" + " " + imageDir + nameImg + " -geometry +" + w + "+" + h + " -composite " + imageDir + nameImg
+                            console.log(scale);
+                            shell.exec(scale);
+                        } else {
+                            // upon satisfining the condition, image is rotated 
+                            var command_6 = convertFourIn + imageDir + file_name + " " + imageDir + nameImg;
+                            console.log(command_6);
+                            shell.exec(command_6);
+
+                        }
+                    }
                 }
-
-
-
-
-
 
             }
         });
@@ -1021,11 +1328,6 @@ function getWaveFiles(waveDir, callback) {
 }
 
 
-
-
-function removeBlackFields(array) {
-    return array.filter((item) => item != '');
-}
 
 
 // redirects page to upload_image.html

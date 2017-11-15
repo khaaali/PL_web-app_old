@@ -994,8 +994,10 @@ app.get("/default_waveform", function(req, res) {
 
             var error = _.includes(data, 'error')
             var configParserError = _.includes(data, _configParserError)
-            console.log(error, configParserError)
-            if (error == true || configParserError == true) {
+            var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
+
+            if (error == true || configParserError == true || initError ==true) {
                 console.log(error, configParserError)
                 current_WaveFile.push('Error_check_wavefile')
 
@@ -1203,8 +1205,10 @@ app.get("/default_Vcom", function(req, res) {
 
             var error = _.includes(data, 'error')
             var configParserError = _.includes(data, _configParserError)
-            console.log(error, configParserError)
-            if (error == true || configParserError == true) {
+            var initError=_.includes(data,_initEpdFailed)
+                console.log(error, configParserError,initError)
+
+            if (error == true || configParserError == true || initError ==true) {
                 current_Vcom.push('Error_check_Vcom')
 
 

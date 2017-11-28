@@ -135,9 +135,9 @@ app.get("/S115_T1.1", function(req, res) {
     waveDir = waveDir_a1 + type + waveDir_a2
 
     //writing display type in 'configs.txt' located at configsFilePath 
-    var replace_display = "sed -i '21s/.*/'" + displayTypeString + "'/'" + " " + configsFilePath
+    var replace_display = "sed -i"+" "+ `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
     var _process = exec(replace_display, { async: false });
-    console.log('The file has been saved!');
+    console.log('The file has been saved!',replace_display);
 
     if (true) {
         var child = exec(set_Display_Command, { async: false });

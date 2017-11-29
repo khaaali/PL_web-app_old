@@ -58,9 +58,11 @@
                 display_Type.innerText = "Display Type: " + current_DisplayType;
                 display_Type.style.fontWeight = 'bold';
                console.log(current_DisplayType)
+               alert('after selecting display type please wait for 10seconds to reload')
                $('.list-group-item').focus(function(){
                 $(this).css('background-color', '#4CAF50')})
                 }
+
         });
 
 

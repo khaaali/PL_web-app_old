@@ -25,27 +25,30 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 /* Image directories used for uploding and retrieving images */
 
-var imageDir = "/home/PL_web-app/src/assets/default/";
+var imageDir_default = "/home/PL_web-app/src/assets/default/";
 var imageDir_a1 = "/boot/uboot/"
 var imageDir_a2 = "/img/"
+
+var image_Dir
 
 // path for black images, required for centering the image
 var black_image = "/home/PL_web-app/src/assets/BlackImages/";
 //var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
 
 /* Waveform directories used for uploding and retrieving Waveform Files */
-var waveDir = "/home/PL_web-app/src/assets/default/"
+var waveDir_default = "/home/PL_web-app/src/assets/default/"
 var waveDir_a1 = "/boot/uboot/"
 var waveDir_a2 = "/display/"
 
+var wave_Dir
 //var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
 
 // Arrays for handling vaules between server and client application.
 // last index value are displayed on the web page
 var current_WFmode = ['select']
-var current_WaveFile = ['']
-var current_Vcom = ['select']
-var current_displayType = ['select']
+var current_WaveFile = ''
+var current_Vcom = 'select'
+var current_displayType = 'select'
 
 /*
 configuration file for the display type
@@ -129,7 +132,7 @@ app.get("/S115_T1.1", function(req, res) {
     var type = 'S115_T1.1'
     var displayTypeString = 'display_type' + ' ' + type
     //imageDir="C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\S115_T1.1\\"
-    
+
     // assigning image and wave file directories to the display type
     imageDir = imageDir_a1 + type + imageDir_a2
     waveDir = waveDir_a1 + type + waveDir_a2
@@ -148,30 +151,32 @@ app.get("/S115_T1.1", function(req, res) {
 
         child.stdout.on('data', function(data) {
             console.log(typeof(data), data)
-            // checking the stdout for errors
+
+
             var error = _.includes(data, 'error')
             var configParserError = _.includes(data, _configParserError)
             var initError = _.includes(data, _initEpdFailed)
             console.log(error, configParserError, initError)
+
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('11.5in');
+                current_displayType = '11.5in';
                 console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
+
         })
 
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -179,6 +184,7 @@ app.get("/S115_T1.1", function(req, res) {
         });
 
     }
+    setTimeout(function() { res.redirect('/display_type') }, 10000);
 });
 
 
@@ -206,7 +212,7 @@ app.get("/D107_T3.1", function(req, res) {
         var child = exec(set_Display_Command, { async: false });
         child.stdout.on('data', function(data) {
             console.log(typeof(data), data)
-            // checking the stdout for errors
+
             var error = _.includes(data, 'error')
             var configParserError = _.includes(data, _configParserError)
             var initError = _.includes(data, _initEpdFailed)
@@ -214,22 +220,22 @@ app.get("/D107_T3.1", function(req, res) {
 
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('10.7in');
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = '10.7in';
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
+
+
         })
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -238,10 +244,9 @@ app.get("/D107_T3.1", function(req, res) {
 
 
     }
-
-
-
+    setTimeout(function() { res.redirect('/display_type') }, 10000);;
 });
+
 
 app.get("/S079_T1.1", function(req, res) {
     var type = 'S079_T1.1'
@@ -273,23 +278,21 @@ app.get("/S079_T1.1", function(req, res) {
 
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('7.9in');
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = '7.9in';
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
         })
 
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -298,7 +301,7 @@ app.get("/S079_T1.1", function(req, res) {
 
     }
 
-
+    setTimeout(function() { res.redirect('/display_type') }, 10000);;
 });
 
 app.get("/S049_T1.1", function(req, res) {
@@ -329,23 +332,21 @@ app.get("/S049_T1.1", function(req, res) {
 
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('4.9in');
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = '4.9in';
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
         })
 
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -353,7 +354,7 @@ app.get("/S049_T1.1", function(req, res) {
         });
 
     }
-
+    setTimeout(function() { res.redirect('/display_type') }, 10000);
 });
 
 app.get("/S047_T2.1", function(req, res) {
@@ -381,23 +382,21 @@ app.get("/S047_T2.1", function(req, res) {
 
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('4.7in');
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = '4.7in';
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
         })
 
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -405,7 +404,7 @@ app.get("/S047_T2.1", function(req, res) {
         });
 
     }
-
+    setTimeout(function() { res.redirect('/display_type') }, 10000);
 
 });
 
@@ -435,23 +434,21 @@ app.get("/S040_T1.1", function(req, res) {
 
             // on true 'Error_Setting_display' string is displayed on display type web page 
             if (error == true || configParserError == true || initError == true) {
-                current_displayType.push('Error_Setting_display')
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = 'Error_Setting_display'
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             } else {
-                current_displayType.push('4.0in');
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
+                current_displayType = '4.0in';
                 console.log('received display type', type);
-                res.redirect('/display_type');
+
             }
         })
 
         child.stderr.on('data', function(data) {
             //throw errors
             console.log('stderr: ' + data);
-            current_displayType.push('Error_Setting_display')
-            res.redirect('/display_type');
+            current_displayType = data
+
         });
 
         child.on('close', function(code) {
@@ -460,7 +457,7 @@ app.get("/S040_T1.1", function(req, res) {
 
     }
 
-
+    setTimeout(function() { res.redirect('/display_type') }, 10000);
 });
 
 
@@ -518,7 +515,7 @@ app.post('/uploadImage', function(req, res) {
                 console.log("success!", new_location + file_name)
                 var extention = file_name.split('.').pop();
                 console.log(extention)
-                currentDisplayType = current_displayType[current_displayType.length - 1]
+                currentDisplayType = current_displayType
                 console.log(currentDisplayType)
                 // image magik commands for conversion to JPG to PNG and scaling of images
                 //sudo apt-get install imagemagick
@@ -976,7 +973,22 @@ app.post('/uploadImage', function(req, res) {
 });
 
 app.get("/upload_showImageList", function(req, res, next) {
-    getImages(imageDir, function(err, files) {
+    if (current_displayType == '11.5in') {
+        image_Dir = imageDir
+    } else if (current_displayType == '10.7in') {
+        image_Dir = imageDir
+    } else if (current_displayType == '7.9in') {
+        image_Dir = imageDir
+    } else if (current_displayType == '4.9in') {
+        image_Dir = imageDir
+    } else if (current_displayType == '4.7in') {
+        image_Dir = imageDir
+    } else if (current_displayType == '4.0in') {
+        image_Dir = imageDir
+    } else {
+        image_Dir = imageDir_default
+    }
+    getImages(image_Dir, function(err, files) {
         var imageLists = [];
         for (var i = 0; i < files.length; i++) {
             imageLists.push(files[i]);
@@ -1085,7 +1097,7 @@ app.get("/default_waveform", function(req, res) {
 
             if (error == true || configParserError == true || initError == true) {
                 console.log(error, configParserError)
-                current_WaveFile.push('Error_check_wavefile')
+                current_WaveFile = 'Error_check_wavefile'
 
 
             } else {
@@ -1099,7 +1111,7 @@ app.get("/default_waveform", function(req, res) {
                 var wavePath = splitData[waveIndex + 1]
                 var waveNameArray = wavePath.split('/')
                 var waveName = waveNameArray[waveNameArray.length - 1]
-                current_WaveFile.push(waveName)
+                current_WaveFile = waveName
 
                 var wave_command = " epdc-app -set_waveform" + " " + wavePath
                 shell.exec(wave_command);
@@ -1128,7 +1140,7 @@ app.get("/detect_waveform", function(req, res) {
             console.log(error)
             if (error == true) {
                 console.log(error)
-                current_WaveFile.push('Error_check_wavefile')
+                current_WaveFile = 'Error_check_wavefile'
 
 
             } else {
@@ -1150,7 +1162,26 @@ app.get("/detect_waveform", function(req, res) {
 
 
 app.get("/upload_showWaveList", function(req, res, next) {
-    getWaveFiles(waveDir, function(err, files) {
+    
+
+    if (current_displayType == '11.5in') {
+        wave_Dir = waveDir
+    } else if (current_displayType == '10.7in') {
+        wave_Dir = waveDir
+    } else if (current_displayType == '7.9in') {
+        wave_Dir = waveDir
+    } else if (current_displayType == '4.9in') {
+        wave_Dir = waveDir
+    } else if (current_displayType == '4.7in') {
+        wave_Dir = waveDir
+    } else if (current_displayType == '4.0in') {
+        wave_Dir = waveDir
+    } else {
+        wave_Dir = waveDir_default
+    }
+
+
+    getWaveFiles(wave_Dir, function(err, files) {
         var waveDirLists = [];
         for (var i = 0; i < files.length; i++) {
             waveDirLists.push(files[i]);
@@ -1160,10 +1191,10 @@ app.get("/upload_showWaveList", function(req, res, next) {
         //console.log(waveDirLists);
 
         var FullData = []
-        current_waveFile = current_WaveFile[current_WaveFile.length - 1]
+        currentWaveFile = current_WaveFile
         FullData.push(waveDirLists)
         FullData.push({
-            "current_WaveFile": current_waveFile
+            "current_WaveFile": currentWaveFile
         })
         console.log(FullData)
         res.send(FullData);
@@ -1174,7 +1205,7 @@ app.get("/upload_showWaveList", function(req, res, next) {
 app.get("/upload_wave/:waveId", function(req, res) {
     console.log(req.params.waveId);
     var id = req.params.waveId;
-    current_WaveFile.push(id);
+    current_WaveFile = id;
     var command = "epdc-app -update_image " + " " + waveDir + id
     var child = exec(command, { async: true });
     child.stdout.on('data', function(data) {
@@ -1223,7 +1254,7 @@ app.get("/getWaveform_modesList", function(req, res) {
             obj = JSON.parse(data)
             var FullData = []
             Current_WFmode = current_WFmode[current_WFmode.length - 1]
-            current_vcom = current_Vcom[current_Vcom.length - 1]
+            current_vcom = current_Vcom
             FullData.push(obj)
             FullData.push({
                 "current_mode": Current_WFmode
@@ -1268,7 +1299,7 @@ app.post("/set_Vcom", function(req, res) {
     Vcom_value = req.body.vcom_number
 
     console.log('received set_Vcom', Vcom_value);
-    current_Vcom.push(Vcom_value)
+    current_Vcom=Vcom_value
 
     var wave_command = " epdc-app -set_vcom " + " " + Vcom_value
     shell.exec(wave_command);
@@ -1295,7 +1326,7 @@ app.get("/default_Vcom", function(req, res) {
             console.log(error, configParserError, initError)
 
             if (error == true || configParserError == true || initError == true) {
-                current_Vcom.push('Error_check_Vcom')
+                current_Vcom='Error_check_Vcom'
 
 
             } else {
@@ -1307,7 +1338,7 @@ app.get("/default_Vcom", function(req, res) {
 
                 var VcomIndex = _.findIndex(splitData, function(o) { return o == 'vcom:'; });
                 var vcomValue = splitData[VcomIndex + 1]
-                current_Vcom.push(vcomValue)
+                current_Vcom=vcomValue
                 var vcom_command = " epdc-app -set_vcom" + " " + vcomValue
                 shell.exec(vcom_command);
 
@@ -1329,7 +1360,7 @@ app.get("/detect_Vcom", function(req, res) {
     shell.exec(wave_command);
     console.log(wave_command);
 
-    current_Vcom.push()
+    
 
     res.setHeader("Content-Type", "text/html");
     res.redirect('/settings');
@@ -1368,7 +1399,7 @@ app.get("/toAutoDetect", function(req, res) {
 
 app.get("/sendCurrentDisplayType", function(req, res) {
 
-    currentdisplayType = current_displayType[current_displayType.length - 1];
+    currentdisplayType = current_displayType;
     console.log('received sendCurrentDisplayType', currentdisplayType);
     var FullData = []
     FullData.push({
@@ -1392,14 +1423,16 @@ module.exports = app;
 
 
 
-// filter to retrieve png, jpeg, jpg images from ../demo_images  
-function getImages(imageDir, callback) {
+// filter to retrieve png, jpeg, jpg images  
+function getImages(image_Dir, callback) {
+    
+
     var fileType1 = '.png',
         fileType2 = '.jpeg',
         fileType3 = '.jpg',
         files = [],
         i;
-    fs.readdir(imageDir, function(err, list) {
+    fs.readdir(image_Dir, function(err, list) {
         for (i = 0; i < list.length; i++) {
             if (path.extname(list[i]) === fileType1 || path.extname(list[i]) === fileType3 || path.extname(list[i]) === fileType2) {
                 files.push(list[i]); //store the file name into the array files
@@ -1411,11 +1444,12 @@ function getImages(imageDir, callback) {
 
 
 // filter to retrieve .wbf files  
-function getWaveFiles(waveDir, callback) {
+function getWaveFiles(wave_Dir, callback) {
+    
     var fileType1 = '.wbf',
         files = [],
         i;
-    fs.readdir(waveDir, function(err, list) {
+    fs.readdir(wave_Dir, function(err, list) {
         for (i = 0; i < list.length; i++) {
             if (path.extname(list[i]) === fileType1) {
                 files.push(list[i]); //store the file name into the array files

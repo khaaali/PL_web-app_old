@@ -1,0 +1,3 @@
+Listening on localhost port 80
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]

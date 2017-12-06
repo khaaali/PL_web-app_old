@@ -156,7 +156,7 @@ app.get("/S115_T1.1", function(req, res) {
 
     //editing display type string in 'configs.txt' located at configsFilePath 
     //var replace_display_string = "sed -i"+" "+ `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
-    var replace_display_string = "sed -i" + " " + `'/display_type/c\\${displayTypeString}'` + " " + configsFilePath
+    var replace_display_string = "sed -i"+" "+`'/display_type/c\\${displayTypeString}'`+" "+ configsFilePath;
     var replace_display = exec(replace_display_string, { async: false });
     console.log('The file has been saved!', replace_display_string);
 

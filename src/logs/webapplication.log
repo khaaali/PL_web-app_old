@@ -518,3 +518,134 @@ upload_showImageList
   '07.png' ]
 received sendCurrentDisplayType 10.7in
 [ { currentdisplayType: '10.7in' } ]
+received sendCurrentDisplayType 10.7in
+[ { currentdisplayType: '10.7in' } ]
+received sendCurrentDisplayType 10.7in
+[ { currentdisplayType: '10.7in' } ]
+upload_showImageList
+[ '00.png',
+  '01.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  '07.png' ]
+received Initiatization
+configparser     DISPLAYTYPE: D107_T3.1
+configparser     version - CONFIG_D107_T3.1
+
+configparser     Interface: Parallel
+hw-setup         initialize_nvm: Boardname: FALCON_PARALLEL
+main             load_nvm_content?: 0
+s1d135xx         Product code: 0x004F
+s1d135xx         Rev: 0100, conf: 001E
+s1d13524_controller Ready 1280x960
+max17135         rev 0x00, id 0x4D
+max17135         timings  on: vgl=12, vsl=7, vsh=2, vgh=23
+max17135         timings off: vgl=7, vsl=12, vsh=14, vgh=2
+generic_epdc     Setting vcom: 6241
+vcom             input: 6241, scaled: 6178, DAC reg: 0x65
+max17135         calculate: 6241, 101
+generic_epdc     Loading wflib: /tmp/dummy.generic.wbf
+generic_epdc     Setting vcom: 4000
+vcom             input: 4000, scaled: 3959, DAC reg: 0x30
+max17135         calculate: 4000, 48
+received getWaveform_modes
+upload_showwaveDirList
+[ [ 'waveform.wbf' ], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received sendCurrentDisplayType 10.7in
+[ { currentdisplayType: '10.7in' } ]
+received sendCurrentDisplayType 10.7in
+[ { currentdisplayType: '10.7in' } ]
+upload_showImageList
+[ '00.png',
+  '01.png',
+  '02.png',
+  '03.png',
+  '04.png',
+  '05.png',
+  '06.png',
+  '07.png' ]
+received Initiatization
+configparser     DISPLAYTYPE: D107_T3.1
+configparser     version - CONFIG_D107_T3.1
+
+configparser     Interface: Parallel
+hw-setup         initialize_nvm: Boardname: FALCON_PARALLEL
+main             load_nvm_content?: 0
+s1d135xx         Product code: 0x004F
+s1d135xx         Rev: 0100, conf: 001E
+s1d13524_controller Ready 1280x960
+max17135         rev 0x00, id 0x4D
+max17135         timings  on: vgl=12, vsl=7, vsh=2, vgh=23
+max17135         timings off: vgl=7, vsl=12, vsh=14, vgh=2
+generic_epdc     Setting vcom: 6241
+vcom             input: 6241, scaled: 6178, DAC reg: 0x65
+max17135         calculate: 6241, 101
+generic_epdc     Loading wflib: /tmp/dummy.generic.wbf
+generic_epdc     Setting vcom: 4000
+vcom             input: 4000, scaled: 3959, DAC reg: 0x30
+max17135         calculate: 4000, 48
+received getWaveform_modes
+upload_showwaveDirList
+[ [ 'waveform.wbf' ], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received sendCurrentDisplayType 10.7in
+[ { currentdisplayType: '10.7in' } ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [ 'waveform.wbf' ], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]

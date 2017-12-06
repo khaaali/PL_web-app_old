@@ -67,7 +67,8 @@ var get_resolution = "epdc-app" + " " + "-get_resolution"
 var get_vcom = "epdc-app" + " " + "-get_vcom"
 var get_waveform = "epdc-app" + " " + "-get_waveform"
 
-// imagemagick convertion commands make sure its installed sudo apt-get install imagemagick
+// imagemagick convertion commands make sure imagemagick is installed 
+// sudo apt-get install imagemagick
 var convert="convert -quality 100% -rotate '-90<' "
 var convertTenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1280x960' ";
 var convertElevenIn = "convert -quality 100% -rotate '-90<' -adaptive-resize '1380x96' "
@@ -209,7 +210,6 @@ app.get("/S115_T1.1", function(req, res) {
 
             } else {
                 current_displayType = '11.5in';
-                console.log(current_displayType[current_displayType.length - 1], displayTypeString);
                 console.log('received display type', type);
             }
         })

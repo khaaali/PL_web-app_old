@@ -47,6 +47,28 @@
             </nav>
         </div>
         <script type="text/javascript">
+            $.ajax({
+            url: '/sendCurrentDisplayType',
+            type: "GET",
+            cache: false,
+            async: "true",
+            complete: function(data) {
+                console.log(data)
+                console.log(data.responseJSON)
+                var obj = data.responseJSON
+                var current_DisplayType = obj[0].currentdisplayType
+
+                display_Type.innerText = "Uploaded Images: " + current_DisplayType;
+                display_Type.style.fontWeight = 'bold';
+               console.log(current_DisplayType)
+               $('.list-group-item').focus(function(){
+                $(this).css('background-color', '#4CAF50')})
+                }
+
+        });
+
+
+
         $.ajax({
             url: '/upload_showImageList',
             type: "GET",
@@ -161,7 +183,7 @@
                 <div class="col-md-12 offset-md-2"></div>
                 <div class="row ">
                     <div class=" col-xs-12 col-md-6 ">
-                        <h3>Uploaded Images</h3>
+                        <h3 id='display_Type' value="bold" >Uploaded Images</h3>
                         <div class="scrollbar " id="style-1">
                             <div id='imageList'> </div>
                         </div>

@@ -1,3 +1,107 @@
 Listening on localhost port 80
 received sendCurrentDisplayType select
 [ { currentdisplayType: 'select' } ]
+upload_showImageList
+[]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+upload_showImageList
+[]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+upload_showImageList
+[]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+upload_showImageList
+[]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+upload_showImageList
+[]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]
+received sendCurrentDisplayType select
+[ { currentdisplayType: 'select' } ]
+received getWaveform_modes
+upload_showwaveDirList
+[ [], { current_WaveFile: '' } ]
+[ { wavemodes: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ] },
+  { current_mode: 'select' },
+  { current_vcom: 'select' } ]

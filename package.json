@@ -1,6 +1,6 @@
 {
   "name": "web-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "plastic logic web application",
   "main": "server.js",
   "scripts": {

@@ -1,9 +1,24 @@
 /** 
-This is a server application for handling the Plastic Logic web application to upload and drive the EPD display.
-
+This is the main server application for handling the Plastic Logic web application(Smart display) .
+# Copyright (C) 2017 Plastic Logic 
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
-/** Importing modules **/
+
+
+/** Importing required modules **/
 
 var express = require("express"),
     app = express(),
@@ -24,40 +39,46 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 /* Image directories used for uploding and retrieving images */
+var image_Dir // global variable
 
 var imageDir_default = "/home/PL_web-app/src/assets/default/";
 var imageDir = "/home/PL_web-app/src/assets/default/"
 var imageDir_a1 = "/boot/uboot/"
 var imageDir_a2 = "/img/"
 
-var image_Dir
 
-// path for black images, required for centering the image
+// path for black images, required for overlaying smaller resloution images
 var black_image_Dir = "/home/PL_web-app/src/assets/BlackImages/";
 var black_image_name
-//var imageDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\demo_images\\"
+
 
 /* Waveform directories used for uploding and retrieving Waveform Files */
+var wave_Dir // global variable
+
 var waveDir_default = "/home/PL_web-app/src/assets/default/"
 var waveDir_a1 = "/boot/uboot/"
 var waveDir_a2 = "/display/"
 
-var wave_Dir
-//var waveDir = "C:\\Users\\sairam.vankamamidi\\Documents\\PL_web-app\\src\\assets\\wave\\"
 
-// Arrays for handling vaules between server and client application.
-// last index value are displayed on the web page
+
+// Arrays for handling vaules between server and client application
 var current_WFmode = ['select']
+
+
+// global variable for storing and retrieving values.
 var current_WaveFile = ''
 var current_Vcom = 'select'
 var current_displayType = 'select'
+var resolution_W 
+var resolution_H 
 
-var resolution_W
-var resolution_H
+
 /*
 configuration file for the display type
 */
 var configsFilePath = "/boot/uboot/config.txt"
+
+
 
 /*
 set display type command, utilizes display type defined in the configsFilePath
@@ -66,6 +87,8 @@ var set_Display_Command = " epdc-app " + " " + "-start_epdc"
 var get_resolution = "epdc-app" + " " + "-get_resolution"
 var get_vcom = "epdc-app" + " " + "-get_vcom"
 var get_waveform = "epdc-app" + " " + "-get_waveform"
+
+
 
 // imagemagick convertion commands make sure imagemagick is installed 
 // sudo apt-get install imagemagick
